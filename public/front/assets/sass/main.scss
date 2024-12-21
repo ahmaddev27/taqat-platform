@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap');
+/*CSS Table Of Content Starts Here*/
+/*
+01. General CSS
+---------------------------
+Section css
+---------------------------
+*/
+/*CSS Table Of Content Ends Here*/
+
+//--Abstracts--//
+@import "_abstracts/_mixins";
+@import "_abstracts/_variables";
+//--Abstracts--//
+
+//--Base--//
+@import "_base/_typography";
+//--Base--//
+
+//--Layout--//
+@import "_layout/_header";
+@import "_layout/_banner";
+@import "_layout/_section";
+@import "_layout/_animation";
+@import "_layout/_blog";
+@import "_layout/_footer";
+//--Layout--//
+
+//--Components--//
+@import "_components/_buttons";
+//--Components--//
+
+//--Base--//
+@import "_base/_responsive";
+//--Base--//
+
+
+//--All css Linked--//
+@import "swiper-bundle.min.css";
+@import "bootstrap-icons.min.css";
+@import "odometer.css";
+@import "animate.css";
+@import "magnific-popup.css";
+@import "owl.carousel.min.css";
+@import "owl.theme.default.css";
+@import "nice-select.css";
+@import "richtext.min.css";
+//--All css Linked--//
