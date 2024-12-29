@@ -17,3 +17,6 @@
     });
 
 </script>
+
+
+@stack('js')

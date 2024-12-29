@@ -37,6 +37,12 @@ function posts(){
 
 
 
+function projects_company(){
+    return \App\Models\Taqat2\CompanyProject::orderBy('created_at','Desc')->take(8)->get();
+}
+
+
+
 
 function appNew(){
     return \App\Models\Appointment::where('is_reade',0)->count();
@@ -382,6 +388,34 @@ function talents()
     $query = Talent::Wherefullprofile()
         ->with(['specialization', 'projects'])
         ->take(12)
+        ->has('jobs')
+        ->get(); // Get the records first
+
+    // Perform calculations on the collection
+    $query->each(function ($talent) {
+        $totalExperienceMonths = $talent->work_experiences->reduce(function ($carry, $experience) {
+            $startDate = new \DateTime($experience->start_date);
+            $endDate = $experience->end_date ? new \DateTime($experience->end_date) : now();
+            $interval = $startDate->diff($endDate);
+            return $carry + ($interval->y * 12 + $interval->m);
+        }, 0);
+
+        // Add calculated total experience years as a property
+        $talent->total_experience_years = ceil($totalExperienceMonths / 12);
+    });
+
+    return $query; // Return the collection
+}
+
+
+
+function talentsNotHadJobs()
+{
+    // Fetch the data first
+    $query = Talent::Wherefullprofile()
+        ->with(['specialization', 'projects'])
+        ->doesntHave('jobs')
+        ->take(8)
         ->get(); // Get the records first
 
     // Perform calculations on the collection
@@ -406,7 +440,7 @@ function talents()
 
 function Khadmat_categories()
 {
-    return \App\Models\Taqat2\KhadmaCategory::whereHas('khadmats')->orderBy('created_at')->get();
+    return \App\Models\Taqat2\KhadmaCategory::take(8)->get();
 
 }
 

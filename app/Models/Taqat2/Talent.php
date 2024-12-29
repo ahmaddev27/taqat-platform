@@ -118,4 +118,10 @@ protected $guarded=[];
         return $this->hasMany(khadmat::class,'user_id')->orderBy('created_at','desc');
      }
 
+
+    public function jobs(){
+        return $this->hasMany(Job::class,'user_id');
+    }
+
+
 }

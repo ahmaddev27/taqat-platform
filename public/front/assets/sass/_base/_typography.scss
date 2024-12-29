@@ -788,7 +788,7 @@ p {
 .base {
 	color: var(--base);
 }
-.base2 {	
+.base2 {
 	color: var(--base2);
 }
 .base3 {
@@ -815,7 +815,7 @@ p {
 .praborder{
 	border: 1px solid var(--pra);
 }
-.base2bor {	
+.base2bor {
 	border: 1px solid var(--base2);
 }
 .base3bor {
@@ -830,7 +830,7 @@ p {
 .basebord {
 	border: 1px dashed var(--base) !important;
 }
-.base2bord {	
+.base2bord {
 	border: 1px dashed var(--base2);
 }
 .base3bord {
@@ -848,7 +848,7 @@ p {
 .basebg {
 	background: var(--base);
 }
-.base2bg {	
+.base2bg {
 	background: var(--base2);
 }
 .base3bg {
@@ -911,10 +911,10 @@ p {
 	text-fill-color: transparent;
 }
 .sectionbg {
-	background: #F8F9FC;	
+	background: #F8F9FC;
 }
 .sectionbg2 {
-	background: var(--boxes1);	
+	background: var(--boxes1);
 }
 .bgwhtie {
 	background: var(--white);
@@ -926,13 +926,13 @@ p {
 	background: transparent !important;
 }
 .bord{
-	border: 1px solid var(--base);	
+	border: 1px solid var(--base);
 }
 .bord2{
-	border: 1px solid var(--base2);	
+	border: 1px solid var(--base2);
 }
 .bord3{
-	border: 1px solid var(--base3);	
+	border: 1px solid var(--base3);
 }
 .menubordert{
 	border-top: 1px solid var(--menuborder);
@@ -1038,7 +1038,7 @@ p {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px var(--theme-bg); 
+	box-shadow: inset 0 0 5px var(--theme-bg);
 	border-radius: 5px;
 }
 /* Handle */

@@ -20,24 +20,22 @@
         </div>
         <div class="row justify-content-center g-0">
 
-            @foreach(service() as $key=>$service)
+            @foreach(Khadmat_categories() as $key=>$service)
             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                 <div class="cate__items bgwhite bright bborder  bgwhite">
                     <div class="icon m-auto d-flex align-items-center justify-content-center boxes1 round50">
-                        <img style="max-width: 30px" src="{{url($service->icon)}}" alt="machine">
+                        <img  src="{{url($service->image)}}" alt="machine">
                     </div>
                     <div class="content text-center mt-30">
-                        <h4 class="mb-10 transition">
+                        <h6 class="mb-10 transition">
                             <a href="service-grid.html" class="title">
-                                {{$service->title}}
+                                {{$service->name}}
                             </a>
-                        </h4>
-                        <p class="fz-16 fw-400 inter ptext2 mb-30 transition">
-                            {{$service->description}}
-                        </p>
-                        <a href="service-grid.html" class="arrow m-auto boxes1 round50 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
+                        </h6>
+
+{{--                        <a href="service-grid.html" class="arrow m-auto boxes1 round50 d-flex align-items-center justify-content-center">--}}
+{{--                            <i class="bi bi-chevron-right"></i>--}}
+{{--                        </a>--}}
                     </div>
                 </div>
             </div>

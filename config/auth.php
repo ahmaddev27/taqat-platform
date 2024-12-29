@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'talent' => [
+            'driver' => 'session',
+            'provider' => 'talents',
+        ],
     ],
 
     /*
@@ -65,6 +70,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'talents' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Taqat2\Talent::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
