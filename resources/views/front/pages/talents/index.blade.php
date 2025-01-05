@@ -194,14 +194,14 @@
                                                        {{$scientificCertificate->graduation_year }}
                                                    </span>
                                                     <span class="fz-20 fw-500 inter title d-block mb-16">
-                                                                       {{$scientificCertificate->specialization}}
+                                                                      {{$scientificCertificate->title}}
                                                                                       </span>
                                                     <span class="fz-16 mb-2 d-block fw-500 inter success2">
-                                                                    {{$scientificCertificate->university}} - {{$scientificCertificate->college}}
+                                                                 {{$scientificCertificate->specialization}}
                                                                         </span>
 
                                                     <p class="pra inter fz-14 fw-400">
-                                                        {{$scientificCertificate->title}}
+                                                       {{$scientificCertificate->college}} - {{$scientificCertificate->university}}
                                                     </p>
 
                                                     @if($scientificCertificate->photo)

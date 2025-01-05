@@ -3,8 +3,7 @@
 
     @push('css')
 
-
-        <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
         <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
@@ -12,6 +11,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        <style>
+            .ql-container {
+                height: 30%;
+            }
+        </style>
 
     @endpush
 
@@ -162,6 +167,31 @@
                                     <i class="bi bi-pencil-square"></i>
                                     Profile
                                 </button>
+
+                                <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"
+                                        id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-edu"
+                                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                    <i class="bi bi-mortarboard"></i>
+
+                                    Education
+                                </button>
+
+
+                                <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"
+                                        id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-exp"
+                                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                    <i class="bi bi-list-stars"></i>
+
+                                    Experiences
+                                </button>
+
+                                <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"
+                                        id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-projects"
+                                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                    <i class="bi bi-briefcase"></i>
+                                    Projects
+                                </button>
+
 
                                 <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"
                                         id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-services"
@@ -322,7 +352,10 @@
                                     </div>
                                 </div>
 
-                               @include('front.pages.talent-profile.service-tab')
+                                @include('front.pages.talent-profile.edu-tab')
+                                @include('front.pages.talent-profile.service-tab')
+                                @include('front.pages.talent-profile.experience-tab')
+                                @include('front.pages.talent-profile.projects-tab')
 
 
                             </div>
@@ -335,8 +368,8 @@
     <!-- profile section End -->
 
     @push('js')
-        <script src="{{url('tinymce.bundle.js')}}"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         {{--  tags--}}
         <script>
@@ -488,7 +521,7 @@
             });
         </script>
 
-        {{--  submit--}}
+        {{-- edit profile submit--}}
         <script>
             $(document).ready(function () {
 
@@ -510,27 +543,23 @@
                     "hideMethod": "fadeOut"             // Hide method
                 };
 
-
-                // Initialize TinyMCE
-                tinymce.init({
-                    license_key: '2muw0w0ikspoiy57lvyl3p9shq7epfz86vwzr6lyidl543pt',
-
-                    selector: "#editor",
-                    menubar: false,
-                    toolbar: [
-                        "styleselect fontselect fontsizeselect forecolor backcolor",
-                        "undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify",
-                        "bullist numlist | outdent indent | blockquote subscript superscript | advlist | autolink | lists charmap | print preview | code", "table"
-                    ],
-                    plugins: "advlist autolink link image lists charmap print preview code textcolor table",
-                    content_style: "body { border: none; }",
-                    height: '400px',
-                    setup: function (editor) {
-                        editor.on('init', function () {
-                            editor.setContent('{!! $talent->bio !!}'); // Load existing bio
-                        });
+                const quill = new Quill('#editor', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{'font': []}, {'size': []}],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            [{'color': []}, {'background': []}],
+                            [{'script': 'sub'}, {'script': 'super'}],
+                            [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
+                            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                            ['direction', {'align': []}],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ]
                     }
                 });
+                quill.root.innerHTML = `{!! $talent->bio !!}`;
 
 
                 // AJAX Form Submission
@@ -538,8 +567,7 @@
                     e.preventDefault();
 
                     let formData = new FormData(this);
-                    formData.append('bio', tinymce.get('editor').getContent()); // Append TinyMCE content
-
+                    formData.append('bio', quill.root.innerHTML); // Append Quill content
                     $.ajax({
                         url: '{{route('profile.update')}}', // Replace with your actual backend URL
                         type: 'POST',
@@ -601,5 +629,9 @@
             });
 
         </script>
+
+
+
+
     @endpush
 @stop

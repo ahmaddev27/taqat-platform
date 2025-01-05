@@ -48,8 +48,8 @@ class ProfileController extends Controller
             return $carry + ($interval->y * 12 + $interval->m);
         }, 0);
 
-        $talent->total_experience_years = ceil($totalExperienceMonths / 12);
 
+        $talent->total_experience_years = ceil($totalExperienceMonths / 12);
         return view('front.pages.talent-profile.profile'
             , ['talent' => $talent, 'relatedProjects' => $relatedProjects,'offers'=>$offers,'jobsApplies'=>$jobsApplies,'services'=>$servics]);
     }

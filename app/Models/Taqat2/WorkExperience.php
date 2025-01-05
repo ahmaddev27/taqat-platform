@@ -13,6 +13,11 @@ class WorkExperience extends Model
 
     protected $connection = 'second_db';
 
+    protected $casts=[
+        'end_date'=>'date',
+        'start_date'=>'date',
+    ];
+
     public function getPhoto(){
         return url('https://team.taqat-gaza.com/public/files/'.$this->photo);
     }
