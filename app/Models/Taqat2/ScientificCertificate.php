@@ -11,16 +11,21 @@ class ScientificCertificate extends Model
     protected $connection = 'second_db';
 
     use HasFactory;
-    protected $guarded=[];
+
+    protected $guarded = [];
 
 
     use HasTranslations;
 
 
-    public $translatable = ['title','country','university','college','specialization'];
+    public $translatable = ['title', 'country', 'university', 'college', 'specialization'];
 
-    public function getPhoto(){
-        return url('https://team.taqat-gaza.com/public/files/'.$this->photo);
+    public function getPhoto()
+    {
+        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+            return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
+        }
+        return $this->photo;
     }
 
     public function getFileType()

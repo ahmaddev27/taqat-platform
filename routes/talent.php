@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Talent\ProfileController;
+use App\Http\Controllers\Talent\EducationController;
 use App\Http\Controllers\Auth\TalentLoginController;
 
 
@@ -16,5 +17,13 @@ Route::group(['as' => 'profile.', 'prefix' => 'profile', 'middleware' => 'auth.t
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/', 'profile')->name('index');
         Route::post('/update', 'update')->name('update');
+    });
+});
+
+
+
+Route::group(['as' => 'edu.', 'prefix' => 'edu', 'middleware' => 'auth.talent'], function () {
+    Route::controller(EducationController::class)->group(function () {
+        Route::post('/store', 'store')->name('store');
     });
 });

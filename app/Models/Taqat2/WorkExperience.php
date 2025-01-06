@@ -18,8 +18,12 @@ class WorkExperience extends Model
         'start_date'=>'date',
     ];
 
-    public function getPhoto(){
-        return url('https://team.taqat-gaza.com/public/files/'.$this->photo);
+    public function getPhoto()
+    {
+        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+            return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
+        }
+        return $this->photo;
     }
 
 

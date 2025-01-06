@@ -90,7 +90,6 @@ class ProfileController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Profile updated successfully.',
-                'photo' => $user->photo, // Optional
             ]);
         } catch (\Exception $exception) {
             return response()->json([

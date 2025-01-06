@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class Controller extends BaseController
 {
@@ -24,6 +25,20 @@ class Controller extends BaseController
         Image::make($file->getRealPath())->resize($w,$h)->interlace(true)->save($ImagePath . $ImageName);
         return url('').'/uploads/images/'. $path  . '/' . $ImageName;
 
+    }
+
+
+    protected function uploadFile($file, $path = '')
+    {
+        $FileName = str_random(16) . '.' . $file->getClientOriginalExtension();
+        $FilePath = public_path() . '/uploads/files/' . $path  . '/';
+        // check if directory for ProfileImage  exists, if not then create one
+        if (!File::exists($FilePath)) {
+            File::makeDirectory($FilePath, 0777, true);
+        }
+        // save the ProfileImage as it is
+        $file->move($FilePath , $FileName);
+        return url().'/uploads/files/'. $path  . '/' . $FileName;
     }
 
 
@@ -57,6 +72,13 @@ class Controller extends BaseController
         $text = trim($text, '-');
 
         return $text;
+    }
+
+    function detectLanguage($text) {
+        if (preg_match('/[\x{0600}-\x{06FF}]/u', $text)) {
+            return 'ar';  // Arabic
+        }
+        return 'en';  // Default to English
     }
 
 }

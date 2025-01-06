@@ -20,8 +20,6 @@ class Talent extends Authenticatable
 protected $guarded=[];
 
 
-
-
 //    public function getPhoto(){
 //        return $this->photo ? url('https://team.taqat-gaza.com/public/files/' . $this->photo): asset(url('front/place.png'));
 //    }
@@ -44,13 +42,14 @@ protected $guarded=[];
     }
 
 
-    function scientificCertificate (){
-        return $this->hasMany(ScientificCertificate::class,'user_id');
+    function scientificCertificate(){
+        return $this->hasMany(ScientificCertificate::class,'user_id')->orderBy('graduation_year', 'asc');
     }
 
     function training_courses (){
         return $this->hasMany(TrainingCourse::class,'user_id');
     }
+
 
 
 

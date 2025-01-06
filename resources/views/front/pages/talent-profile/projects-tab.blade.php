@@ -54,6 +54,7 @@
 </div>
 
 
+{{--project-detials--}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -66,7 +67,7 @@
             </div>
             <div class="modal-body">
 
-                <span class="badge badge-secondary bg-primary">{{trans('main.project_description')}}</span>
+                <span class="badge badge-secondary bg-dark">{{trans('main.project_description')}}</span>
                 <div class="p-3 text-dark bborderdash" id="project-description"></div>
 
 
@@ -158,8 +159,11 @@
 </div>
 
 
+
+
 @push('js')
 
+{{--project-detials--}}
     <script>
         $(document).ready(function () {
             $('#exampleModal').on('show.bs.modal', function (event) {
@@ -250,8 +254,6 @@
             }
         });
     </script>
-
-
 
 
 @endpush
