@@ -12,7 +12,6 @@ class EducationController extends Controller
     protected $connection = 'second_db';
 
 
-
     public function store(Request $request)
     {
         try {
@@ -25,7 +24,6 @@ class EducationController extends Controller
                 'graduation_year' => 'required',
                 'file' => 'mimes:jpeg,png,jpg,gif,pdf,doc,docx',
             ]);
-
 
 
             $titleLanguage = $this->detectLanguage($request->title);
@@ -84,7 +82,7 @@ class EducationController extends Controller
                 $college['en'] = $request->college;
             }
 
-          $edu= ScientificCertificate::create([
+            $edu = ScientificCertificate::create([
                 'title' => $title,
                 'user_id' => auth('talent')->id(),
                 'country' => $country,
@@ -96,21 +94,21 @@ class EducationController extends Controller
 
             ]);
 
-                if ($request->hasFile('file')) {
+            if ($request->hasFile('file')) {
 
-                    if (in_array($request->file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg', 'gif'])) {
-                        $photo = $this->uploadFileImage($request->file, 'Talent/Educations');
-                    } else {
-                        $photo = $this->uploadFile($request->file, 'Talent/Educations');
-                    }
-                    $edu->update([
-                        'photo' =>$photo,
-                    ]);
+                if (in_array($request->file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg', 'gif'])) {
+                    $photo = $this->uploadFileImage($request->file, 'Talent/Educations');
+                } else {
+                    $photo = $this->uploadFile($request->file, 'Talent/Educations');
                 }
+                $edu->update([
+                    'photo' => $photo,
+                ]);
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => 'Profile updated successfully.',
+                'message' => 'Education Added successfully.',
             ]);
         } catch (\Exception $exception) {
             return response()->json([
@@ -124,30 +122,42 @@ class EducationController extends Controller
 
     public function edit($id)
     {
+        // Fetch the education record from the database
+        $education = ScientificCertificate::where('user_id', auth('talent')->id())->find($id);
 
-        $data['scientific_certificate'] = ScientificCertificate::query()->where('id', $id)->where('user_id', auth()->id())->first() ?? abort(404);
-        return view('front.scientificCertificates.edit', $data);
+        // Check if the record exists
+        if (!$education) {
+            return response()->json(['error' => 'Education not found'], 404);
+        }
+
+        // Return the education data as a JSON response
+        return response()->json(array_merge($education->toArray(), ['photo_url' => $education->getPhoto()]));
     }
 
     public function update(Request $request)
     {
         try {
-            $scientific_certificate = ScientificCertificate::query()->findorfail($request->scientific_certificate_id);
-            $photo = "";
-            if ($request->hasFile('photo')) {
-                $photo = upload($request->photo);
 
-                $scientific_certificate->update([
-                    'photo' => $photo,
-                ]);
-            }
+            $request->validate([
+                'title' => 'required',
+                'specialization' => 'required',
+                'country' => 'required',
+                'university' => 'required',
+                'college' => 'required',
+                'graduation_year' => 'required',
+                'file' => 'mimes:jpeg,png,jpg,gif,pdf,doc,docx',
+            ]);
 
-            $titleLanguage = detectLanguage($request->title);
-            $specializationLanguage = detectLanguage($request->specialization);
-            $countryLanguage = detectLanguage($request->country);
 
-            $universityLanguage = detectLanguage($request->university);
-            $collegeLanguage = detectLanguage($request->collge);
+            $edu = ScientificCertificate::query()->where('user_id', auth('talent')->id())->findorfail($request->id);
+
+
+            $titleLanguage = $this->detectLanguage($request->title);
+            $specializationLanguage = $this->detectLanguage($request->specialization);
+            $countryLanguage = $this->detectLanguage($request->country);
+
+            $universityLanguage = $this->detectLanguage($request->university);
+            $collegeLanguage = $this->detectLanguage($request->collge);
 
 
             $title = ['ar' => '', 'en' => ''];
@@ -199,7 +209,7 @@ class EducationController extends Controller
             }
 
 
-            $scientific_certificate->update([
+            $edu->update([
                 'title' => $title,
                 'country' => $country,
                 'specialization' => $specialization,
@@ -208,16 +218,54 @@ class EducationController extends Controller
                 'graduation_year' => $request->graduation_year,
 
             ]);
-            return response_web(true, 'تم تنفيد العملية بنجاح', [], 201);
-        } catch (\Exception $ex) {
-            return response_web(false, 'هناك خطا ما يرجى محاولة لاحقا', [], 500);
+
+
+            if ($request->hasFile('file')) {
+
+                if ($edu->photo) {
+                    $this->deleteFile($edu->photo);
+                }
+                if (in_array($request->file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg', 'gif'])) {
+                    $photo = $this->uploadFileImage($request->file, 'Talent/Educations');
+                } else {
+                    $photo = $this->uploadFile($request->file, 'Talent/Educations');
+                }
+                $edu->update([
+                    'photo' => $photo,
+                ]);
+            }
+
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Education updated successfully.',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred.',
+                'error' => $exception->getMessage(),
+            ], 500);
         }
     }
 
     public function delete(Request $request)
     {
-        ScientificCertificate::query()->where('id', $request->id)->delete();
+        $id = $request->id;
+        try {
+            // Replace with your model and deletion logic
+            $edu = ScientificCertificate::where('user_id', auth('talent')->id())->find($id);
 
-        return response_web(true, 'تم تنفيد العملية بنجاح', [], 201);
+            if ($edu->photo) {
+                $this->deleteFile($edu->photo);
+            }
+
+            $edu->delete();
+
+            return response()->json(['message' => 'Deleted successfully!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Deletion failed!'], 500);
+        }
     }
+
 }

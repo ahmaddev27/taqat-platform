@@ -3,15 +3,6 @@
 
     @push('css')
 
-        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
         <style>
             .ql-container {
                 height: 30%;
@@ -57,41 +48,7 @@
                               </span>
                                         </li>
                                     </ul>
-                                    {{--                                    <ul class="social justify-content-center mt-30 mb-40 d-flex align-items-center">--}}
-                                    {{--                                        <li>--}}
-                                    {{--                                            <a href="javascript:void(0)">--}}
-                                    {{--                                                <i class="bi bi-facebook base"></i>--}}
-                                    {{--                                            </a>--}}
-                                    {{--                                        </li>--}}
-                                    {{--                                        <li>--}}
-                                    {{--                                            <a href="javascript:void(0)">--}}
-                                    {{--                                                <i class="bi bi-instagram base"></i>--}}
-                                    {{--                                            </a>--}}
-                                    {{--                                        </li>--}}
-                                    {{--                                        <li>--}}
-                                    {{--                                            <a href="javascript:void(0)">--}}
-                                    {{--                                                <i class="bi bi-twitter base"></i>--}}
-                                    {{--                                            </a>--}}
-                                    {{--                                        </li>--}}
-                                    {{--                                        <li>--}}
-                                    {{--                                            <a href="javascript:void(0)">--}}
-                                    {{--                                                <i class="bi bi-pinterest base"></i>--}}
-                                    {{--                                            </a>--}}
-                                    {{--                                        </li>--}}
-                                    {{--                                        <li>--}}
-                                    {{--                                            <a href="javascript:void(0)">--}}
-                                    {{--                                                <i class="bi bi-dribbble base"></i>--}}
-                                    {{--                                            </a>--}}
-                                    {{--                                        </li>--}}
-                                    {{--                                    </ul>--}}
-                                    {{--                                    <a href="profile.html" class="cmn--btn outline__btn">--}}
-                                    {{--                           <span>--}}
-                                    {{--                              View Profile--}}
-                                    {{--                           </span>--}}
-                                    {{--                                        <span>--}}
-                                    {{--                              <i class="bi bi-arrow-up-right"></i>--}}
-                                    {{--                           </span>--}}
-                                    {{--                                    </a>--}}
+
                                 </div>
                             </div>
 
@@ -249,7 +206,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="update__btn d-flex align-items-center">
+                                                                <div class="update__btn d-flex align-items-center m-2">
                                                                     <a href="javascript:void(0)" class="cmn--btn"
                                                                        onclick="document.getElementById('imageInput').click()">
                                                                             <span>
@@ -313,7 +270,8 @@
 
 
                                                         <div class="col-lg-12 ">
-                                                               <span class="fz-20 fw-500 inter title mb-16 d-block">
+
+                                                            <span class="fz-20 fw-500 inter title mb-16 d-block">
                                                                   BIO:
                                                                </span>
 
@@ -352,10 +310,10 @@
                                     </div>
                                 </div>
 
-                                @include('front.pages.talent-profile.edu-tab')
-                                @include('front.pages.talent-profile.service-tab')
-                                @include('front.pages.talent-profile.experience-tab')
-                                @include('front.pages.talent-profile.projects-tab')
+                                @include('front.pages.talent-profile.tabs.Educations.edu-tab')
+                                @include('front.pages.talent-profile.tabs.service-tab')
+                                @include('front.pages.talent-profile.tabs.experience-tab')
+                                @include('front.pages.talent-profile.tabs.projects-tab')
 
 
                             </div>
@@ -368,8 +326,6 @@
     <!-- profile section End -->
 
     @push('js')
-        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         {{--  tags--}}
         <script>
@@ -524,25 +480,25 @@
         {{-- edit profile submit--}}
         <script>
             $(document).ready(function () {
-
+                // Toastr Configuration
                 toastr.options = {
-                    "closeButton": true,                // Show close button
-                    "debug": false,                     // Debug mode
-                    "newestOnTop": true,                // New notifications appear on top
-                    "progressBar": true,                // Show progress bar
-                    "positionClass": "toast-top-right", // Position
-                    "preventDuplicates": true,          // Prevent duplicate messages
-                    "onclick": null,                    // Add custom click handler
-                    "showDuration": "300",              // Animation duration
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": true,
+                    "showDuration": "300",
                     "hideDuration": "1000",
-                    "timeOut": "5000",                  // Duration before auto-dismiss
-                    "extendedTimeOut": "1000",          // Time before dismissal on hover
-                    "showEasing": "swing",              // Show easing animation
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
                     "hideEasing": "linear",
-                    "showMethod": "fadeIn",             // Show method
-                    "hideMethod": "fadeOut"             // Hide method
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
                 };
 
+                // Initialize Quill Editor
                 const quill = new Quill('#editor', {
                     theme: 'snow',
                     modules: {
@@ -561,13 +517,54 @@
                 });
                 quill.root.innerHTML = `{!! $talent->bio !!}`;
 
+                // Image Preview Function
+                window.previewImage = function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        // Validate file size (max 2MB)
+                        if (file.size > 2 * 1024 * 1024) {
+                            toastr.error("Image size must be less than 2MB.");
+                            return;
+                        }
+
+                        // Display preview
+                        const reader = new FileReader();
+                        reader.onload = function () {
+                            $('#profileImage').attr('src', reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+
+                // jQuery Validation
+                $('#updateProfileForm').validate({
+                    rules: {
+                        name: {required: true},
+                        email: {required: true, email: true},
+                        whatsapp: {required: true, digits: true},
+                        sallary: {required: true, number: true},
+                        specialization_id: {required: true},
+                    },
+                    messages: {
+                        name: "Please enter your full name.",
+                        email: "Please enter a valid email address.",
+                        whatsapp: "Please enter a valid phone number.",
+                        sallary: "Please enter a valid salary.",
+                        specialization_id: "Please select a specialization.",
+                    },
+                    errorPlacement: function (error, element) {
+                        toastr.error(error.text());
+                    },
+                    submitHandler: function (form) {
+                        submitForm();
+                    }
+                });
 
                 // AJAX Form Submission
-                $('#updateProfileForm').on('submit', function (e) {
-                    e.preventDefault();
+                function submitForm() {
+                    const formData = new FormData($('#updateProfileForm')[0]);
+                    formData.append('bio', quill.root.innerHTML);
 
-                    let formData = new FormData(this);
-                    formData.append('bio', quill.root.innerHTML); // Append Quill content
                     $.ajax({
                         url: '{{route('profile.update')}}', // Replace with your actual backend URL
                         type: 'POST',
@@ -575,61 +572,42 @@
                         contentType: false,
                         processData: false,
                         beforeSend: function () {
-                            $('#spinner').removeClass('d-none'); // Show spinner
+                            $('#spinner').removeClass('d-none');
                             $('#save-change').text('Saving...');
                         },
-
                         success: function (response) {
-                            // Hide the spinner and reset button text after a slight delay
-                            setTimeout(function () {
-                                $('#spinner').addClass('d-none'); // Hide spinner
+                            setTimeout(() => {
+                                $('#spinner').addClass('d-none');
                                 $('#save-change').text('Save Change');
 
-                                // Reload the page after success
                                 if (response.success) {
                                     toastr.success('Profile updated successfully!');
-
-                                    // Update profile image dynamically if provided in response
                                     if (response.photo) {
                                         $('#profileImage').attr('src', response.photo);
                                     }
-
-                                    // Reload the page after success
-                                    location.reload();  // Reload the page once after successful update
+                                    location.reload(); // Reload the page
                                 } else {
                                     toastr.error('Something went wrong.');
                                 }
-                            }, 1000); // 1-second delay before hiding spinner and reloading
+                            }, 1000);
                         },
                         error: function (xhr) {
-                            $('#spinner').addClass('d-none'); // Hide spinner
+                            $('#spinner').addClass('d-none');
                             $('#save-change').text('Save Change');
 
                             if (xhr.responseJSON && xhr.responseJSON.errors) {
                                 $.each(xhr.responseJSON.errors, function (key, error) {
-                                    toastr.error(error[0]); // Display validation errors
+                                    toastr.error(error[0]);
                                 });
                             } else {
                                 toastr.error('An error occurred.');
                             }
                         }
                     });
-                });
-
-
-                // Preview Image Function
-                window.previewImage = function (event) {
-                    var reader = new FileReader();
-                    reader.onload = function () {
-                        var output = document.getElementById('profileImage');
-                        output.src = reader.result; // Display image preview
-                    };
-                    reader.readAsDataURL(event.target.files[0]);
-                };
+                }
             });
 
         </script>
-
 
     @endpush
 @stop

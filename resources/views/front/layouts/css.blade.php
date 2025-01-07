@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="{{asset('front/assets/css/bootstrap.css.map')}}">
 <!--main css-->
 <link rel="stylesheet" href="{{asset('front/assets/css/main.css')}}">
+
+
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 <style>
     .base0 {
         color: var(--base);
@@ -32,7 +41,7 @@
 
     /* Background color for warning */
     .toast-warning {
-        background-color: #ffc107 !important;
+        background-color: #f88448 !important;
         color: #212529;
     }
 

@@ -5,6 +5,22 @@
 <!--main Js-->
 <script src="{{asset('front/assets/js/main.js')}}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- jQuery CDN -->
+
+<!-- jQuery Validate CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+<!-- Optional: jQuery Validate Additional Methods CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.5/additional-methods.min.js"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const images = document.querySelectorAll("img");
@@ -19,4 +35,65 @@
 </script>
 
 
+
+{{-- delete--}}
+<script>
+    $(document).on("click", '#delete', function (e) {
+        e.preventDefault();
+
+        var $this = $(this);
+        var model_id = $this.attr('data-id');
+        var route = $this.attr('data-route');
+        var reload = $this.attr('data-reload');
+
+        // Disable button and show spinner
+        $this.prop('disabled', true);
+        $this.find("#spinner-edu-delete").removeClass('d-none');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this record!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete!',
+            cancelButtonText: 'Cancel',
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    url: route,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "id": model_id
+                    },
+                    success: function (response) {
+                        toastr.warning('Deleted successfully!');
+                        if (reload) {
+                            setTimeout(function () {
+                                location.reload();
+                            }, 300);
+                        }
+                    },
+                    error: function (xhr) {
+                        toastr.error('Not Deleted successfully!');
+                        $this.prop('disabled', false);
+                        $this.find("#spinner-edu-delete").addClass('d-none');
+                    },
+                    complete: function () {
+                        $this.find("#spinner-edu-delete").addClass('d-none');
+                    }
+                });
+            } else {
+                // Re-enable button and hide spinner
+                $this.prop('disabled', false);
+                $this.find("#spinner-edu-delete").addClass('d-none');
+            }
+        });
+    });
+</script>
+
+
+
 @stack('js')
+

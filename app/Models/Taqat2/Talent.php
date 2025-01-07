@@ -114,7 +114,7 @@ protected $guarded=[];
         return $this->hasMany(Chat::class,'user_id')->orderBy('created_at','desc');
      }
      public function khadmats(){
-        return $this->hasMany(khadmat::class,'user_id')->orderBy('created_at','desc');
+        return $this->hasMany(Khadmat::class,'user_id')->orderBy('created_at','desc');
      }
 
 

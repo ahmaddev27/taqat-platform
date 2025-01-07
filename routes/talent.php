@@ -25,5 +25,8 @@ Route::group(['as' => 'profile.', 'prefix' => 'profile', 'middleware' => 'auth.t
 Route::group(['as' => 'edu.', 'prefix' => 'edu', 'middleware' => 'auth.talent'], function () {
     Route::controller(EducationController::class)->group(function () {
         Route::post('/store', 'store')->name('store');
+        Route::post('/delete', 'delete')->name('delete');
+        Route::get('/education/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
     });
 });

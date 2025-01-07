@@ -18,7 +18,7 @@ class ScientificCertificate extends Model
     use HasTranslations;
 
 
-    public $translatable = ['title', 'country', 'university', 'college', 'specialization'];
+    public $translatable = ['title', 'country', 'specialization', 'university', 'college'];
 
     public function getPhoto()
     {
