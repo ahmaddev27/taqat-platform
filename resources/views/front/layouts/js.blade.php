@@ -12,14 +12,14 @@
 <!-- jQuery Validate CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
-<!-- Optional: jQuery Validate Additional Methods CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.5/additional-methods.min.js"></script>
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -36,6 +36,16 @@
 
 
 
+<script>
+    $('.date').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
+
+
+
 {{-- delete--}}
 <script>
     $(document).on("click", '#delete', function (e) {
@@ -48,7 +58,7 @@
 
         // Disable button and show spinner
         $this.prop('disabled', true);
-        $this.find("#spinner-edu-delete").removeClass('d-none');
+        $this.find("#spinner-delete").removeClass('d-none');
 
         Swal.fire({
             title: 'Are you sure?',
@@ -78,16 +88,16 @@
                     error: function (xhr) {
                         toastr.error('Not Deleted successfully!');
                         $this.prop('disabled', false);
-                        $this.find("#spinner-edu-delete").addClass('d-none');
+                        $this.find("#spinner-delete").addClass('d-none');
                     },
                     complete: function () {
-                        $this.find("#spinner-edu-delete").addClass('d-none');
+                        $this.find("#spinner-delete").addClass('d-none');
                     }
                 });
             } else {
                 // Re-enable button and hide spinner
                 $this.prop('disabled', false);
-                $this.find("#spinner-edu-delete").addClass('d-none');
+                $this.find("#spinner-delete").addClass('d-none');
             }
         });
     });

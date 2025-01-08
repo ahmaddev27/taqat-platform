@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Talent;
 
 use App\Http\Controllers\Controller;
-use App\Models\taqat2\ScientificCertificate;
+use App\Models\Taqat2\ScientificCertificate;
 use Illuminate\Http\Request;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class EducationController extends Controller
 {
     protected $connection = 'second_db';
-
 
     public function store(Request $request)
     {
@@ -26,61 +24,16 @@ class EducationController extends Controller
             ]);
 
 
-            $titleLanguage = $this->detectLanguage($request->title);
-            $specializationLanguage = $this->detectLanguage($request->specialization);
-            $countryLanguage = $this->detectLanguage($request->country);
-
-            $universityLanguage = $this->detectLanguage($request->university);
-            $collegeLanguage = $this->detectLanguage($request->collge);
-
-
-            $title = ['ar' => '', 'en' => ''];
-            $specialization = ['ar' => '', 'en' => ''];
-            $country = ['ar' => '', 'en' => ''];
-            $university = ['ar' => '', 'en' => ''];
-            $college = ['ar' => '', 'en' => ''];
-
-
-            if ($titleLanguage === 'ar') {
-                $title['ar'] = $request->title;
-                $title['en'] = GoogleTranslate::trans($request->title, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $title['ar'] = GoogleTranslate::trans($request->title, 'ar', 'en'); // Optionally set a default or empty value for English
-                $title['en'] = $request->title;
-            }
-
-            if ($specializationLanguage === 'ar') {
-                $specialization['ar'] = $request->specialization;
-                $specialization['en'] = GoogleTranslate::trans($request->specialization, 'en', 'ar'); // Optionally set a default or empty value for English
-            } else {
-                $specialization['ar'] = GoogleTranslate::trans($request->specialization, 'ar', 'en'); // Optionally set a default or empty value for English
-                $specialization['en'] = $request->specialization;
-            }
-
-            if ($countryLanguage === 'ar') {
-                $country['ar'] = $request->country;
-                $country['en'] = GoogleTranslate::trans($request->country, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $country['ar'] = GoogleTranslate::trans($request->country, 'ar', 'en'); // Optionally set a default or empty value for English
-                $country['en'] = $request->country;
-            }
-
-            if ($universityLanguage === 'ar') {
-                $university['ar'] = $request->university;
-                $university['en'] = GoogleTranslate::trans($request->university, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $university['ar'] = GoogleTranslate::trans($request->university, 'ar', 'en'); // Optionally set a default or empty value for English
-                $university['en'] = $request->university;
-            }
-
-
-            if ($collegeLanguage === 'ar') {
-                $college['ar'] = $request->college;
-                $college['en'] = GoogleTranslate::trans($request->college, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $college['ar'] = GoogleTranslate::trans($request->college, 'ar', 'en'); // Optionally set a default or empty value for English
-                $college['en'] = $request->college;
-            }
+            $title['ar'] = $request->title;
+            $title['en'] = $request->title;
+            $specialization['ar'] = $request->specialization;
+            $specialization['en'] = $request->specialization;
+            $country['ar'] = $request->country;
+            $country['en'] = $request->country;
+            $university['ar'] = $request->university;
+            $university['en'] = $request->university;
+            $college['ar'] = $request->college;
+            $college['en'] = $request->college;
 
             $edu = ScientificCertificate::create([
                 'title' => $title,
@@ -91,8 +44,8 @@ class EducationController extends Controller
                 'college' => $college,
                 'graduation_year' => $request->graduation_year,
 
-
             ]);
+
 
             if ($request->hasFile('file')) {
 
@@ -122,17 +75,15 @@ class EducationController extends Controller
 
     public function edit($id)
     {
-        // Fetch the education record from the database
         $education = ScientificCertificate::where('user_id', auth('talent')->id())->find($id);
 
-        // Check if the record exists
         if (!$education) {
             return response()->json(['error' => 'Education not found'], 404);
         }
 
-        // Return the education data as a JSON response
         return response()->json(array_merge($education->toArray(), ['photo_url' => $education->getPhoto()]));
     }
+
 
     public function update(Request $request)
     {
@@ -152,61 +103,25 @@ class EducationController extends Controller
             $edu = ScientificCertificate::query()->where('user_id', auth('talent')->id())->findorfail($request->id);
 
 
-            $titleLanguage = $this->detectLanguage($request->title);
-            $specializationLanguage = $this->detectLanguage($request->specialization);
-            $countryLanguage = $this->detectLanguage($request->country);
 
-            $universityLanguage = $this->detectLanguage($request->university);
-            $collegeLanguage = $this->detectLanguage($request->collge);
+            $title['ar'] = $request->title;
+            $title['en'] = $request->title;
 
-
-            $title = ['ar' => '', 'en' => ''];
-            $specialization = ['ar' => '', 'en' => ''];
-            $country = ['ar' => '', 'en' => ''];
-            $university = ['ar' => '', 'en' => ''];
-            $college = ['ar' => '', 'en' => ''];
+            $specialization['ar'] = $request->specialization;
+            $specialization['en'] = $request->specialization;
 
 
-            if ($titleLanguage === 'ar') {
-                $title['ar'] = $request->title;
-                $title['en'] = GoogleTranslate::trans($request->title, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $title['ar'] = GoogleTranslate::trans($request->title, 'ar', 'en'); // Optionally set a default or empty value for English
-                $title['en'] = $request->title;
-            }
-
-            if ($specializationLanguage === 'ar') {
-                $specialization['ar'] = $request->specialization;
-                $specialization['en'] = GoogleTranslate::trans($request->specialization, 'en', 'ar'); // Optionally set a default or empty value for English
-            } else {
-                $specialization['ar'] = GoogleTranslate::trans($request->specialization, 'ar', 'en'); // Optionally set a default or empty value for English
-                $specialization['en'] = $request->specialization;
-            }
-
-            if ($countryLanguage === 'ar') {
-                $country['ar'] = $request->country;
-                $country['en'] = GoogleTranslate::trans($request->country, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $country['ar'] = GoogleTranslate::trans($request->country, 'ar', 'en'); // Optionally set a default or empty value for English
-                $country['en'] = $request->country;
-            }
-
-            if ($universityLanguage === 'ar') {
-                $university['ar'] = $request->university;
-                $university['en'] = GoogleTranslate::trans($request->university, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $university['ar'] = GoogleTranslate::trans($request->university, 'ar', 'en'); // Optionally set a default or empty value for English
-                $university['en'] = $request->university;
-            }
+            $country['ar'] = $request->country;
+            $country['en'] = $request->country;
 
 
-            if ($collegeLanguage === 'ar') {
-                $college['ar'] = $request->college;
-                $college['en'] = GoogleTranslate::trans($request->college, 'en', 'ar');; // Optionally set a default or empty value for English
-            } else {
-                $college['ar'] = GoogleTranslate::trans($request->college, 'ar', 'en'); // Optionally set a default or empty value for English
-                $college['en'] = $request->college;
-            }
+            $university['ar'] = $request->university;
+            $university['en'] = $request->university;
+
+
+            $college['ar'] = $request->college;
+
+            $college['en'] = $request->college;
 
 
             $edu->update([

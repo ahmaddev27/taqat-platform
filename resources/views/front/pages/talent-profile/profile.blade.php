@@ -57,10 +57,9 @@
                                     <ul class="nav" role="tablist">
                                         <li class="nav-item w-100 mb-16 d-flex align-items-center justify-content-between"
                                             role="presentation">
-                              <span class="fz-24 fw-600 inter title">
-                                 BIO
-                              </span>
-
+                                             <span class="fz-24 fw-600 inter title">
+                                                         BIO
+                                                      </span>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
@@ -268,14 +267,19 @@
                                                                    placeholder="Enter number">
                                                         </div>
 
-
                                                         <div class="col-lg-12 ">
 
                                                             <span class="fz-20 fw-500 inter title mb-16 d-block">
                                                                   BIO:
                                                                </span>
 
-                                                            <div id="editor"></div>
+                                                            <div>
+                                                                <textarea id="bio" name="bio" class="form-control"
+                                                                          rows="10">{!! $talent->bio !!}</textarea>
+                                                                {{--                                                                <button id="ai-generate" type="button" class="btn btn-secondary">Write with AI</button>--}}
+                                                                {{--                                                                <p id="error-message" style="color: red; display: none;">Generated text must be at least 30 characters.</p>--}}
+                                                            </div>
+
 
                                                             <div class="col-lg-12 mt-2">
 
@@ -312,7 +316,7 @@
 
                                 @include('front.pages.talent-profile.tabs.Educations.edu-tab')
                                 @include('front.pages.talent-profile.tabs.service-tab')
-                                @include('front.pages.talent-profile.tabs.experience-tab')
+                                @include('front.pages.talent-profile.tabs.Experience.experience-tab')
                                 @include('front.pages.talent-profile.tabs.projects-tab')
 
 
@@ -498,24 +502,6 @@
                     "hideMethod": "fadeOut"
                 };
 
-                // Initialize Quill Editor
-                const quill = new Quill('#editor', {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: [
-                            [{'font': []}, {'size': []}],
-                            ['bold', 'italic', 'underline', 'strike'],
-                            [{'color': []}, {'background': []}],
-                            [{'script': 'sub'}, {'script': 'super'}],
-                            [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
-                            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                            ['direction', {'align': []}],
-                            ['link', 'image', 'video'],
-                            ['clean']
-                        ]
-                    }
-                });
-                quill.root.innerHTML = `{!! $talent->bio !!}`;
 
                 // Image Preview Function
                 window.previewImage = function (event) {
@@ -544,12 +530,14 @@
                         whatsapp: {required: true, digits: true},
                         sallary: {required: true, number: true},
                         specialization_id: {required: true},
+                        bio: {required: true},
                     },
                     messages: {
                         name: "Please enter your full name.",
                         email: "Please enter a valid email address.",
                         whatsapp: "Please enter a valid phone number.",
                         sallary: "Please enter a valid salary.",
+                        bio: "Please enter bio.",
                         specialization_id: "Please select a specialization.",
                     },
                     errorPlacement: function (error, element) {

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Talent\ProfileController;
 use App\Http\Controllers\Talent\EducationController;
+use App\Http\Controllers\Talent\ExperienceController;
 use App\Http\Controllers\Auth\TalentLoginController;
 
 
@@ -24,6 +25,16 @@ Route::group(['as' => 'profile.', 'prefix' => 'profile', 'middleware' => 'auth.t
 
 Route::group(['as' => 'edu.', 'prefix' => 'edu', 'middleware' => 'auth.talent'], function () {
     Route::controller(EducationController::class)->group(function () {
+        Route::post('/store', 'store')->name('store');
+        Route::post('/delete', 'delete')->name('delete');
+        Route::get('/education/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+    });
+});
+
+
+Route::group(['as' => 'exp.', 'prefix' => 'exp', 'middleware' => 'auth.talent'], function () {
+    Route::controller(ExperienceController::class)->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::post('/delete', 'delete')->name('delete');
         Route::get('/education/{id}', 'edit')->name('edit');

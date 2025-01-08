@@ -24,8 +24,9 @@ protected $guarded=[];
 //        return $this->photo ? url('https://team.taqat-gaza.com/public/files/' . $this->photo): asset(url('front/place.png'));
 //    }
     function work_experiences (){
-        return $this->hasMany(WorkExperience::class,'user_id');
+        return $this->hasMany(WorkExperience::class,'user_id')->orderBy('end_date', 'asc');
     }
+
 
 
     function projects (){

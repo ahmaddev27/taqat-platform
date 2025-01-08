@@ -5,51 +5,52 @@
             <div class="modal-body">
                 <div class="col-lg-12">
                     <div class="overview__gitwrapper bgwhite round16">
-                        <h3 class="pb-40 bborderdash mb-40 title">Edit Education</h3>
+                        <h4 class="pb-40 bborderdash mb-40 title">Edit Education</h4>
                         <form id="edit-edu-form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" value="" name="id" id="id">
                             <div class="row">
                                 <div class="col-6 mb-30">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">Title</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">Title</span>
                                     <input type="text" class="addquestion" placeholder="Enter Title" id="title" name="title">
                                 </div>
 
                                 <div class="col-6 mb-30">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">Specialization</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">Specialization</span>
                                     <input type="text" class="addquestion" placeholder="Enter Specialization"
                                         id="specialization"   name="specialization">
                                 </div>
 
                                 <div class="col-6 mb-30">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">College</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">College</span>
                                     <input type="text" class="addquestion " placeholder="Enter College"
                                          id="college"  name="college">
                                 </div>
 
                                 <div class="col-6 mb-30">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">University</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">University</span>
                                     <input type="text" class="addquestion" placeholder="Enter University"
                                            id="university"  name="university">
                                 </div>
 
                                 <div class="col-6 mb-30">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">Country</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">Country</span>
                                     <input type="text" class="addquestion " placeholder="Enter Country"
                                            id="country"   name="country">
                                 </div>
 
                                 <div class="col-6 mb-30">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">Graduation year</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">Graduation year</span>
                                     <input type="number" class="addquestion " placeholder="Enter Graduation Year"
                                           id="graduation_year" name="graduation_year" step="1">
                                 </div>
                             </div>
+
                             <div class="row">
                                 <!-- Upload button and hidden input -->
                                 <div class="col-lg-6 justify-content-end text-center mt-auto mb-auto">
                                     <!-- Hidden file input -->
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">Upload Certificate</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">Upload Certificate</span>
                                     <input type="file" name="file" id="imageUpload-edu-edit" class="d-none"
                                            accept="image/*,.pdf,.doc,.docx">
                                     <!-- File input and clickable area -->
@@ -60,7 +61,7 @@
 
                                 <!-- Preview area -->
                                 <div class="col-lg-3 justify-content-start text-start">
-                                    <span class="fz-20 fw-500 title inter mb-10 d-block">Preview</span>
+                                    <span class="fz-18 fw-500 title inter mb-10 d-block">Preview</span>
 
                                      <a target="_blank" href="" id="image-id">
                                          <img id="imagePreview-edu-edit" height="500px" style="object-fit: cover;"
@@ -68,6 +69,9 @@
                                      </a>
                                 </div>
                             </div>
+
+
+
                             <div class="btn__grp d-flex align-items-end flex-wrap modal-footer" style="border: none">
                                 <button type="submit" class="cmn--btn" id="edu-submit-edit">
                                     <span id="spinner-edu-edit" class="spinner-grow spinner-grow-sm d-none"
@@ -91,7 +95,8 @@
     <script>
         $(document).ready(function () {
             var appLocale = "{{ app()->getLocale() }}";
-            $('a[data-toggle="modal"]').on('click', function () {
+            $('.edu-edit').on('click', function () {
+
                 var id = $(this).data('id');
                 $.ajax({
                     url: '{{route('edu.edit','')}}/' + id,
