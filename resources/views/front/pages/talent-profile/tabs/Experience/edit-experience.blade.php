@@ -13,7 +13,7 @@
                             @csrf
                             <div class="row">
                                 <!-- Form fields as you have in your original code... -->
-
+                                <input type="hidden" id="exp-id" name="id">
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Company</span>
                                     <input type="text" class="addquestion" placeholder="Enter Company" id="company_name"
@@ -100,6 +100,7 @@
                 if (!str) return ""; // Handle null or undefined
                 return str.replace(/<\/?[^>]+(>|$)/g, ""); // Regex to remove HTML tags
             }
+
             var appLocale = "{{ app()->getLocale() }}";
 
             // Handle edit button click
@@ -110,12 +111,12 @@
                     method: 'GET',
                     success: function (response) {
                         // Populate the form with fetched data
-                        $('#id').val(response.id);
+                        $('#exp-id').val(response.id);
                         $('#company_name').val(response.company_name[appLocale]);
                         $('#location').val(response.location[appLocale]);
                         $('#job').val(response.job[appLocale]);
                         $('#task-edit').val(stripHtmlTags(response.tasks[appLocale]));
-                        $('#start_date-edit').val(response.start_date[appLocale]);
+                        $('#start_date-edit').val(response.start_date);
                         $('#end_date-edit').val(response.end_date);  // Adjusted to match response attribute
                         $('#image-id-exp-edit').attr('href', response.photo_url);
 
@@ -158,7 +159,7 @@
                 if (file) {
                     const fileType = file.type;
                     if (fileType.startsWith("image/")) {
-                        reader.onload = function(e) {
+                        reader.onload = function (e) {
                             filePreview.attr("src", e.target.result);
                         };
                         reader.readAsDataURL(file);
@@ -241,7 +242,7 @@
 
                             if (response.success) {
                                 toastr.success('Experiences Updated successfully!');
-                                location.reload();
+                                location.reload(true);
                             } else {
                                 toastr.error('Something went wrong.');
                             }

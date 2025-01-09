@@ -15,8 +15,26 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Toastr Configuration
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 
+</script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -34,7 +52,28 @@
 
 </script>
 
+<script>
+    $(document).ready(function() {
+        @if (session('message'))
+        var type = "{{ session('alert-type', 'info') }}";
 
+        switch (type) {
+            case 'info':
+                toastr.info("{{ session('message') }}");
+                break;
+            case 'success':
+                toastr.success("{{ session('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ session('message') }}");
+                break;
+            case 'error':
+                toastr.error("{{ session('message') }}");
+                break;
+        }
+        @endif
+    });
+</script>
 
 <script>
     $('.date').datepicker({

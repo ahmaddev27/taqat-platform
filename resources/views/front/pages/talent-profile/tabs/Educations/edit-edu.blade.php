@@ -8,7 +8,7 @@
                         <h4 class="pb-40 bborderdash mb-40 title">Edit Education</h4>
                         <form id="edit-edu-form" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" value="" name="id" id="id">
+                            <input type="hidden" value="" name="id" id="edu-id">
                             <div class="row">
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Title</span>
@@ -102,7 +102,7 @@
                     url: '{{route('edu.edit','')}}/' + id,
                     method: 'GET',
                     success: function (response) {
-                        $('#id').val(response.id);
+                        $('#edu-id').val(response.id);
                         $('#title').val(response.title[appLocale]);
                         $('#specialization').val(response.specialization[appLocale]);
                         $('#college').val(response.college[appLocale]);
@@ -235,7 +235,7 @@
 
                             if (response.success) {
                                 toastr.success('Education Updated successfully!');
-                                location.reload();
+                                location.reload(true);
                             } else {
                                 toastr.error('Something went wrong.');
                             }

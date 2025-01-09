@@ -64,14 +64,15 @@ class TalentLoginController extends Controller
                 $user->api_token = $apiToken;
                 $user->save();
 
-                return redirect()->route('home');
+                return redirect()->route('home')
+                    ->with(['message' => 'Login successful!', 'alert-type' => 'success']);
             } else {
                 return redirect()->back()
-                    ->with(['message' => trans('main.login_error'), 'alert-type' => 'error']);
+                    ->with(['message' => 'Invalid credentials, please try again.', 'alert-type' => 'error']);
             }
         } else {
             return redirect()->back()
-                ->with(['message' => trans('main.login_error'), 'alert-type' => 'error']);
+                ->with(['message' => 'User not found. Please check your email.', 'alert-type' => 'error']);
         }
     }
 

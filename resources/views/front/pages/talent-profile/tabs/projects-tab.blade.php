@@ -239,6 +239,7 @@
                     loop: true, // Ensures smooth cycling of thumbnails
                 });
 
+
                 // Main Swiper
                 var mySwiper2 = new Swiper('.mySwiper2', {
                     spaceBetween: 10,

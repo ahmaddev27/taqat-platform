@@ -7,6 +7,7 @@
 <!--main css-->
 <link rel="stylesheet" href="{{asset('front/assets/css/main.css')}}">
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
 
@@ -30,11 +31,10 @@
         border-color: floralwhite;
     }
 
-</style>
 
-
-
-<style>
+.swal2-show {
+    animation: swal2-show 0.7s ;
+}
     /* Background color for success */
     .toast-success {
         background-color: #0d47a1 !important;
@@ -55,7 +55,7 @@
 
     /* Background color for info */
     .toast-info {
-        background-color: #17a2b8 !important;
+        background-color: #407179 !important;
         color: #fff;
     }
 

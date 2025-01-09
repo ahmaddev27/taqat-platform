@@ -1,6 +1,21 @@
 @extends('front.layouts.master', ['title' => 'Login'])
 @section('content')
 
+    @push('css')
+        <style>
+            .error {
+                color: red;
+                font-size: 14px;
+                margin-top: 4px;
+            }
+
+            .is-invalid {
+                border-color: red;
+            }
+
+        </style>
+    @endpush
+
     <section class="signup__section ralt bg__all pt-120 pb-120">
         <div class="container">
             <div class="row justify-content-between align-items-center">
@@ -96,4 +111,50 @@
         </div>
     </section>
 
+@push('js')
+    <script>
+            $(document).ready(function () {
+            $(".write__review").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Please enter your email address.",
+                        email: "Please enter a valid email address."
+                    },
+                    password: {
+                        required: "Please enter your password.",
+                        minlength: "Your password must be at least 6 characters long."
+                    }
+                },
+                errorElement: "span",
+                errorClass: "error",
+                highlight: function (element) {
+                    $(element).addClass("is-invalid");
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass("is-invalid");
+                },
+                invalidHandler: function (event, validator) {
+                    // Check if any errors exist
+                    if (validator.errorList.length) {
+                        toastr.error('Please correct the errors before submitting the form.');
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+
+@endpush
 @stop

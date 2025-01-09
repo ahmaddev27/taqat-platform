@@ -84,7 +84,11 @@ class ExperienceController extends Controller
             return response()->json(['error' => 'Experience not found'], 404);
         }
 
-        return response()->json(array_merge($education->toArray(), ['photo_url' => $education->getPhoto()]));
+        return response()->json(array_merge($education->toArray(), [
+            'photo_url' => $education->getPhoto(),
+            'start_date' => Carbon::parse($education->start_date)->format('Y-m-d'),
+            'end_date' => $education->end_date ? Carbon::parse($education->end_date)->format('Y-m-d') : null,
+        ]));
     }
 
 

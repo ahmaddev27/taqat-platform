@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
 
-
+                                @if($talent->skills)
                                 <div class="description__edit pt-24 ralt pb-24 bborderdash commn__spacenone">
                                     <ul class="nav" role="tablist">
                                         <li class="nav-item w-100 mb-16 d-flex align-items-center justify-content-between"
@@ -84,23 +84,27 @@
                                         </li>
                                     </ul>
 
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="skew" role="tabpanel">
-                                            <div class="skill__tag d-flex flex-wrap">
 
-                                                @foreach(json_decode($talent->skills) as $skill)
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="skew" role="tabpanel">
+                                                <div class="skill__tag d-flex flex-wrap">
 
-                                                    <a href="javascript:void(0)" class="border round100 fz-14 pra">
-                                                        {{ $skill->value }}
-                                                    </a>
-                                                @endforeach
+                                                    @foreach(json_decode($talent->skills) as $skill)
+
+                                                        <a href="javascript:void(0)" class="border round100 fz-14 pra">
+                                                            {{ $skill->value }}
+                                                        </a>
+                                                    @endforeach
 
 
+                                                </div>
                                             </div>
+
                                         </div>
 
-                                    </div>
+
                                 </div>
+                                @endif'
 
                             </div>
                         </div>
@@ -296,7 +300,7 @@
                                                                 class="d-flex align-items-center gap-4 flex-wrap mt-5 justify-content-end">
 
 
-                                                                <button type="submit" class="cmn--btn">
+                                                                <button id="profile-update" type="submit" class="cmn--btn">
                                                                     <span id="spinner"
                                                                           class="spinner-grow spinner-grow-sm d-none"
                                                                           role="status" aria-hidden="true"></span>
@@ -327,7 +331,7 @@
             </div>
         </div>
     </section>
-    <!-- profile section End -->
+    <!-- profile section End -->f
 
     @push('js')
 
@@ -484,24 +488,6 @@
         {{-- edit profile submit--}}
         <script>
             $(document).ready(function () {
-                // Toastr Configuration
-                toastr.options = {
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": true,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": true,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
-
 
                 // Image Preview Function
                 window.previewImage = function (event) {
@@ -551,7 +537,6 @@
                 // AJAX Form Submission
                 function submitForm() {
                     const formData = new FormData($('#updateProfileForm')[0]);
-                    formData.append('bio', quill.root.innerHTML);
 
                     $.ajax({
                         url: '{{route('profile.update')}}', // Replace with your actual backend URL
