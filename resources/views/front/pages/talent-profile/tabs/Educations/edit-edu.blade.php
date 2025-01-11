@@ -12,37 +12,38 @@
                             <div class="row">
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Title</span>
-                                    <input type="text" class="addquestion" placeholder="Enter Title" id="title" name="title">
+                                    <input type="text" class="addquestion" placeholder="Enter Title" id="title"
+                                           name="title">
                                 </div>
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Specialization</span>
                                     <input type="text" class="addquestion" placeholder="Enter Specialization"
-                                        id="specialization"   name="specialization">
+                                           id="specialization" name="specialization">
                                 </div>
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">College</span>
                                     <input type="text" class="addquestion " placeholder="Enter College"
-                                         id="college"  name="college">
+                                           id="college" name="college">
                                 </div>
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">University</span>
                                     <input type="text" class="addquestion" placeholder="Enter University"
-                                           id="university"  name="university">
+                                           id="university" name="university">
                                 </div>
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Country</span>
                                     <input type="text" class="addquestion " placeholder="Enter Country"
-                                           id="country"   name="country">
+                                           id="country" name="country">
                                 </div>
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Graduation year</span>
                                     <input type="number" class="addquestion " placeholder="Enter Graduation Year"
-                                          id="graduation_year" name="graduation_year" step="1">
+                                           id="graduation_year" name="graduation_year" step="1">
                                 </div>
                             </div>
 
@@ -63,13 +64,12 @@
                                 <div class="col-lg-3 justify-content-start text-start">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Preview</span>
 
-                                     <a target="_blank" href="" id="image-id">
-                                         <img id="imagePreview-edu-edit" height="500px" style="object-fit: cover;"
-                                         src="{{url(setting('icon'))}}" class="mb-3" alt="Preview Image">
-                                     </a>
+                                    <a target="_blank" href="" id="image-id">
+                                        <img id="imagePreview-edu-edit" height="500px" style="object-fit: cover;"
+                                             src="{{url(setting('icon'))}}" class="mb-3" alt="Preview Image">
+                                    </a>
                                 </div>
                             </div>
-
 
 
                             <div class="btn__grp d-flex align-items-end flex-wrap modal-footer" style="border: none">
@@ -82,6 +82,7 @@
                                     <span>Cancel</span>
                                 </a>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -91,7 +92,7 @@
 </div>
 
 @push('js')
-{{--fetch--}}
+    {{--fetch--}}
     <script>
         $(document).ready(function () {
             var appLocale = "{{ app()->getLocale() }}";
@@ -128,8 +129,7 @@
                             else if (['doc', 'docx'].includes(fileExtension)) {
                                 // Display Word icon (replace with your icon URL)
                                 $('#imagePreview-edu-edit').attr('src', '{{url('word.png')}}');
-                            }
-                            else {
+                            } else {
                                 // Display a default icon for unsupported file types
                                 $('#imagePreview-edu-edit').attr('src', '{{setting('icon')}}');
                             }
@@ -137,7 +137,7 @@
 
                     },
                     error: function (xhr, status, error) {
-
+                        toastr.error(error);
                     }
                 });
             });
@@ -146,7 +146,7 @@
 
     </script>
 
-{{--update--}}
+    {{--update--}}
     <script>
         $(document).ready(function () {
             const filePreview = $("#imagePreview-edu-edit");

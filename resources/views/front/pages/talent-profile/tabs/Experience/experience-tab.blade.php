@@ -1,4 +1,5 @@
 @push('css')
+
     <style>
         #imagePreview-exp {
             max-width: 100%;
@@ -14,8 +15,9 @@
             margin: 0 auto;
         }
     </style>
-@endpush
 
+
+@endpush
 
 <div class="tab-pane base fade" id="nav-exp" role="tabpanel"
      aria-labelledby="nav-profile-tab">
@@ -64,12 +66,12 @@
                         <div class="row justify-content-end">
                             <div class="col-auto d-flex gap-2">
 
-                                <a href="#" class="btn btn-outline-primary round16 exp-edit" data-toggle="modal"
+                                <a href="#" class="learning base round16 exp-edit" data-toggle="modal"
                                    data-target="#edit-exp" data-id="{{$w->id}}">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
 
-                                <a href="#" class="btn btn-outline-danger round16" id="delete" data-reload="true"
+                                <a href="#" class="learning base round16" id="delete" data-reload="true"
                                    data-id="{{$w->id}}" data-route="{{route('exp.delete')}}">
                                     <span id="spinner-delete" class="spinner-grow spinner-grow-sm d-none" role="status"
                                           aria-hidden="true"></span>

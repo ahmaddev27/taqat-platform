@@ -1,59 +1,3 @@
-
-@push('css')
-{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">--}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>--}}
-
-@endpush
-<div class="tab-pane base fade" id="nav-projects" role="tabpanel"
-     aria-labelledby="nav-profile-tab">
-    <div class="row justify-content-center g-4">
-
-
-        <div class="d-flex align-items-center justify-content-center mb-2 ">
-            <a class="cmn--btn outline__btn">
-                <span class="fz-14 pra"> <i class="bi bi-plus"></i> New Projects</span>
-            </a>
-
-        </div>
-
-
-        @foreach($talent->projects as $project)
-
-            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                <div class="service__item shadow-sm round16 p-8 bg-light" style="height: 380px">
-                    <a href="#" class="thumb round16 w-100"
-                       data-toggle="modal" data-target="#exampleModal"
-                       data-title="{{ $project->title }}"
-                       data-description="{{ $project->description }}"
-                       data-url="{{$project->url ? url($project->url):'' }}"
-                       data-images="{{ json_encode($project->images) }}">
-                        <img loading="lazy" class="round16 w-100" src="{{url($project->getPhoto())}}"
-                             alt="{{$project->title}}"
-                             style="width: 100%; height: 200px; object-fit: cover;">
-                    </a>
-                    <div class="service__content">
-                        <div class="d-flex mb-16 align-items-center justify-content-between">
-                            <a href="javascript:void(0)"
-                               class="learning round16 fz-12 fw-600 inter base">
-                                {{$project->project_type_relation?->title}}
-                            </a>
-                        </div>
-                        <h6 class="">
-                            <a href="#" class="title">{{$project->title}}</a>
-                        </h6>
-
-                    </div>
-                </div>
-            </div>
-
-        @endforeach
-
-
-    </div>
-
-</div>
-
-
 {{--project-detials--}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -127,9 +71,9 @@
 
                         </div>
 
-                 <div class="row g-4 justify-content-center text-dark" id="no-images-message" >
+                        <div class="row g-4 justify-content-center text-dark" id="no-images-message">
 
-                     No images available for this project.
+                            No images available for this project.
 
                             <!-- Gallery Two Block -->
 
@@ -163,7 +107,7 @@
 
 @push('js')
 
-{{--project-detials--}}
+    {{--project-detials--}}
     <script>
         $(document).ready(function () {
             $('#exampleModal').on('show.bs.modal', function (event) {
@@ -197,8 +141,8 @@
                     modal.find('#no-images-message').hide(); // Hide the no images message
 
                     attachments.forEach(function (attachment) {
-                        var attachmentUrl = attachment.photo
-                            ? `https://team.taqat-gaza.com/public/files/${attachment.photo}`
+                        var attachmentUrl = attachment
+                            ? `${attachment}`
                             : null;
 
                         if (attachmentUrl) {
@@ -255,6 +199,5 @@
             }
         });
     </script>
-
 
 @endpush

@@ -117,7 +117,7 @@
 .cmn__ibox{
     transition: all 0.3s;
     min-width: 60px;
-    height: 60px; 
+    height: 60px;
     i{
         font-size: 32px;
     }
@@ -193,7 +193,7 @@
 }
 .service__popularwrap{
     .service__item{
-        padding: 8px 8px !important; 
+        padding: 8px 8px !important;
     }
 }
 //Services two Section//
@@ -989,7 +989,7 @@
         .iconbox{
             transform: scale(0.85);
             margin: 0 auto 12px;
-        } 
+        }
     }
 }
 //timelytwo Section//
@@ -1010,7 +1010,7 @@
     animation: updown10 2s linear infinite;
     @include breakpoint(max-xxl){
         bottom: 12px;
-        right: 12px; 
+        right: 12px;
     }
 }
 .choose__bottom{
@@ -1737,7 +1737,7 @@
         }
     }
     @include breakpoint(max-sm){
-        padding: 25px 20px; 
+        padding: 25px 20px;
     }
 }
 .chatbot__tag{
@@ -2038,7 +2038,7 @@
             margin-bottom: 12px;
             display: block;
         }
-        .ratting__grp, 
+        .ratting__grp,
         input{
             width: 100%;
             background: rgba(13, 71, 161, 0.05);
@@ -2439,7 +2439,7 @@
         }
     }
     .update__btn{
-       gap: 24px; 
+       gap: 24px;
        @include breakpoint(max-xxl){
         gap: 14px;
        }
@@ -2654,7 +2654,7 @@
     .cateadded{
            @include breakpoint(max-sm){
             flex-wrap: wrap;
-           } 
+           }
     }
 }
 //overview body
@@ -2951,7 +2951,7 @@
         border-color: var(--base);
         background-image: none;
         background: url(../../assets/img/bn/dot.png) no-repeat center center;
-        
+
     }
     @include breakpoint(max-xl){
         gap: 18px;
@@ -3128,7 +3128,7 @@
         bottom: 2px;
         right: 2px;
         border-radius: 50%;
-    } 
+    }
 }
 .red{
     position: relative;
@@ -3611,7 +3611,7 @@
             font-size: 22px;
         }
     }
-   } 
+   }
 }
 //gift details Section//
 
@@ -3665,7 +3665,7 @@
         }
         tr{
             td{
-                
+
             }
         }
     }
@@ -3716,7 +3716,7 @@
             }
             .tbg{
                 padding: 16px 20px;
-                background: rgba(26, 77, 190, 0.04); 
+                background: rgba(26, 77, 190, 0.04);
             }
             &:not(:last-child){
                 border-bottom: 1px solid var(--border);

@@ -14,10 +14,13 @@ class ProjectImage extends Model
     protected $guarded=[];
 
 
-    public function getPhoto(){
-        return $this->photo? url('https://team.taqat-gaza.com/public/files/' . $this->photo): asset(url('front/place.png'));
+    public function getPhoto()
+    {
+        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+            return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
+        }
+        return $this->photo;
     }
-
     public function getFileType()
     {
         $extension = pathinfo($this->photo, PATHINFO_EXTENSION);

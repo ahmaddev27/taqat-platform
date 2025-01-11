@@ -7,7 +7,7 @@
                     <div class="overview__gitwrapper bgwhite round16">
                         <h4 class="pb-40 bborderdash mb-40 title">
                             Add new Education
-                        </h3>
+                        </h4>
 
                         <form id="add-edu-form" enctype="multipart/form-data">
                             @csrf

@@ -75,11 +75,11 @@
                         <div class="row justify-content-end">
                             <div class="col-auto d-flex gap-2">
 
-                                <a href="#" class="btn btn-outline-primary round16 edu-edit" data-toggle="modal" data-target="#edit-edu" data-id="{{$e->id}}">
+                                <a href="#" class="learning base round16 edu-edit" data-toggle="modal" data-target="#edit-edu" data-id="{{$e->id}}">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
 
-                                <a href="#" class="btn btn-outline-danger round16" id="delete" data-reload="true" data-id="{{$e->id}}" data-route="{{route('edu.delete')}}">
+                                <a href="#" class="learning base round16" id="delete" data-reload="true" data-id="{{$e->id}}" data-route="{{route('edu.delete')}}">
                                     <span id="spinner-delete" class="spinner-grow spinner-grow-sm d-none" role="status" aria-hidden="true"></span>
                                     <i class="bi bi-trash3"></i>
                                 </a>

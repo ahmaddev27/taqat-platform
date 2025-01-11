@@ -141,7 +141,7 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error('Error fetching data:', error);
+                        toastr.error(error);
                     }
                 });
             });

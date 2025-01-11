@@ -15,7 +15,7 @@
     <!-- Title Tag (Dynamic and SEO-friendly) -->
 
     <!-- Meta Description (Dynamic or Default Fallback) -->
-    <meta name="description"  content="{{ setting('welcome') }}">
+    <meta name="description" content="{{ setting('welcome') }}">
 
     <!-- Meta Keywords (Optional) -->
     <meta name="keywords" content="{{ @$keywords ?? 'default, keywords, for, SEO' }}">
@@ -28,7 +28,7 @@
 
     <!-- Open Graph Meta Tags (For Social Media) -->
     <meta property="og:title" content="{{setting('name')}}">
-    <meta property="og:description"  content="{{ setting('welcome') }}">
+    <meta property="og:description" content="{{ setting('welcome') }}">
     <meta property="og:image" content="{{url(setting('icon')) }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
@@ -40,8 +40,6 @@
     <meta name="twitter:description" content="{{ setting('welcome') }}">
     <meta name="twitter:image" content="{{url(setting('icon')) }}">
     <meta name="twitter:site" content="@YourTwitterHandle">
-
-
 
 
     @include('front.layouts.css')
@@ -61,7 +59,6 @@
     </div>
 </div>
 <!-- Preloader End Here -->
-
 
 
 <!-- first section header with sction one -->
@@ -84,52 +81,50 @@
                         </a>
                     </div>
 
-{{--                                    <div class="header__topsearch d-flex align-items-center">--}}
-{{--                                        <button type="button" id="searchBtn" class="d-lg-none">--}}
-{{--                                            <i class="bi bi-search"></i>--}}
-{{--                                        </button>--}}
-{{--                                        <form action="#0" class="search__form d-flex align-items-center">--}}
-{{--                                            <i class="bi bi-search"></i>--}}
-{{--                                            <input type="text" placeholder="Search">--}}
-{{--                                            <select name="talent">--}}
-{{--                                                <option value="1">--}}
-{{--                                                    Talent--}}
-{{--                                                </option>--}}
-{{--                                                <option value="1">--}}
-{{--                                                    Hire Me--}}
-{{--                                                </option>--}}
-{{--                                                <option value="1">--}}
-{{--                                                    Professional--}}
-{{--                                                </option>--}}
-{{--                                            </select>--}}
-{{--                                        </form>--}}
-{{--                                        <a href="project.html" class="cmn--btn">--}}
-{{--                                         <span>--}}
-{{--                                            Post a Project--}}
-{{--                                         </span>--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
+                    {{--                                    <div class="header__topsearch d-flex align-items-center">--}}
+                    {{--                                        <button type="button" id="searchBtn" class="d-lg-none">--}}
+                    {{--                                            <i class="bi bi-search"></i>--}}
+                    {{--                                        </button>--}}
+                    {{--                                        <form action="#0" class="search__form d-flex align-items-center">--}}
+                    {{--                                            <i class="bi bi-search"></i>--}}
+                    {{--                                            <input type="text" placeholder="Search">--}}
+                    {{--                                            <select name="talent">--}}
+                    {{--                                                <option value="1">--}}
+                    {{--                                                    Talent--}}
+                    {{--                                                </option>--}}
+                    {{--                                                <option value="1">--}}
+                    {{--                                                    Hire Me--}}
+                    {{--                                                </option>--}}
+                    {{--                                                <option value="1">--}}
+                    {{--                                                    Professional--}}
+                    {{--                                                </option>--}}
+                    {{--                                            </select>--}}
+                    {{--                                        </form>--}}
+                    {{--                                        <a href="project.html" class="cmn--btn">--}}
+                    {{--                                         <span>--}}
+                    {{--                                            Post a Project--}}
+                    {{--                                         </span>--}}
+                    {{--                                        </a>--}}
+                    {{--                                    </div>--}}
                 </div>
             </div>
         </div>
 
 
-
-       @include('front.layouts.header')
+        @include('front.layouts.header')
 
     </div>
     @if(request()->routeIs('home'))
-    <div class="container">
-        <div  class="banner__content__wrapper pt-50 pb-50">
+        <div class="container">
+            <div class="banner__content__wrapper pt-50 pb-50">
 
 
                 {{--section1--}}
-                @include('front.sections.section1')
+                @include('front.pages.site.sections.section1')
 
 
-
+            </div>
         </div>
-    </div>
 
     @endif
 

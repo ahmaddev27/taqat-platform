@@ -20,6 +20,10 @@
 
 
 <style>
+    .addquestion , .nice-select,.cmn--btn{
+        border-radius: 0px;
+    }
+
     .base0 {
         color: var(--base);
     }

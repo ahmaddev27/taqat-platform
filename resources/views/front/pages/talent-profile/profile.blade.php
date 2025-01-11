@@ -136,6 +136,13 @@
                                     Education
                                 </button>
 
+{{--                                <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"--}}
+{{--                                        id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-edu"--}}
+{{--                                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false">--}}
+{{--                                    <i class="bi bi-patch-check"></i>--}}
+{{--                                    Courses--}}
+{{--                                </button>--}}
+
 
                                 <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"
                                         id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-exp"
@@ -319,9 +326,10 @@
                                 </div>
 
                                 @include('front.pages.talent-profile.tabs.Educations.edu-tab')
+{{--                                @include('front.pages.talent-profile.tabs.Courses.edu-tab')--}}
                                 @include('front.pages.talent-profile.tabs.service-tab')
                                 @include('front.pages.talent-profile.tabs.Experience.experience-tab')
-                                @include('front.pages.talent-profile.tabs.projects-tab')
+                                @include('front.pages.talent-profile.tabs.Project.projects-tab')
 
 
                             </div>
