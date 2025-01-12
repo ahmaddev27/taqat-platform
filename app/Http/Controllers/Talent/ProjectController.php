@@ -47,7 +47,7 @@ class ProjectController extends Controller
             // Handle additional images
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imagePath =$this->uploadFileImage($image, 'Talent/Projects');
+                    $imagePath = $this->uploadFileImage($image, 'Talent/Projects');
                     ProjectImage::create([
                         'project_id' => $project->id,
                         'photo' => $imagePath,
@@ -67,7 +67,6 @@ class ProjectController extends Controller
             ], 500);
         }
     }
-
 
 
     public function edit($id)
@@ -108,7 +107,6 @@ class ProjectController extends Controller
                 if ($project->images) {
                     foreach ($project->images as $image) {
                         $this->deleteFile($image->photo); // Deleting each image's file
-                        // Optionally delete the image record if necessary
                         $image->delete();
                     }
                 }
@@ -127,35 +125,109 @@ class ProjectController extends Controller
     }
 
 
-
     public function deleteImage(Request $request)
     {
-return        $project = Project::find($request->id);
+        // Retrieve the project by user_id and project_id
+        $project = Project::where('user_id', auth('talent')->id())->find($request->project_id);
 
-//        if ($project) {
-//            // Assuming images are stored in a JSON field or an array in the DB
-//            $images = json_decode($project->images, true);
-//
-//            // Find the image and remove it from the array
-//            if (($key = array_search($request->image_key, $images)) !== false) {
-//                unset($images[$key]);
-//                $project->images = json_encode(array_values($images));  // Reindex the array
-//                $project->save();
-//
-//                // Delete the image file from storage
-//                $imagePath = storage_path('app/public/' . $request->image_key); // Adjust path as necessary
-//                if (file_exists($imagePath)) {
-//                    unlink($imagePath); // Delete the image from storage
-//                }
-//
-//                return response()->json(['success' => true]);
-//            }
-//        }
-//
-//        return response()->json(['success' => false], 400);
-//    }
+        if ($project) {
+            // Find the image record to delete
+            $image = $request->file_key;
+            $imageFile = ProjectImage::find($image);
+
+            // Check if the image exists
+            if ($imageFile) {
+                // Delete the physical file
+                $this->deleteFile($imageFile->photo);
+
+                // Delete the image record from the database
+                $imageFile->delete();
+
+                // Return the remaining images as a response
+                return response()->json([
+                    'success' => true,
+                    'images' => $project->images->map(function ($image) {
+                        return [
+                            'id' => $image->id,  // Add the image ID
+                            'url' => $image->getPhoto()  // Add the image URL
+                        ];
+                    })
+                ]);
+            }
+
+            // If the image wasn't found, return an error
+            return response()->json(['success' => false, 'message' => 'Image not found'], 404);
+        }
+
+        // If the project isn't found, return an error
+        return response()->json(['success' => false, 'message' => 'Project not found'], 404);
+    }
 
 
+    public function update(Request $request)
+    {
+        try {
+            // Validate input
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'url' => 'nullable|url',
+                'project_type' => 'required|exists:App\Models\Taqat2\Project_type,id',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                'images' => 'nullable|array|max:10', // Limit to 10 additional images
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            ]);
+
+            // Localize title and description
+            $title = ['ar' => $request->title, 'en' => $request->title];
+            $description = ['ar' => $request->description, 'en' => $request->description];
+
+            $project = Project::query()->where('user_id', auth('talent')->id())->findorfail($request->id);
+
+
+            if ($request->hasFile('photo')) {
+                if ($project->photo) {
+                    $this->deleteFile($project->photo);
+                }
+
+                $photo = $this->uploadFileImage($request->photo, 'Talent/Projects');
+                $project->update([
+                    'photo' => $photo,
+                ]);
+            }
+            // Create the project
+
+            $project->update([
+                'title' => $title,
+                'user_id' => auth('talent')->id(),
+                'url' => $request->url,
+                'description' => $description,
+                'project_type' => $request->project_type,
+            ]);
+
+            // Handle additional images
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $imagePath = $this->uploadFileImage($image, 'Talent/Projects');
+                    ProjectImage::create([
+                        'project_id' => $project->id,
+                        'photo' => $imagePath,
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Project Updated  successfully.',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred.',
+                'error' => $exception->getMessage(),
+            ], 500);
+        }
+    }
 
 }
-}
+

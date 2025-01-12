@@ -16,29 +16,41 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
 
 
 <style>
-    .addquestion , .nice-select,.cmn--btn{
+
+    .addquestion, .nice-select{
         border-radius: 0px;
     }
 
+    .swal2-confirm,
+    .swal2-cancel ,.swal2-popup{
+        border-radius: 100px !important;
+    }
+
+   .swal2-popup{
+        border-radius: 50px !important;
+    }
     .base0 {
         color: var(--base);
     }
+
     .base1 {
         color: var(--base);
     }
 
-    .btn-outline-danger,  .btn-outline-primary{
+    .btn-outline-danger, .btn-outline-primary {
         border-color: floralwhite;
     }
 
 
-.swal2-show {
-    animation: swal2-show 0.7s ;
-}
+    .swal2-show {
+        animation: swal2-show 0.7s;
+    }
+
     /* Background color for success */
     .toast-success {
         background-color: #0d47a1 !important;

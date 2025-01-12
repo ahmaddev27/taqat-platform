@@ -50,6 +50,6 @@ Route::group(['as' => 'project.', 'prefix' => 'project', 'middleware' => 'auth.t
         Route::post('/delete', 'delete')->name('delete');
         Route::get('/{id}', 'edit')->name('edit');
         Route::post('/update', 'update')->name('update');
-        Route::post('/deleteImage', 'deleteImage')->name('delete-image');
+        Route::post ('/deleteImage', 'deleteImage')->name('deleteImage');
     });
 });

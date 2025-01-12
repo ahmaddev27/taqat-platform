@@ -82,12 +82,14 @@
 
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You will not be able to recover this record!',
+            text: 'You won\'t be able to revert this!',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Delete!',
-            cancelButtonText: 'Cancel',
-        }).then(function (result) {
+            confirmButtonColor: 'rgba(232, 37, 37, 0.66)',
+            cancelButtonColor: 'rgb(43, 93, 140)',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
             if (result.value) {
                 $.ajax({
                     url: route,

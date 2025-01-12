@@ -119,8 +119,6 @@ class ExperienceController extends Controller
             $location['en'] = $request->location;
 
 
-
-
             $work = WorkExperience::query()->where('user_id', auth('talent')->id())->findorfail($request->id);
 
             $work->update([

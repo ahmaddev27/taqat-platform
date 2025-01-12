@@ -48,16 +48,13 @@ class Controller extends BaseController
     {
         // Replace the base URL with an empty string to get the relative path
         $imagePath = str_replace(url('/'), '', $image);
-
         // Construct the full path to the image
         $fullPath = public_path($imagePath);
-
         // Check if the file exists and delete it
         if (!is_null($imagePath) && file_exists($fullPath)) {
             unlink($fullPath);
             return true;
         }
-
         return false;
     }
 
