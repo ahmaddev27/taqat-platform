@@ -46,7 +46,7 @@
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Tasks details</span>
-                                    <textarea id="task-edit" name="tasks" class="addquestion" rows="3"></textarea>
+                                    <textarea id="task-edit" name="tasks" class="form-control round16l" rows="5"></textarea>
                                 </div>
                             </div>
 
@@ -248,19 +248,25 @@
                             }
                         },
                         error: function (xhr) {
-                            spinner.addClass("d-none");
-                            saveButtonText.text("Save Change");
-                            submitButton.prop("disabled", false);
-
-                            // Show validation errors
-                            if (xhr.responseJSON && xhr.responseJSON.errors) {
-                                $.each(xhr.responseJSON.errors, function (key, error) {
-                                    toastr.error(error[0]);
-                                });
+                            // Check if the response contains the expected structure
+                            if (xhr.responseJSON) {
+                                if (xhr.responseJSON.error) {
+                                    // Display the specific error
+                                    toastr.error(xhr.responseJSON.error);
+                                } else if (xhr.responseJSON.errors) {
+                                    // Loop through the validation errors if they exist
+                                    $.each(xhr.responseJSON.errors, function (key, error) {
+                                        toastr.error(error[0]);
+                                    });
+                                } else if (xhr.responseJSON.message) {
+                                    // Fallback to a general message
+                                    toastr.error(xhr.responseJSON.message);
+                                }
                             } else {
-                                toastr.error('An error occurred.');
+                                // Default error message if the response is not as expected
+                                toastr.error('An unexpected error occurred.');
                             }
-                        }
+                        },
                     });
                 }
             });

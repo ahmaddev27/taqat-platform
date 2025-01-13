@@ -22,8 +22,8 @@
 
 <style>
 
-    .addquestion, .nice-select{
-        border-radius: 0px;
+    .modal-content{
+        border-radius: 16px;
     }
 
     .swal2-confirm,

@@ -1,9 +1,7 @@
 @push('css')
 
-
         <!-- Krajee FileInput CSS and JS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
-
 
     <style>
         #imagePreview-project {

@@ -12,6 +12,7 @@ class Khadmat extends Model
 
     protected $connection = 'second_db';
 
+    protected $guarded=[];
     protected $table = 'khadmats';
 
     public $translatable = ['title', 'description', 'slug'];
@@ -26,8 +27,13 @@ class Khadmat extends Model
 
     public function getPhoto()
     {
-        return $this->image ? url('https://team.taqat-gaza.com/public/files/' . $this->image) : asset(url('front/place.png'));
+        if (filter_var($this->image, FILTER_VALIDATE_URL) === false) {
+            return url('https://team.taqat-gaza.com/public/files/' . $this->image);
+        }
+        return $this->image;
     }
+
+
 
     public function category()
     {

@@ -71,7 +71,7 @@ class ProfileController extends Controller
 
             if ($request->hasFile('photo')) {
                 if ($user->photo) {
-                    $this->deleteImage($user->photo);
+                    $this->deleteFile($user->photo);
                 }
                 $photo = $this->uploadFileImage($request->photo, 'Talent/Avatars', 300, 300);
                 $user->update(['photo' => $photo]);
