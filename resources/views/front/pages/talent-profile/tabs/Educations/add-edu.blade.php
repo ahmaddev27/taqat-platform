@@ -74,7 +74,7 @@
                                 <button type="submit" class="cmn--btn" id="edu-submit">
                                         <span id="spinner-edu" class="spinner-grow spinner-grow-sm d-none" role="status"
                                               aria-hidden="true"></span>
-                                    <span id="save-change">Save</span>
+                                    <span id="save-change-edu">Save</span>
                                 </button>
 
                                 <a data-dismiss="modal" href="javascript:void(0)" class="cmn--btn outline__btn">
@@ -102,6 +102,10 @@
                     college: {required: true},
                     university: {required: true},
                     country: {required: true},
+                    file: {
+                        extension: "jpeg|png|jpg|gif|pdf|doc|docx",
+                        maxsize: 2097152 // 2 MB in bytes
+                    },
                     graduation_year: {
                         required: true,
                         number: true,
@@ -120,15 +124,18 @@
                         number: "Graduation year must be a number.",
                         min: "Graduation year cannot be before 1900.",
                         max: "Graduation year cannot be after 2099."
+                    },
+                    file: {
+                        required: "Please upload a file.",
+                        extension: "Allowed file types: jpeg, png, jpg, gif, pdf, doc, docx.",
+                        maxsize: "The file size must not exceed 2 MB."
                     }
                 },
-                errorPlacement: function (error, element) {
-                    toastr.error(error.text());
-                },
+
                 submitHandler: function (form) {
                     // Show spinner and change button text
                     $("#spinner-edu").removeClass("d-none"); // Show the spinner
-                    $("#save-change").text("Saving..."); // Change button text
+                    $("#save-change-edu").text("Saving..."); // Change button text
                     $("#edu-submit").prop("disabled", true); // Disable the button
 
                     // Create FormData object
@@ -147,43 +154,49 @@
                         data: formData,
                         contentType: false,
                         processData: false,
+                        beforeSend: function () {
+                            $("#spinner-edu").removeClass("d-none");
+                            $("#save-change-edu").text("Saving...");
+                            $("#edu-submit").prop("disabled", true);
+                        },
                         success: function (response) {
-                            // Hide the spinner and reset button text after a slight delay
                             setTimeout(function () {
-                                $("#spinner-edu").addClass("d-none"); // Hide the spinner
-                                $("#save-change").text("Save Change"); // Restore button text
+                                $("#spinner-edu").addClass("d-none");
+                                $("#save-change-edu").text("Save Change");
 
-                                // Check if the response indicates success
                                 if (response.success) {
-                                    toastr.success('Education Added successfully!');
-                                    // Optionally reload or update specific parts of the page
-                                    location.reload(); // Reload the page once after successful update
+                                    toastr.success(response.message || 'Education added successfully!');
+                                    location.reload(); // Reload the page
                                 } else {
-                                    toastr.error('Something went wrong.');
+                                    toastr.error(response.message || 'Something went wrong. Please try again.');
                                 }
-                            }, 1000); // 1-second delay before hiding spinner and reloading
+                            }, 1000); // 1-second delay
                         },
                         error: function (xhr) {
-                            // Hide spinner and restore button text
                             $("#spinner-edu").addClass("d-none");
-                            $("#save-change").text("Save Change");
+                            $("#save-change-edu").text("Save Change");
 
-                            // Handle error and display validation errors
-                            if (xhr.responseJSON && xhr.responseJSON.errors) {
-                                $.each(xhr.responseJSON.errors, function (key, error) {
-                                    toastr.error(error[0]); // Display validation errors
+                            if (xhr.status === 422 && xhr.responseJSON.errors) {
+                                $.each(xhr.responseJSON.errors, function (field, errors) {
+                                    errors.forEach(function (error) {
+                                        toastr.error(error); // Display each validation error
+                                    });
                                 });
+                            } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                                toastr.error(xhr.responseJSON.error);
                             } else {
-                                toastr.error('An error occurred.');
+                                toastr.error('An unexpected error occurred. Please try again.');
                             }
                         },
                         complete: function () {
-                            // Ensure that spinner and button are reset even if request fails
-                            $("#spinner-edu").addClass("d-none"); // Hide the spinner
-                            $("#save-change").text("Save"); // Restore the original button text
-                            $("#edu-submit").prop("disabled", false); // Enable the button
+                            $("#spinner-edu").addClass("d-none");
+                            $("#save-change-edu").text("Save");
+                            $("#edu-submit").prop("disabled", false);
                         }
                     });
+
+
+
                 }
             });
 
@@ -216,6 +229,11 @@
                         // For other files, display a generic file icon
                         imagePreview.attr("src", "{{asset('word.png')}}");
                     }
+                }
+
+                if (file && file.size > 2097152) {
+                    toastr.error("File size must not exceed 2 MB.");
+                    this.value = ""; // Reset the input value
                 }
             });
         });

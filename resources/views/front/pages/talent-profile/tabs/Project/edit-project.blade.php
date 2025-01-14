@@ -350,10 +350,7 @@
                     description: "Please enter a description.",
                     url: "Enter a valid URL.",
                 },
-                errorPlacement: function (error) {
-                    toastr.error(error.text());
-                    console.log('Validation error: ', error.text()); // Debugging line
-                },
+
                 submitHandler: function (form) {
                     $("#spinner-project-edit").removeClass("d-none");
                     $("#save-change-project-edit").text("Saving...");

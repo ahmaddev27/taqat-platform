@@ -69,6 +69,7 @@ class ProfileController extends Controller
                 'specialization_id' => 'required',
             ]);
 
+
             if ($request->hasFile('photo')) {
                 if ($user->photo) {
                     $this->deleteFile($user->photo);

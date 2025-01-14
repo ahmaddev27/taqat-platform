@@ -193,6 +193,10 @@
                         number: true,
                         min: 1900,
                         max: 2099
+                    },
+                    file: {
+                        extension: "jpeg|png|jpg|gif|pdf|doc|docx",
+                        maxsize: 2097152 // 2 MB in bytes
                     }
                 },
                 messages: {
@@ -206,11 +210,14 @@
                         number: "Graduation year must be a number.",
                         min: "Graduation year cannot be before 1900.",
                         max: "Graduation year cannot be after 2099."
+                    },
+                    file: {
+                        required: "Please upload a file.",
+                        extension: "Allowed file types: jpeg, png, jpg, gif, pdf, doc, docx.",
+                        maxsize: "The file size must not exceed 2 MB."
                     }
                 },
-                errorPlacement: function (error, element) {
-                    toastr.error(error.text());
-                },
+
                 submitHandler: function (form) {
                     const spinner = $("#spinner-edu-edit");
                     const saveButtonText = $("#save-change-edit");
@@ -245,12 +252,18 @@
                             saveButtonText.text("Save Change");
                             submitButton.prop("disabled", false);
 
-                            if (xhr.responseJSON && xhr.responseJSON.errors) {
-                                $.each(xhr.responseJSON.errors, function (key, error) {
-                                    toastr.error(error[0]);
+                            if (xhr.status === 422 && xhr.responseJSON.errors) {
+                                $.each(xhr.responseJSON.errors, function (field, errors) {
+                                    errors.forEach(function (error) {
+                                        toastr.error(error); // Display each validation error
+                                    });
                                 });
+                            } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                                // Handle other errors with a specific error message
+                                toastr.error(xhr.responseJSON.error);
                             } else {
-                                toastr.error('An error occurred.');
+                                // Handle unexpected errors
+                                toastr.error('An unexpected error occurred. Please try again.');
                             }
                         },
                         complete: function () {

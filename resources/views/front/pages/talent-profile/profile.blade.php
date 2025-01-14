@@ -8,12 +8,9 @@
                 height: 30%;
             }
 
-
         </style>
 
     @endpush
-
-
 
     <!-- profile section Here -->
     <section class="profile__section sectionbg pb-120" style="margin-top: 200px">
@@ -21,15 +18,13 @@
 
         <div class="container">
 
-
             <div class="profile__customize">
-
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="darrell__profile bg-white round16">
                             <div class="row g-0">
                                 <!-- Column for Total Balance -->
-                                <div class="col-12 col-sm-4 text-center py-4 border-sm-end">
+                                <div class="col-12 col-sm-4 text-center py-5 border-sm-end">
                                     <h5 class="font-md-1 font-small mb-0" style="color: #2c2b2b">Balance</h5>
                                     <h2 class="text-center mb-2 mt-1 font-2 font-lg-5" style="color: #3F3F3F;">
                                         0.00 <span style="line-height: 1;">$</span>
@@ -37,7 +32,7 @@
                                 </div>
 
                                 <!-- Column for Withdrawable Balance -->
-                                <div class="col-12 col-sm-4 text-center py-4">
+                                <div class="col-12 col-sm-4 text-center py-5">
                                     <h5 class="mb-0" style="color: #2c2b2b">Can withdraw</h5>
                                     <h2 class="text-center mb-2 mt-1 font-2 font-lg-5" style="color: #3F3F3F;">
                                         0.00 <span style="line-height: 1;">$</span>
@@ -48,7 +43,7 @@
                                     <a href="#" class="d-block text-center text-white p-5">
                                         <h4 class="mb-0" title="view">
                                             <i class="bi bi-wallet2"
-                                               style="font-size: 35px; display: block; line-height: 1;"></i>
+                                               style="font-size: 30px; display: block; line-height: 1;"></i>
                                             <span style="display: block; margin-top: 10px; font-size: 20px;">View</span>
                                         </h4>
                                     </a>
@@ -653,9 +648,7 @@
                         bio: "Please enter bio.",
                         specialization_id: "Please select a specialization.",
                     },
-                    errorPlacement: function (error, element) {
-                        toastr.error(error.text());
-                    },
+
                     submitHandler: function (form) {
                         submitForm();
                     }

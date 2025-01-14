@@ -20,20 +20,34 @@ class EducationController extends Controller
                 'university' => 'required',
                 'college' => 'required',
                 'graduation_year' => 'required',
-                'file' => 'mimes:jpeg,png,jpg,gif,pdf,doc,docx',
-            ]);
+                'file' => 'file|mimes:jpeg,png,jpg,gif,pdf,doc,docx|max:2048' // 2048 KB = 2 MB
+            ],
+                ['file.mimes' => 'The file must be one of the following types: jpeg, png, jpg, gif, pdf, doc, docx.',
+                    'file.max' => 'The file size must not exceed 2 MB.',
+                ]);
 
 
-            $title['ar'] = $request->title;
-            $title['en'] = $request->title;
-            $specialization['ar'] = $request->specialization;
-            $specialization['en'] = $request->specialization;
-            $country['ar'] = $request->country;
-            $country['en'] = $request->country;
-            $university['ar'] = $request->university;
-            $university['en'] = $request->university;
-            $college['ar'] = $request->college;
-            $college['en'] = $request->college;
+            $title = [
+                'ar' => $request->title,
+                'en' => $request->title
+            ];
+            $specialization = [
+                'ar' => $request->specialization,
+                'en' => $request->specialization
+            ];
+            $country = [
+                'ar' => $request->country,
+                'en' => $request->country
+            ];
+            $university = [
+                'ar' => $request->university,
+                'en' => $request->university
+            ];
+            $college = [
+                'ar' => $request->college,
+                'en' => $request->college
+            ];
+
 
             $edu = ScientificCertificate::create([
                 'title' => $title,
@@ -87,8 +101,8 @@ class EducationController extends Controller
 
     public function update(Request $request)
     {
-        try {
 
+        try {
             $request->validate([
                 'title' => 'required',
                 'specialization' => 'required',
@@ -96,32 +110,34 @@ class EducationController extends Controller
                 'university' => 'required',
                 'college' => 'required',
                 'graduation_year' => 'required',
-                'file' => 'mimes:jpeg,png,jpg,gif,pdf,doc,docx',
-            ]);
-
-
+                'file' => 'file|mimes:jpeg,png,jpg,gif,pdf,doc,docx|max:2048' // 2048 KB = 2 MB
+            ],
+                ['file.mimes' => 'The file must be one of the following types: jpeg, png, jpg, gif, pdf, doc, docx.',
+                    'file.max' => 'The file size must not exceed 2 MB.',
+                ]);
             $edu = ScientificCertificate::query()->where('user_id', auth('talent')->id())->findorfail($request->id);
 
 
-
-            $title['ar'] = $request->title;
-            $title['en'] = $request->title;
-
-            $specialization['ar'] = $request->specialization;
-            $specialization['en'] = $request->specialization;
-
-
-            $country['ar'] = $request->country;
-            $country['en'] = $request->country;
-
-
-            $university['ar'] = $request->university;
-            $university['en'] = $request->university;
-
-
-            $college['ar'] = $request->college;
-
-            $college['en'] = $request->college;
+            $title = [
+                'ar' => $request->title,
+                'en' => $request->title
+            ];
+            $specialization = [
+                'ar' => $request->specialization,
+                'en' => $request->specialization
+            ];
+            $country = [
+                'ar' => $request->country,
+                'en' => $request->country
+            ];
+            $university = [
+                'ar' => $request->university,
+                'en' => $request->university
+            ];
+            $college = [
+                'ar' => $request->college,
+                'en' => $request->college
+            ];
 
 
             $edu->update([
@@ -153,7 +169,7 @@ class EducationController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Education updated successfully.',
+                'message' => 'Education Added successfully.',
             ]);
         } catch (\Exception $exception) {
             return response()->json([

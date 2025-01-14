@@ -74,7 +74,7 @@
                                 <button type="submit" class="cmn--btn" id="exp-submit-edit">
                                     <span id="spinner-exp-edit" class="spinner-grow spinner-grow-sm d-none"
                                           role="status" aria-hidden="true"></span>
-                                    <span id="save-change-exp">Save</span>
+                                    <span id="save-change-exp-edit">Save</span>
                                 </button>
                                 <a data-dismiss="modal" href="javascript:void(0)" class="cmn--btn outline__btn">
                                     <span>Cancel</span>
@@ -94,16 +94,16 @@
     {{--fetch && update--}}
     <script>
 
-
         $(document).ready(function () {
+            // Function to strip HTML tags from a string
             function stripHtmlTags(str) {
                 if (!str) return ""; // Handle null or undefined
                 return str.replace(/<\/?[^>]+(>|$)/g, ""); // Regex to remove HTML tags
             }
 
-            var appLocale = "{{ app()->getLocale() }}";
+            var appLocale = "{{ app()->getLocale() }}"; // Get current app locale
 
-            // Handle edit button click
+            // Handle edit button click to fetch data for editing
             $('.exp-edit').on('click', function () {
                 var id = $(this).data('id');
                 $.ajax({
@@ -178,8 +178,19 @@
 
             // Event listener for file input change
             $("#imageUpload-exp-edit").on("change", function (event) {
-                updateFilePreview(event.target.files[0]);
+                const file = event.target.files[0];
+
+                // Check for file size before processing further
+                if (file && file.size > 2097152) { // 2 MB limit
+                    toastr.error("File size must not exceed 2 MB.");
+                    this.value = ""; // Reset the input value
+                    $('#imagePreview-exp-edit').attr('src', defaultIcon); // Reset preview
+                } else {
+                    // Continue with file preview if size is within limit
+                    updateFilePreview(file);
+                }
             });
+
             // Form validation and submission
             $("#edit-exp-form").validate({
                 rules: {
@@ -214,12 +225,12 @@
                     }
                 },
                 errorPlacement: function (error, element) {
-                    toastr.error(error.text()); // For fields
+                    toastr.error(error.text()); // Display validation errors as toastr messages
                 },
 
                 submitHandler: function (form) {
                     const spinner = $("#spinner-exp-edit");
-                    const saveButtonText = $("#save-change-edit");
+                    const saveButtonText = $("#save-change-exp-edit");
                     const submitButton = $("#exp-submit-edit");
 
                     spinner.removeClass("d-none");
@@ -241,29 +252,29 @@
                             saveButtonText.text("Save Change");
 
                             if (response.success) {
-                                toastr.success('Experiences Updated successfully!');
+                                toastr.success('Experience updated successfully!');
                                 location.reload(true);
                             } else {
-                                toastr.error('Something went wrong.');
+                                toastr.error(response.message || 'Something went wrong.');
                             }
                         },
                         error: function (xhr) {
-                            // Check if the response contains the expected structure
+                            spinner.addClass("d-none");
+                            saveButtonText.text("Save Change");
+                            submitButton.prop("disabled", false);
+
+                            // Handle server errors
                             if (xhr.responseJSON) {
-                                if (xhr.responseJSON.error) {
-                                    // Display the specific error
-                                    toastr.error(xhr.responseJSON.error);
-                                } else if (xhr.responseJSON.errors) {
-                                    // Loop through the validation errors if they exist
+                                if (xhr.responseJSON.errors) {
                                     $.each(xhr.responseJSON.errors, function (key, error) {
-                                        toastr.error(error[0]);
+                                        toastr.error(error[0]); // Display each error
                                     });
+                                } else if (xhr.responseJSON.error) {
+                                    toastr.error(xhr.responseJSON.error);
                                 } else if (xhr.responseJSON.message) {
-                                    // Fallback to a general message
                                     toastr.error(xhr.responseJSON.message);
                                 }
                             } else {
-                                // Default error message if the response is not as expected
                                 toastr.error('An unexpected error occurred.');
                             }
                         },

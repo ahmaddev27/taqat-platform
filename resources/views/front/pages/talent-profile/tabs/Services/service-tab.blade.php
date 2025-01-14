@@ -64,7 +64,7 @@
                                 <div class="row justify-content-end">
                                     <div class="col-auto d-flex gap-2">
 
-                                        <a href="#" class="learning base round16 exp-edit" data-toggle="modal" data-target="#edit-exp" data-id="6">
+                                        <a href="#" class="learning base round16 service-edit" data-toggle="modal" data-target="#edit-service" data-id="{{$k->id}}">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
 
@@ -96,4 +96,5 @@
 
 
     @include('front.pages.talent-profile.tabs.Services.add-service')
+    @include('front.pages.talent-profile.tabs.Services.edit-service')
 </div>

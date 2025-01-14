@@ -75,8 +75,7 @@
                             <div class="btn__grp d-flex align-items-end flex-wrap modal-footer"
                                  style="border: none">
                                 <button type="submit" class="cmn--btn" id="exp-submit">
-                                        <span id="spinner-exp" class="spinner-grow spinner-grow-sm d-none" role="status"
-                                              aria-hidden="true"></span>
+                                    <span id="spinner-exp" class="spinner-grow spinner-grow-sm d-none" role="status" aria-hidden="true"></span>
                                     <span id="save-change-exp">Save</span>
                                 </button>
 
@@ -84,7 +83,6 @@
                                     <span>Cancel</span>
                                 </a>
                             </div>
-
 
                         </form>
                     </div>
@@ -98,142 +96,89 @@
     {{-- add-exp--}}
     <script>
         $(document).ready(function () {
-                    // Validate form
             $("#add-exp-form").validate({
                 rules: {
                     company_name: { required: true },
                     location: { required: true },
                     start_date: { required: true, date: true },
-                    end_date: {
-                        // required: true,
-                        date: true,
-                    },
+                    end_date: { date: true },
                     job: { required: true },
                     file: {
-                        extension: "jpg|jpeg|png|pdf|doc|docx", // Allow only certain file types
-                        filesize: 2097152 // Max file size in bytes (2MB)
-                    }
+                        extension: "jpeg|png|jpg|gif|pdf|doc|docx",
+                        maxsize: 2097152, // 2 MB in bytes
+                    },
                 },
                 messages: {
                     company_name: "Please enter a company name.",
                     location: "Please enter location.",
+                    start_date: "Please pick a valid start date.",
+                    end_date: "Please pick a valid end date.",
                     job: "Please enter a job title.",
-                    start_date: {
-                        required: "Please pick a start date.",
-                        date: "Please enter a valid start date."
-                    },
-                    end_date: {
-                        // required: "Please pick an end date.",
-                        date: "Please enter a valid end date.",
-                    },
                     file: {
                         extension: "Only images, PDF, and Word files are allowed.",
-                        filesize: "File size must be less than 2MB."
-                    }
+                        maxsize: "File size must not exceed 2 MB.",
+                    },
                 },
-                errorPlacement: function (error, element) {
-                        toastr.error(error.text()); // For fields
-                },
-                submitHandler: function (form) {
-                    // Show spinner and change button text
-                    $("#spinner-exp").removeClass("d-none"); // Show the spinner
-                    $("#save-change-exp").text("Saving..."); // Change button text
-                    $("#exp-submit").prop("disabled", true); // Disable the button
 
-                    // Create FormData object
+                submitHandler: function (form) {
                     let formData = new FormData(form);
 
-                    // Append file if available
-                    const fileInput = document.getElementById("imageUpload-exp");
-                    if (fileInput && fileInput.files[0]) {
-                        formData.append("certificate", fileInput.files[0]);
-                    }
+                    // Show spinner and disable the submit button
+                    $("#spinner-exp").removeClass('d-none');
+                    $("#exp-submit").prop('disabled', true);
 
-                    // AJAX request
                     $.ajax({
-                        url: "{{route('exp.store')}}", // Replace with your server endpoint
+                        url: "{{route('exp.store')}}",
                         type: "POST",
                         data: formData,
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            // Hide the spinner and reset button text after a slight delay
-                            setTimeout(function () {
-                                $("#spinner-exp").addClass("d-none"); // Hide the spinner
-                                $("#save-change-exp").text("Save Change"); // Restore button text
+                            // Hide spinner and enable the submit button
+                            $("#spinner-exp").addClass('d-none');
+                            $("#exp-submit").prop('disabled', false);
 
-                                // Check if the response indicates success
-                                if (response.success) {
-                                    toastr.success('Experience Added successfully!');
-                                    // Optionally reload or update specific parts of the page
-                                    location.reload(); // Reload the page once after successful update
-                                } else {
-                                    toastr.error('Something went wrong.');
-                                }
-                            }, 1000); // 1-second delay before hiding spinner and reloading
+                            if (response.success) {
+                                toastr.success('Experience Added successfully!');
+                                location.reload();
+                            } else {
+                                toastr.error('Something went wrong.');
+                            }
                         },
                         error: function (xhr) {
-                            // Check if the response contains the expected structure
-                            if (xhr.responseJSON) {
-                                if (xhr.responseJSON.error) {
-                                    // Display the specific error
-                                    toastr.error(xhr.responseJSON.error);
-                                } else if (xhr.responseJSON.errors) {
-                                    // Loop through the validation errors if they exist
-                                    $.each(xhr.responseJSON.errors, function (key, error) {
-                                        toastr.error(error[0]);
+                            // Hide spinner and enable the submit button
+                            $("#spinner-exp").addClass('d-none');
+                            $("#exp-submit").prop('disabled', false);
+
+                            if (xhr.status === 422) {
+                                // Display validation errors
+                                $.each(xhr.responseJSON.errors, function (field, errors) {
+                                    errors.forEach(function (error) {
+                                        toastr.error(error);  // Display each error in toastr
                                     });
-                                } else if (xhr.responseJSON.message) {
-                                    // Fallback to a general message
-                                    toastr.error(xhr.responseJSON.message);
-                                }
+                                });
+                            } else if (xhr.status === 500) {
+                                // Handle server error response
+                                toastr.error(xhr.responseJSON.error || 'An unexpected error occurred.');
                             } else {
-                                // Default error message if the response is not as expected
                                 toastr.error('An unexpected error occurred.');
                             }
                         },
-                        complete: function () {
-                            // Ensure that spinner and button are reset even if request fails
-                            $("#spinner-exp").addClass("d-none"); // Hide the spinner
-                            $("#save-change-exp").text("Save"); // Restore the original button text
-                            $("#exp-submit").prop("disabled", false); // Enable the button
-                        }
                     });
-                }
+                },
             });
 
-            // File preview
-            $("#imageUpload-exp").on("change", function (event) {
-                const file = event.target.files[0];
-                const imagePreview = $("#imagePreview-exp");
-
-                if (file) {
-                    const fileType = file.type;
-
-                    if (fileType.startsWith("image/")) {
-                        // If the file is an image, show the image preview
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            imagePreview.attr("src", e.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    } else if (fileType === "application/pdf") {
-                        // If the file is a PDF, display a PDF icon
-                        imagePreview.attr("src", "{{asset('pdf.png')}}");
-                    } else if (
-                        fileType === "application/msword" ||
-                        fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    ) {
-                        // If the file is a Word document, display a Word icon
-                        imagePreview.attr("src", "{{asset('word.png')}}");
-                    } else {
-                        // For other files, display a generic file icon
-                        imagePreview.attr("src", "{{asset('word.png')}}");
-                    }
+            // File size validation before form submission
+            $("#imageUpload-exp").on("change", function () {
+                const file = this.files[0];
+                if (file && file.size > 2097152) {
+                    toastr.error("File size must not exceed 2 MB.");
+                    this.value = ""; // Reset the input value
                 }
             });
-
         });
 
+
     </script>
+
 @endpush

@@ -152,7 +152,14 @@
                 };
                 reader.readAsDataURL(file);
             }
+
+            if (file && file.size > 2097152) {
+                toastr.error("File size must not exceed 2 MB.");
+                this.value = ""; // Reset the input value
+            }
+
         });
+
 
         // Submit form
         $("#add-project-form").validate({
@@ -161,16 +168,22 @@
                 project_type: { required: true },
                 url: { url: true },
                 description: { required: true },
+                photo: {
+                    extension: "jpeg|png|jpg",
+                    maxsize: 2097152, // 2 MB in bytes
+                },
             },
             messages: {
                 title: "Please enter the title for the project.",
                 project_type: "Please select a project type.",
                 description: "Please enter a description.",
                 url: "Enter a valid URL.",
+                photo: {
+                    extension: "Only images are allowed.",
+                    maxsize: "File size must not exceed 2 MB.",
+                },
             },
-            errorPlacement: function (error) {
-                toastr.error(error.text());
-            },
+
             submitHandler: function (form) {
                 $("#spinner-project").removeClass("d-none");
                 $("#save-change-project").text("Saving...");

@@ -22,10 +22,17 @@ class ProjectController extends Controller
                 'description' => 'required|string',
                 'url' => 'nullable|url',
                 'project_type' => 'required|exists:App\Models\Taqat2\Project_type,id',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                'photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
                 'images' => 'nullable|array|max:10', // Limit to 10 additional images
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            ]);
+            ],
+                [
+                    'photo.mimes' => 'The file must be of type: jpeg, png, jpg.',
+                    'photo.max' => 'The file size must not exceed 2 MB.',
+                    'images.mimes' => 'The file must be of type: jpeg, png, jpg.',
+                    'images.max' => 'The file size must not exceed 2 MB.',
+
+                ]);
 
             // Localize title and description
             $title = ['ar' => $request->title, 'en' => $request->title];
@@ -173,10 +180,17 @@ class ProjectController extends Controller
                 'description' => 'required|string',
                 'url' => 'nullable|url',
                 'project_type' => 'required|exists:App\Models\Taqat2\Project_type,id',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                'photo' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                 'images' => 'nullable|array|max:10', // Limit to 10 additional images
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            ]);
+            ],
+                [
+                    'photo.mimes' => 'The file must be of type: jpeg, png, jpg.',
+                    'photo.max' => 'The file size must not exceed 2 MB.',
+                    'images.mimes' => 'The file must be of type: jpeg, png, jpg.',
+                    'images.max' => 'The file size must not exceed 2 MB.',
+
+                ]);
 
             // Localize title and description
             $title = ['ar' => $request->title, 'en' => $request->title];
