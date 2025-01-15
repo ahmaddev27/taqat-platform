@@ -58,10 +58,10 @@ class CompanyProject extends Model
         return $query;
     }
 
-    public function specializations()
-    {
-        return $this->hasMany(SpecializationCompanyProject::class, 'project_company_id');
-    }
+        public function specializations()
+        {
+            return $this->hasMany(SpecializationCompanyProject::class, 'project_company_id');
+        }
 
 
     public function offers()

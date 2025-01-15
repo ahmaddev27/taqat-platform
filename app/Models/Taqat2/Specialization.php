@@ -10,7 +10,7 @@ class Specialization extends Model
 {
     use HasTranslations;
 
-    public $translatable = ['title_en'];
+    public $translatable = ['title_en','title'];
 
 
     protected $connection = 'second_db';
@@ -22,13 +22,15 @@ class Specialization extends Model
         return $this->hasMany(Talent::class);
     }
 
-    function company_projects(){
-        return $this->hasMany(CompanyProject::class);
+    public function company_projects()
+    {
+        return $this->hasManyThrough(CompanyProject::class, SpecializationCompanyProject::class, 'specialization_id', 'id', 'id', 'project_company_id');
     }
 
 
+
     public function projects(){
-        return $this->hasMany(SpecializationCompanyProject::class,'specialization_id');
+        return $this->hasMany(project::class,'specialization_id');
     }
 
 

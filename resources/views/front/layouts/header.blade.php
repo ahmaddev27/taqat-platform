@@ -26,6 +26,18 @@
                 {{--                    </li>--}}
 
                 <li>
+                    <a href="{{route('home')}}">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('projects.all')}}">
+                        Projects
+                    </a>
+                </li>
+
+                <li>
                     <a href="#">
                         Contact
                     </a>

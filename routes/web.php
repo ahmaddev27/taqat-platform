@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TalentController;
+use App\Http\Controllers\ProjectController;
 
 
 
@@ -28,5 +29,14 @@ Route::controller(TalentController::class)->group(function () {
         Route::get('/{slug}', 'index')->name('index');
     });
 });
+
+
+Route::controller(ProjectController::class)->group(function () {
+    Route::group(['as' => 'projects.', 'prefix' => 'projects'], function () {
+        Route::get('/', 'all')->name('all');
+        Route::get('/{slug}', 'index')->name('index');
+    });
+});
+
 
 

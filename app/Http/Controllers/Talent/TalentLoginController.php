@@ -63,7 +63,7 @@ class TalentLoginController extends Controller
                 $user->api_token = $apiToken;
                 $user->save();
 
-                return redirect()->route('home')
+                return redirect()->route('profile.index')
                     ->with(['message' => 'Login successful!', 'alert-type' => 'success']);
             } else {
                 return redirect()->back()
