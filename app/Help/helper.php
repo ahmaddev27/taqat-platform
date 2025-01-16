@@ -128,6 +128,27 @@ function status($status)
 }
 
 
+function delivery_time($d = null)
+{
+    $times = [
+        '1' => 'l-3 Days',
+        '2' =>'1 Week',
+        '3' => '1-3 Weeks',
+        '4' => '1 Month ',
+        '5' => '2-3 Months ',
+        '6' => '+ 3 Months  ',
+
+    ];
+
+    if ($d !== null) {
+        return $times[$d] ?? null;
+    }
+    return $times;
+
+}
+
+
+
 function priority($p = null)
 {
     $religions = [

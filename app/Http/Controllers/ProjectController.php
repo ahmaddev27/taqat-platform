@@ -11,52 +11,54 @@ class ProjectController extends Controller
     {
         // Get inputs
         $specializationIds = request()->input('specializations', []);
-        $skills = request()->input('skills', []);
-        $search = request()->search;
-        $expectedBudget = request()->input('expected_budget');
+        $search = request()->input('search'); // Correctly handle input
+//        $expectedBudget = request()->input('expected_budget', []);
+//        $minBudget = $expectedBudget['min'] ?? null;
+//        $maxBudget = $expectedBudget['max'] ?? null;
+//        $deliveryTimes = request()->input('delivery_time', []);
 
-        // Get specializations with the project count
+        // Get specializations with project counts
         $specializations = Specialization::withCount(['company_projects'])->get();
 
-        // Start building the query for company projects
+        // Build the query for company projects
         $query = CompanyProject::query();
 
-        // Apply search filter if provided
+//         Apply search filter
         if ($search) {
-            $query->when($search, function ($query, $search) {
-                $query->WhenSearch($search);
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
             });
         }
 
-        // Apply budget filter if provided
-        if ($expectedBudget) {
-            $query->where('expected_budget', 'like', '%' . $expectedBudget . '%');
+        // Apply budget filter
+//        if ($minBudget !== null && $maxBudget !== null) {
+//            $query->whereBetween('expected_budget', [$minBudget, $maxBudget]);
+//        }
+
+            // Filter by specializations
+            if (!empty($specializationIds)) {
+                $query->whereHas('specializations', function ($query) use ($specializationIds) {
+                    $query->whereIn('specialization_id', $specializationIds);
+                });
+            }
+        // Filter by delivery time
+//        if (!empty($deliveryTimes)) {
+//            $query->whereIn('delivery_time', $deliveryTimes);
+//        }
+
+        // Paginate results
+        $projects = $query->orderBy('created_at', 'desc')->paginate(6);
+        // Handle AJAX request
+        if (request()->ajax()) {
+            return view('front.pages.site.projects.partials.project_list', compact('projects'))->render();
         }
 
-        // Filter by specializations if provided
-        if (!empty($specializationIds)) {
-            $query->whereHas('specializations', function ($query) use ($specializationIds) {
-                $query->whereIn('specialization_id', $specializationIds);
-            });
-        }
-
-        // Filter by skills if provided
-        if (!empty($skills)) {
-            $query->where(function ($query) use ($skills) {
-                foreach ($skills as $skill) {
-                    $query->orWhereJsonContains('skills', ['value' => $skill]);
-                }
-            });
-        }
-
-        // Order and paginate the results
-        $projects = $query->orderBy('created_at', 'desc')->paginate(6); // Adjust pagination as needed
-
-        // Return the view with data
         return view('front.pages.site.projects.index', [
             'projects' => $projects,
-            'specializations' => $specializations
+            'specializations' => $specializations,
         ]);
     }
 
 }
+

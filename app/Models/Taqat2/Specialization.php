@@ -38,3 +38,5 @@ class Specialization extends Model
         return $this->hasMany(Job::class,'specialization_id');
     }
 }
+
+

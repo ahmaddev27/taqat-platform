@@ -29,8 +29,12 @@ class Company extends Authenticatable
         return $this->hasOne(Talent::class,'company_id','id');
     }
 
-    public function getPhoto(){
-        return url('https://team.taqat-gaza.com/public/files/'.$this->photo);
+    public function getPhoto()
+    {
+        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+            return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
+        }
+        return $this->photo;
     }
 
     public function projects(){
