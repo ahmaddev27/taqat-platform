@@ -135,12 +135,12 @@
                                     </span>
 
                                         <ul class="d-flex mt-24 justify-content-center employer__listbase flex-wrap tranding__listbase align-items-center">
-                                            <li>
-                                            <span class="fz-16 fw-400 inter pra">
-                                                salary
-                                                {{$talent->sallary}}
-                                            </span>
-                                            </li>
+                                            {{--                                            <li>--}}
+                                            {{--                                            <span class="fz-16 fw-400 inter pra">--}}
+                                            {{--                                                salary--}}
+                                            {{--                                                {{$talent->sallary}}--}}
+                                            {{--                                            </span>--}}
+                                            {{--                                            </li>--}}
                                             <li class="d-flex gap-2 fz-16 fw-500 inter title">
                                                 <i class="bi bi-star-fill ratting"></i>
                                                 {{$talent->rate}}
@@ -380,16 +380,16 @@
                                                             </div>
 
 
-                                                            <div class="col-lg-12 basig__grpinput">
-                                                                <label for="numbr"
-                                                                       class="fz-20 fw-500 inter mb-16 title">Salary
-                                                                    <span class="pra">($)</span></label>
-                                                                <input value="{{$talent->sallary}}"
-                                                                       class="addquestion"
-                                                                       name="sallary"
-                                                                       type="number" id="sallary"
-                                                                       placeholder="Enter number">
-                                                            </div>
+                                                            {{--                                                            <div class="col-lg-12 basig__grpinput">--}}
+                                                            {{--                                                                <label for="numbr"--}}
+                                                            {{--                                                                       class="fz-20 fw-500 inter mb-16 title">Salary--}}
+                                                            {{--                                                                    <span class="pra">($)</span></label>--}}
+                                                            {{--                                                                <input value="{{$talent->sallary}}"--}}
+                                                            {{--                                                                       class="addquestion"--}}
+                                                            {{--                                                                       name="sallary"--}}
+                                                            {{--                                                                       type="number" id="sallary"--}}
+                                                            {{--                                                                       placeholder="Enter number">--}}
+                                                            {{--                                                            </div>--}}
 
                                                             <div class="col-lg-12  ">
 
@@ -398,7 +398,7 @@
                                                                </span>
 
                                                                 <div>
-                                                                <textarea id="bio" name="bio" class="form-control"
+                                                                <textarea id="bio" name="bio" class="form-control round16"
                                                                           rows="10">{!! $talent->bio !!}</textarea>
                                                                     {{--                                                                <button id="ai-generate" type="button" class="btn btn-secondary">Write with AI</button>--}}
                                                                     {{--                                                                <p id="error-message" style="color: red; display: none;">Generated text must be at least 30 characters.</p>--}}
@@ -636,7 +636,7 @@
                         name: {required: true},
                         email: {required: true, email: true},
                         whatsapp: {required: true, digits: true},
-                        sallary: {required: true, number: true},
+                        // sallary: {required: true, number: true},
                         specialization_id: {required: true},
                         bio: {required: true},
                     },

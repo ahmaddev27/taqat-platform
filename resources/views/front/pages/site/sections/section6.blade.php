@@ -9,11 +9,11 @@
                             Target Groups
                         </h4>
                         <h2 class="title mb-24 wow fadeInUp" data-wow-duration="1.2s">
-                            {{section('Target')->title}}
+                            {{$targetSection->title}}
 
                         </h2>
                         <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
-                            {{section('Target')->description}}
+                            {{$targetSection->description}}
                         </p>
                     </div>
                     <div class="row g-4">

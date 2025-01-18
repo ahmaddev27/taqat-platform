@@ -1,8 +1,14 @@
 <div class="row justify-content-between align-items-center">
     <div class="col-xl-6 col-lg-7">
         <div class="banner__content banner__onespace ralt">
+
+            @php
+                $sliderSection = sliders()[0];
+            @endphp
+
+
             <h4 class="base mb-16 wow fadeInDown">
-                {{sliders()[0]->title}}
+                {{$sliderSection->title}}
             </h4>
             <span class="d3 title mb-24 fw-600 wow fadeInUp">
 
@@ -10,7 +16,7 @@
                      <span class="hover">{{setting('name')}}</span> Made <span class="hover">Smart</span> Freelancing Easy
                  </span>
             <p class="fz-20 fw-400 pra inter mb-40 wow fadeInDown">
-                {{sliders()[0]->details}}
+                {{$sliderSection->details}}
             </p>
             <form action="#"
                   class="search__component mb-24 d-flex align-items-center justify-content-between wow fadeInUp">

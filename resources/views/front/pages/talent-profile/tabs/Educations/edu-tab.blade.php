@@ -65,8 +65,8 @@
 
                             @if($e->photo)
                                 <p class="pra inter fz-18 fw-400 mt-2 mt-sm-0">
-                                    <a href="{{url($e->getPhoto())}}" target="_blank">
-                                        <i class="bi bi-paperclip"></i>
+                                    <a href="{{url($e->getPhoto())}}" class="learning base round16 d-flex align-items-center " target="_blank">
+                                        <i class="bi bi-file-earmark-{{ $e->getFileType() }}"></i>
                                     </a>
                                 </p>
                             @endif

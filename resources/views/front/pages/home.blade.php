@@ -36,7 +36,11 @@
     {{--section3 about--}}
     @include('front.pages.site.sections.section3')
 
-    @if(section('Target')->status)
+    @php
+        $targetSection = section('Target');
+    @endphp
+
+    @if($targetSection->status)
         {{--section3 target--}}
         @include('front.pages.site.sections.section6')
 

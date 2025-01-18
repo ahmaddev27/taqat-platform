@@ -8,12 +8,17 @@
                         <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
                             About
                         </h4>
+                        @php
+                            $aboutSection = section('About');
+                        @endphp
+
+
                         <h2 class="title mb-24 wow fadeInUp" data-wow-duration="1.2s">
-                            {{section('About')->title}}
+                            {{$aboutSection->title}}
 
                         </h2>
                         <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
-                            {{section('About')->description}}
+                            {{$aboutSection->description}}
                         </p>
                     </div>
                     <ul class="choose__listwrap">

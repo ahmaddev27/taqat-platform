@@ -54,13 +54,13 @@
                             </div>
 
                             @if($w->photo)
-                                <p class="pra inter fz-18 fw-400 float-end">
-                                    <a href="{{$w->getPhoto()}}" target="_blank">
-                                        <i class="bi bi-paperclip"></i>
+                                <p class="pra inter fz-18 fw-400 mt-2 mt-sm-0">
+                                    <a href="{{url($w->getPhoto())}}" class="learning base round16 d-flex align-items-center " target="_blank">
+                                        <i class="bi bi-file-earmark-{{ $w->getFileType() }}"></i>
                                     </a>
-                                    @endif
-
                                 </p>
+                            @endif
+
                         </div>
 
                         <div class="row justify-content-end">

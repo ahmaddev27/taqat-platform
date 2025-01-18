@@ -4,8 +4,14 @@
         <div class="row justify-content-center">
             <div class="col-xxl-6 col-xl-8 col-lg-8">
                 <div class="section__title text-center mb-60">
+
+                    @php
+                        $serviceSection = section('services');
+                    @endphp
+
+
                     <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-                        {{section('services')->title}}
+                        {{$serviceSection->title}}
                     </h4>
                     <h2 class="title mb-24 wow fadeInUp" data-wow-duration="1.2s">
 
@@ -13,7 +19,7 @@
                     </h2>
                     <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
 
-                        {{section('services')->description}}
+                        {{$serviceSection->description}}
                     </p>
                 </div>
             </div>

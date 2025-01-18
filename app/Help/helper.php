@@ -3,6 +3,8 @@
 
 use App\Models\Taqat2\Khadmat;
 use App\Models\Taqat2\Talent;
+use Illuminate\Support\Facades\Cache;
+
 
 function thems(){
     return [
@@ -12,21 +14,39 @@ function thems(){
 }
 
 
-function setting($settingKey, $locale = null) {
-    // If $locale is not provided, use the current application locale
+function setting($settingKey, $locale = null)
+{
+    // Retrieve the settings array from the singleton
+    $settings = app('settings');
+
     if (!$locale) {
-        $locale = app()->getLocale(); // This retrieves the current application locale
+        $locale = app()->getLocale(); // Use the current application locale
     }
 
-    $setting = \App\Models\Setting::where('key', $settingKey)->first();
+    if (isset($settings[$settingKey])) {
+        $value = $settings[$settingKey];
 
-    if ($setting) {
-        return $setting->getTranslation('value', $locale);
-    } else {
-        // Handle case where setting with $settingKey is not found
-        return 'Setting not found'; // or any appropriate fallback
+        // Handle translations (if the value is JSON or requires localization)
+        if (is_array($value) || isJson($value)) {
+            $translations = json_decode($value, true);
+            return $translations[$locale] ?? $translations['default'] ?? $value;
+        }
+
+        return $value;
     }
+
+    // Handle case where the key does not exist
+    return 'Setting not found'; // Or a fallback value
 }
+
+
+// Helper to check if a string is JSON
+function isJson($string)
+{
+    json_decode($string);
+    return (json_last_error() == JSON_ERROR_NONE);
+}
+
 
 
 
@@ -66,8 +86,12 @@ function faqs(){
 }
 
 
-function section($section){
-    return \App\Models\Section::where('name',$section)->first();
+
+function section($section)
+{
+    return Cache::remember("section_{$section}", now()->addMinutes(60), function () use ($section) {
+        return \App\Models\Section::where('name', $section)->first();
+    });
 }
 
 function gallery(){
@@ -131,12 +155,12 @@ function status($status)
 function delivery_time($d = null)
 {
     $times = [
-        '1' => 'l-3 Days',
-        '2' =>'1 Week',
-        '3' => '1-3 Weeks',
-        '4' => '1 Month ',
-        '5' => '2-3 Months ',
-        '6' => '+ 3 Months  ',
+        1=> 'l-3 Days',
+        2 =>'1 Week',
+        3 => '1-3 Weeks',
+        4 => '1 Month ',
+        5 => '2-3 Months ',
+        6 => '+ 3 Months  ',
 
     ];
 
@@ -376,6 +400,7 @@ function skills(){
 
 
 
+
 function topTalents(){
     return \App\Models\Taqat2\Talent::orderBy('created_at')->take(8)->get();
 }
@@ -391,23 +416,38 @@ function topKhadmat(){
 
 function khadmats()
 {
-    $query = Khadmat::with('category')
-        ->orderBy('created_at')
+    $query = Khadmat::with(['category', 'user']) // Preload only required relationships
+    ->withCount([
+        'reviews as total_reviews', // Preload the total review count
+        'reviews as average_review' => function ($query) {
+            $query->select(DB::raw('COALESCE(AVG(review), 0)')); // Preload average review
+        }
+    ])
+        ->orderByDesc('average_review') // Sort by preloaded average_review
+        ->orderBy('created_at', 'desc') // Secondary sort by creation date
         ->take(8)
-        ->get()
-        ->sortByDesc(function ($khadmat) {
-            return $khadmat->averageReview(); // Sort by the computed averageReview
-        });
+        ->get();
 
     return $query;
 }
+
+
+
+
+function Khadmat_categories()
+{
+    return \App\Models\Taqat2\KhadmaCategory::take(8)->get();
+
+}
+
+
 
 
 function talents()
 {
     // Fetch the data first
     $query = Talent::Wherefullprofile()
-        ->with(['specialization', 'projects'])
+        ->with(['specialization', 'projects','work_experiences'])
         ->take(12)
         ->has('jobs')
         ->get(); // Get the records first
@@ -434,7 +474,7 @@ function talentsNotHadJobs()
 {
     // Fetch the data first
     $query = Talent::Wherefullprofile()
-        ->with(['specialization', 'projects'])
+        ->with(['specialization', 'projects','work_experiences'])
         ->doesntHave('jobs')
         ->take(8)
         ->get(); // Get the records first
@@ -457,12 +497,5 @@ function talentsNotHadJobs()
 
 
 
-
-
-function Khadmat_categories()
-{
-    return \App\Models\Taqat2\KhadmaCategory::take(8)->get();
-
-}
 
 ?>

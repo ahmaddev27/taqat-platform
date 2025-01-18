@@ -64,7 +64,7 @@ class ProfileController extends Controller
                 'name' => 'required',
                 'bio' => 'required',
                 'whatsapp' => 'required',
-                'sallary' => 'required',
+//                'sallary' => 'required',
                 'skills' => 'required',
                 'specialization_id' => 'required',
             ]);
@@ -82,7 +82,7 @@ class ProfileController extends Controller
                 'bio' => $request->bio,
                 'name' => $request->name,
                 'whatsapp' => $request->whatsapp,
-                'sallary' => $request->sallary,
+//                'sallary' => $request->sallary,
                 'skills' => $request->skills,
                 'specialization_id' => $request->specialization_id,
                 'slug' => $this->generateArabicSlug($request->name),

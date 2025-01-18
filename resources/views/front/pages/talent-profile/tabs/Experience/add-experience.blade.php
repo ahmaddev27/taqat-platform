@@ -47,7 +47,7 @@
 
                                 <div class="col-6 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Tasks details</span>
-                                    <textarea id="task" name="tasks" class="form-control" rows="5"></textarea>
+                                    <textarea id="task" name="tasks" class="form-control round16" rows="5"></textarea>
                                 </div>
                             </div>
 

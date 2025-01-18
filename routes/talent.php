@@ -6,6 +6,7 @@ use App\Http\Controllers\Talent\ProfileController;
 use App\Http\Controllers\Talent\ProjectController;
 use App\Http\Controllers\Talent\TalentLoginController;
 use App\Http\Controllers\Talent\ServiceController;
+use App\Http\Controllers\Talent\ProjectProposalController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -67,6 +68,17 @@ Route::group(['middleware' => 'auth.talent'], function () {
                 Route::post('/update', 'update')->name('update');
                 Route::post('/deleteImage', 'deleteImage')->name('deleteImage');
             });
-
         });
+
+
+
+
+    Route::group(['as' => 'proposals.', 'prefix' => 'proposals', 'middleware' => 'auth.talent'], function () {
+        Route::controller(ProjectProposalController::class)->group(function () {
+            Route::post('/ proposal', 'store')->name('store');
+        });
+
+    });
+
+
 });

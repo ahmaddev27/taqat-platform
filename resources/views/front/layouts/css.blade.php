@@ -22,6 +22,12 @@
 
 <style>
 
+    .profile__check img {
+              padding: 0px;
+    }
+    .overview__showcasewrap {
+        transform: translateY(0px);
+    }
     .modal-content{
         border-radius: 16px;
     }

@@ -30,6 +30,11 @@ class ScientificCertificate extends Model
     public function getFileType()
     {
         $extension = pathinfo($this->photo, PATHINFO_EXTENSION);
-        return in_array($extension, ['jpg', 'jpeg', 'png', 'gif']) ? 'image' : 'pdf';
+        return in_array($extension, ['jpg', 'jpeg', 'PNG','png', 'gif']) ? 'image' : 'pdf';
     }
+
+
+
+
 }
+
