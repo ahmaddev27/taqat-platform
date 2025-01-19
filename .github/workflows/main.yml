@@ -32,7 +32,7 @@ jobs:
       # Step 4: Install dependencies (skip post-autoload-dump scripts)
       - name: 📦 Install dependencies
         run: |
-          composer update
+          composer install --no-dev --optimize-autoloader --no-scripts
 
       # Step 5: Sync files via FTP
       - name: 📂 Sync files
@@ -44,9 +44,9 @@ jobs:
           port: 21  # The FTP port (usually 21)
 
       # Step 6: Run Laravel Artisan commands (optional, in case you want to clear caches)
-#      - name: 🔧 Clear Laravel Cache and Configurations
-#        run: |
-#          php artisan cache:clear
-#          php artisan config:clear
-#          php artisan route:clear
-#          php artisan view:clear
+      - name: 🔧 Clear Laravel Cache and Configurations
+        run: |
+          php artisan cache:clear
+          php artisan config:clear
+          php artisan route:clear
+          php artisan view:clear
