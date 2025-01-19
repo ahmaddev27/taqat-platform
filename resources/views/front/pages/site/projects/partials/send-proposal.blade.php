@@ -81,7 +81,7 @@
     <div class="col-12 text-center justify-content-center">
         <a href="{{route('talent.login')}}"
            class="attachment__filitem round16 d-flex  justify-content-center align-items-center text-center">
-            Sing in to add Proposal
+            Login to send Proposal
         </a>
     </div>
 
