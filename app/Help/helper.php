@@ -152,6 +152,23 @@ function status($status)
 }
 
 
+function statusOffers($status)
+{
+
+    if ($status == 1) {
+        return 'warning';
+    } elseif ($status == 2) {
+        return 'primary';
+    } elseif ($status == 3) {
+        return 'success';
+    } elseif ($status == 4) {
+        return 'secondary';
+
+    }
+}
+
+
+
 function delivery_time($d = null)
 {
     $times = [

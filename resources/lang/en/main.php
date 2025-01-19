@@ -97,7 +97,7 @@ return [
     'open' => 'Open',
     'implementation' => 'implementation',
     'canceled' => 'canceled',
-    'completed' => 'completed',
+    'completed' => 'Completed',
     'completedProjects' => 'completed Projects',
     'budget' => 'Budget',
     'no_projects' => 'No Results',
@@ -174,7 +174,8 @@ return [
     'buyers'=>'Buyers',
     'price'=>'price',
     'related'=>'Related Services',
-    'buy'=>'buy'
+    'buy'=>'buy',
+    'excluded'=>'Excluded'
 
 
 

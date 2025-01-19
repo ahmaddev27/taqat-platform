@@ -28,7 +28,7 @@
             </div>
 
             <div class="text-dark  fw-400 mb-24 pra inter">
-                {!! Str::limit($project->description, 150) !!}
+                {{str_limit( strip_tags($project->description),150)}}
             </div>
 
             <div class="lavel__tag bborderdash pb-24 d-flex align-items-center ">

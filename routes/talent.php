@@ -17,11 +17,10 @@ Route::post('talent/register', [TalentLoginController::class, 'register'])->name
 Route::post('talent/logout', [TalentLoginController::class, 'logout'])->name('talent.logout');
 
 
-
 Route::group(['middleware' => 'auth.talent'], function () {
 
 
-    Route::group(['as' => 'profile.', 'prefix'=>'profile'], function () {
+    Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/', 'profile')->name('index');
             Route::post('/update', 'update')->name('update');
@@ -60,22 +59,21 @@ Route::group(['middleware' => 'auth.talent'], function () {
 
     });
 
-        Route::group(['as' => 'service.', 'prefix' => 'service', 'middleware' => 'auth.talent'], function () {
-            Route::controller(ServiceController::class)->group(function () {
-                Route::post('/store', 'store')->name('store');
-                Route::post('/delete', 'delete')->name('delete');
-                Route::get('/{id}', 'edit')->name('edit');
-                Route::post('/update', 'update')->name('update');
-                Route::post('/deleteImage', 'deleteImage')->name('deleteImage');
-            });
+    Route::group(['as' => 'service.', 'prefix' => 'service', 'middleware' => 'auth.talent'], function () {
+        Route::controller(ServiceController::class)->group(function () {
+            Route::post('/store', 'store')->name('store');
+            Route::post('/delete', 'delete')->name('delete');
+            Route::get('/{id}', 'edit')->name('edit');
+            Route::post('/update', 'update')->name('update');
+            Route::post('/deleteImage', 'deleteImage')->name('deleteImage');
         });
-
-
+    });
 
 
     Route::group(['as' => 'proposals.', 'prefix' => 'proposals', 'middleware' => 'auth.talent'], function () {
         Route::controller(ProjectProposalController::class)->group(function () {
-            Route::post('/ proposal', 'store')->name('store');
+            Route::get('/', 'index')->name('index');
+            Route::post('/proposal', 'store')->name('store');
         });
 
     });

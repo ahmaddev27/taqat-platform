@@ -6,7 +6,7 @@ use App\Models\Taqat2\CompanyProject;
 use App\Models\Taqat2\Offer;
 use App\Models\Taqat2\Specialization;
 
-class ProjectController extends Controller
+class JobController extends Controller
 {
     public function all()
     {
@@ -93,5 +93,6 @@ class ProjectController extends Controller
             'employmentRate' => $formattedEmploymentRate
         ]);
     }
+
 
 }

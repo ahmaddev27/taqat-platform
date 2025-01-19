@@ -40,3 +40,10 @@ Route::controller(ProjectController::class)->group(function () {
 
 
 
+
+Route::controller(JobController::class)->group(function () {
+    Route::group(['as' => 'jobs.', 'prefix' => 'jobs'], function () {
+        Route::get('/', 'all')->name('all');
+        Route::get('/{slug}', 'index')->name('index');
+    });
+});
