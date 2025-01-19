@@ -33,10 +33,10 @@ jobs:
       - name: 📂 Sync files
         uses: Penguibird/FTP-Deploy-Action@4.2.0
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
+          server: ${{ secrets.FTP_HOST }}  # Your FTP server address
+          username: ${{ secrets.FTP_USERNAME }}  # Your FTP username
+          password: ${{ secrets.FTP_PASSWORD }}  # Your FTP password
+          port: 21  # The FTP port (usually 21)
 
       # Step 5: Run Laravel Artisan commands
       - name: 🔧 Clear Laravel Cache and Configurations      
@@ -45,4 +45,3 @@ jobs:
           php artisan config:clear
           php artisan route:clear
           php artisan view:clear
- 
