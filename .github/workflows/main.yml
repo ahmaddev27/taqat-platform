@@ -1,46 +1,48 @@
-name: Deploy Laravel Project to cPanel
+name: 🚀 Deploy Laravel Project to cPanel
 
 on:
   push:
     branches:
-      - main # Deploy when pushing to the main branch
+      - main # Deploy on push to the main branch
 
 jobs:
-  deploy:
-    name: Deploy Laravel Project
+  web-deploy:
+    name: 🎉 Deploy Laravel Project
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the code
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 1: Checkout the latest code
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
 
-    # Step 2: Set up PHP
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2' # Adjust PHP version based on your project's requirements
-        tools: composer
+      # Step 2: Cache Composer dependencies
+      - name: 📦 Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
-    # Step 3: Install Composer dependencies
-    - name: Install Composer dependencies
-      run: composer install --no-dev --optimize-autoloader
+      # Step 3: Install dependencies
+      - name: 📦 Install dependencies
+        run: composer install --no-dev --optimize-autoloader
 
-    # Step 4: Deploy files to cPanel via FTP
-    - name: Deploy to cPanel
-      uses: SamKirkland/FTP-Deploy-Action@v4
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        port: ${{ secrets.FTP_PORT }}
-        local-dir: ./ # Adjust this if your project is in a subdirectory
-        server-dir: ${{ secrets.REMOTE_PATH }}
+      # Step 4: Sync files via FTP
+      - name: 📂 Sync files
+        uses: Penguibird/FTP-Deploy-Action@4.2.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          local-dir: ./ # Adjust this if your project is in a subdirectory
+          remote-dir: ${{ secrets.REMOTE_PATH }}
 
-    # Step 5: Clear Laravel Cache and Configurations
-    - name: Clear Laravel Caches and Configurations
-      run: |
-        php artisan cache:clear
-        php artisan config:clear
-        php artisan route:clear
-        php artisan view:clear
+      # Step 5: Run Laravel Artisan commands
+      - name: 🔧 Clear Laravel Cache and Configurations
+        run: |
+          php artisan cache:clear
+          php artisan config:clear
+          php artisan route:clear
+          php artisan view:clear
