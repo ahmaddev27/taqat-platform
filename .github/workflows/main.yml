@@ -26,6 +26,8 @@ jobs:
 
       # Step 3: Install dependencies
       - name: 📦 Install dependencies
+        env:
+          DB_CONNECTION: sqlite # Prevent database connection issues
         run: composer install --no-dev --optimize-autoloader
 
       # Step 4: Sync files via FTP
@@ -36,9 +38,13 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
+          local-dir: ./ # Adjust this if your project is in a subdirectory
+          remote-dir: ${{ secrets.REMOTE_PATH }}
 
       # Step 5: Run Laravel Artisan commands
       - name: 🔧 Clear Laravel Cache and Configurations
+        env:
+          DB_CONNECTION: sqlite # Prevent database connection issues
         run: |
           php artisan cache:clear
           php artisan config:clear
