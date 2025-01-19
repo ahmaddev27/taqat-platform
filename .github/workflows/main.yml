@@ -38,10 +38,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}  # Your FTP password
           port: 21  # The FTP port (usually 21)
 
-      # Step 5: Run Laravel Artisan commands
-      - name: 🔧 Clear Laravel Cache and Configurations
-        run: |
-          php artisan cache:clear
-          php artisan config:clear
-          php artisan route:clear
-          php artisan view:clear
+      # # Step 5: Run Laravel Artisan commands
+      # - name: 🔧 Clear Laravel Cache and Configurations
+      #   run: |
+      #     php artisan cache:clear
+      #     php artisan config:clear
+      #     php artisan route:clear
+      #     php artisan view:clear
