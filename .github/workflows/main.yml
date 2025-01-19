@@ -36,8 +36,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          local-dir: ./ # Adjust this if your project is in a subdirectory
-          remote-dir: ${{ secrets.REMOTE_PATH }}
 
       # Step 5: Run Laravel Artisan commands
       - name: 🔧 Clear Laravel Cache and Configurations
