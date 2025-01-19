@@ -44,6 +44,10 @@ class Company extends Authenticatable
     public function jobs(){
         return $this->hasMany(Job::class);
     }
+    public function Openjobs(){
+        return $this->hasMany(Job::class)->where('status',1);
+    }
+
     public function Openprojects(){
         return $this->hasMany(CompanyProject::class)->where('status',1);
     }

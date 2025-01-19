@@ -7,6 +7,7 @@ use App\Http\Controllers\Talent\ProjectController;
 use App\Http\Controllers\Talent\TalentLoginController;
 use App\Http\Controllers\Talent\ServiceController;
 use App\Http\Controllers\Talent\ProjectProposalController;
+use App\Http\Controllers\Talent\JobApplyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -76,6 +77,13 @@ Route::group(['middleware' => 'auth.talent'], function () {
             Route::post('/proposal', 'store')->name('store');
         });
 
+    });
+
+   Route::group(['as' => 'applyJobs.', 'prefix' => 'applyJobs', 'middleware' => 'auth.talent'], function () {
+        Route::controller(JobApplyController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/apply', 'apply')->name('apply');
+        });
     });
 
 

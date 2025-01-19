@@ -23,6 +23,7 @@ class ProjectController extends Controller
         // Build the query for company projects
         $query = CompanyProject::with(['offers', 'company', 'specializations']);
 
+
         // Apply search filter
         if ($search) {
             $query->where(function ($query) use ($search) {
@@ -30,6 +31,7 @@ class ProjectController extends Controller
                     ->orWhere('description', 'like', '%' . $search . '%');
             });
         }
+
 
         // Apply budget filter
         if ($minBudget !== null && $maxBudget !== null) {
@@ -95,3 +97,6 @@ class ProjectController extends Controller
     }
 
 }
+
+
+

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\JobController;
 
 
 

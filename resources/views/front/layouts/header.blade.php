@@ -38,6 +38,12 @@
                 </li>
 
                 <li>
+                    <a href="{{route('jobs.all')}}">
+                        Jobs
+                    </a>
+                </li>
+
+                <li>
                     <a href="#">
                         Contact
                     </a>
