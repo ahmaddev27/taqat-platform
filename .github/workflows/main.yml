@@ -1,0 +1,52 @@
+name: 🚀 Deploy Laravel Project to cPanel
+
+on:
+  push:
+    branches:
+      - main # Deploy on push to the main branch
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy Laravel Project
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'deploy') # Only run if commit message contains 'deploy'
+
+    steps:
+      # Step 1: Checkout the latest code
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      # Step 2: Cache Composer dependencies
+      - name: 📦 Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Step 3: Clear Composer Cache
+      - name: 🚀 Clear Composer Cache
+        run: composer clear-cache
+
+      # Step 4: Install dependencies (skip post-autoload-dump scripts)
+      - name: 📦 Install dependencies
+        run: |
+          composer install --no-dev --optimize-autoloader --no-scripts
+
+      # Step 5: Sync files via FTP
+      - name: 📂 Sync files
+        uses: Penguibird/FTP-Deploy-Action@4.2.0
+        with:
+          server: ${{ secrets.FTP_HOST }}  # Your FTP server address
+          username: ${{ secrets.FTP_USERNAME }}  # Your FTP username
+          password: ${{ secrets.FTP_PASSWORD }}  # Your FTP password
+          port: 21  # The FTP port (usually 21)
+
+      # Step 6: Run Laravel Artisan commands (optional, in case you want to clear caches)
+#      - name: 🔧 Clear Laravel Cache and Configurations
+#        run: |
+#          php artisan cache:clear
+#          php artisan config:clear
+#          php artisan route:clear
+#          php artisan view:clear
