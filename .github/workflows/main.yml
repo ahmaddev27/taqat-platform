@@ -24,16 +24,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      # Step 3: Install dependencies with temporary SQLite configuration
+      # Step 3: Install dependencies (skip post-autoload-dump scripts)
       - name: 📦 Install dependencies
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: /tmp/database.sqlite
         run: |
-          # Create a temporary SQLite database
-          touch /tmp/database.sqlite
-          # Install dependencies
-          composer install --no-dev --optimize-autoloader
+          composer install --no-dev --optimize-autoloader --no-scripts
 
       # Step 4: Sync files via FTP
       - name: 📂 Sync files
