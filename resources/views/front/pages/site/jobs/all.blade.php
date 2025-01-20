@@ -123,8 +123,8 @@
 
                             </h4>
 
-                            <form class="d-flex mb-24 filter__search align-items-center justify-content-between">
-                                <input type="text" placeholder="Search">
+                            <form class="d-flex mb-24 filter__search align-items-center justify-content-between"  onsubmit="return false;">
+                                <input type="text" placeholder="Search" >
                                 <i class="bi bi-search"></i>
                             </form>
                             <div class="bank__check__wrap tborderdash pb-24">

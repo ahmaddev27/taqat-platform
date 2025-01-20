@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class JobApplyController extends Controller
 {
 
+
     public function apply(Request $request){
 
         try {
@@ -41,5 +42,44 @@ class JobApplyController extends Controller
             ], 500);
         }
     }
+
+    public function index()
+    {
+        $talent = auth('talent')->user();
+
+        // Base query with eager loading
+        $offers = JobApplies::where('user_id', $talent->id)
+            ->with(['job', 'user', 'job.company', 'job.specialization']);
+
+        // Filter by status if provided
+        if (request()->has('status') && is_array(request()->status)) {
+            $options = request()->status;
+            $offers->whereHas('job', function ($query) use ($options) {
+                $query->whereIn('status', $options);
+            });
+        }
+
+        // Fetch offers and order them by creation date
+        $offers = $offers->orderBy('created_at', 'desc')->get();
+
+        if (request()->ajax()) {
+            // Render the partial view for AJAX requests
+            $html = view('front.pages.talent-profile.offers.jobs.partials.offers-list', [
+                'offers' => $offers,
+                'talent' => $talent,
+            ])->render();
+
+            return response()->json([
+                'html' => $html,
+            ]);
+        }
+
+        // Render the main view for non-AJAX requests
+        return view('front.pages.talent-profile.offers.jobs.my-offers', [
+            'offers' => $offers,
+            'talent' => $talent,
+        ]);
+    }
+
 
 }

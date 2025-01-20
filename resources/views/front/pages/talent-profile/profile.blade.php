@@ -93,7 +93,7 @@
                                         </a>
                                     </div>
                                     <div class="col-4 mb-2">
-                                        <a href="#"
+                                        <a href="{{route('applyJobs.index')}}"
                                            class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
                                             <i class="bi bi-tags" style="font-size: 25px"></i>
                                             <span class="text-center">Job Offers</span>

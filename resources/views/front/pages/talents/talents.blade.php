@@ -1,4 +1,4 @@
-@extends('front.layouts.master',['title'=>setting('welcome')])
+@extends('front.layouts.master',['title'=>'Talents'])
 
 
 @push('css')

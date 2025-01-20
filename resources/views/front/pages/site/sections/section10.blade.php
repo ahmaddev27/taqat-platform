@@ -1,9 +1,12 @@
 <!-- Categoris section Here -->
+
+@if(talentsNotHadJobs()->count()>0)
+
 <section class="freelancer__section ralt pt-120 pb-120">
     <div class="container">
         <div class="row">
             <div class="col-xxl-6 col-xl-8 col-lg-8">
-                <div class="section__title ralt mb-40">
+                <div class="section__title ralt mb-40 text-center">
                     <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
                         Top-Rated Freelancers Who Never Got a Job
                     </h4>
@@ -63,3 +66,4 @@
 <!-- Categoris section End -->
 
 <!-- App Here -->
+@endif

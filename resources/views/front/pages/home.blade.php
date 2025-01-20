@@ -51,6 +51,8 @@
     @include('front.pages.site.sections.section5')
 
 
+    {{--companies--}}
+    @include('front.pages.site.sections.section11')
     {{--TopFreelancers--}}
     @include('front.pages.site.sections.section7')
 

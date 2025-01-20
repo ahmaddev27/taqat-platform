@@ -1,18 +1,18 @@
-@if($jobs->count()>0)
-    @foreach($jobs as $job)
+@if($offers->count()>0)
+    @foreach($offers as $offer)
         <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
             <div class="d-flex mb-24 flex-wrap align-items-center justify-content-between">
-                <a href="{{route('jobs.index',$job->slug)}}"><h5 class="title">
-                        {{$job->title}}
+                <a href="{{route('jobs.index',$offer->job->slug)}}"><h5 class="title">
+                        {{$offer->job->title}}
                     </h5>
                 </a>
                 <span class="fz-20 d-flex align-items-center gap-1 fw-400 inter title">
-                Salary: <span class="base inter fw-500">${{$job->sallary}}</span>
+                Salary: <span class="base inter fw-500">${{$offer->job->sallary}}</span>
             </span>
             </div>
 
             @php
-                $skills = $job->skills;
+                $skills = $offer->job->skills;
                 if (is_string($skills)) {
                     $skills = json_decode($skills, true);
                 }
@@ -28,31 +28,31 @@
             </div>
 
             <div class="text-dark  fw-400 mb-24 pra inter">
-                {{str_limit( strip_tags($job->description),150)}}
+                {{str_limit( strip_tags($offer->description),150)}}
             </div>
 
             <div class="lavel__tag bborderdash pb-24 d-flex align-items-center ">
             <span class="lavel__item ralt fz-16 fw-400 inter pra"
-                  title="{{$job->created_at->format('M d,Y H:i')}}">
+                  title="{{$offer->created_at->format('M d,Y H:i')}}">
                 <span><i class="bi bi-clock"></i></span>
-                <span class="title fw-600 inter">{{$job->created_at->diffforhumans()}}</span>
+                <span class="title fw-600 inter">{{$offer->created_at->diffforhumans()}}</span>
             </span>
                 <span class="lavel__item ralt fz-16 fw-400 inter pra">
                 <span><i class="bi bi-ticket"></i></span>
                 <span class="title fw-600 inter">
-                    {{$job->applies->count() > 0 ? $job->applies->count() . ' Applies' : 'Add first offer'}}
+                    {{$offer->job->applies->count() > 0 ? $offer->job->applies->count() . ' Applies' : 'Add first offer'}}
                 </span>
             </span>
-                @if($job->delivery_time)
+                @if($offer->delivery_time)
                     <span class="lavel__item ralt fz-16 fw-400 inter pra">
                     <span><i class="bi bi-calendar-week"></i></span>
-                    <span class="title fw-600 inter">{{ delivery_time($job->delivery_time) }}</span>
+                    <span class="title fw-600 inter">{{ delivery_time($offer->delivery_time) }}</span>
                 </span>
                 @endif
                 <span class="lavel__item ralt fz-16 fw-400 inter pra">
                 <span class="title fw-600 inter">
-                    <span class="round16 badge badge bg-{{ status($job->status) }}">
-                        {{ statusJobName($job->status) }}
+                    <span class="round16 badge badge bg-{{ status($offer->job->status) }}">
+                        {{ statusJobName($offer->job->status) }}
                     </span>
                 </span>
             </span>
@@ -61,20 +61,20 @@
             <div class="d-flex pt-24 flex-wrap gap-2 align-items-center justify-content-between">
                 <div class="abstergo__left d-flex align-items-center">
                     <div class="abster ralt">
-                        <img src="{{$job->company->getPhoto()}}" alt="img">
+                        <img src="{{$offer->job->company->getPhoto()}}" alt="img">
                     </div>
                     <span class="fz-16 fw-400 inter pra">
-                    {{$job->company->name}}
+                    {{$offer->job->company->name}}
                 </span>
                 </div>
                 <div class="abstr__heart d-flex align-items-center">
-                    @if($job->status == 1)
-                        <a href="{{route('jobs.index',$job->slug)}}" class="cmn--btn outline__btn">
+                    @if($offer->status == 1)
+                        <a href="{{route('jobs.index',$offer->job->slug)}}" class="cmn--btn outline__btn">
                             <span>Send Proposal</span>
                             <span><i class="bi bi-arrow-up-right"></i></span>
                         </a>
                     @else
-                        <a href="{{route('jobs.index',$job->slug)}}" class="cmn--btn outline__btn">
+                        <a href="{{route('jobs.index',$offer->job->slug)}}" class="cmn--btn outline__btn">
                             <span>View</span>
                             <span><i class="bi bi-eye-fill"></i></span>
                         </a>
@@ -84,7 +84,7 @@
         </div>
     @endforeach
 
-    {{$jobs->appends(request()->query())->links('vendor.pagination.bootstrap-4')}}
+
 
 @else
     <div class="chatbot__items round16 mb-24 shadow2 bgwhite">

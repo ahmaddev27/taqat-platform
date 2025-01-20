@@ -68,40 +68,6 @@
         }
 
 
-        .loader {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: inline-block;
-            border-top: 4px solid #c5c8cc;
-            border-right: 4px solid transparent;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-
-        .loader::after {
-            content: '';
-            box-sizing: border-box;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border-left: 4px solid #197dbb;
-            border-bottom: 4px solid transparent;
-            animation: rotation 0.5s linear infinite reverse;
-        }
-
-        @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
     </style>
 
 @endpush
@@ -123,8 +89,8 @@
 
                             </h4>
 
-                            <form class="d-flex mb-24 filter__search align-items-center justify-content-between">
-                                <input type="text" placeholder="Search">
+                            <form class="d-flex mb-24 filter__search align-items-center justify-content-between" onsubmit="return false;">
+                                <input type="text" placeholder="Search" >
                                 <i class="bi bi-search"></i>
                             </form>
                             <div class="bank__check__wrap tborderdash pb-24">

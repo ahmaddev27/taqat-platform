@@ -1,5 +1,5 @@
 <!-- Categoris section Here -->
-@if(!talents()->count()>0)
+@if(talents()->count()>0)
 <section class="freelancer__section ralt pt-120 pb-120">
     <div class="container">
         <div class="row">

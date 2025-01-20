@@ -17,6 +17,24 @@ class Company extends Authenticatable
 
     use SoftDeletes;
 
+    public function scopeWhenSearch($query, $search)
+    {
+        if ($search) {
+            $searchPattern = str_replace(
+                ['ا', 'أ', 'إ', 'آ', 'ء'],
+                'ا',
+                $search
+            );
+
+            // Normalize the search term here
+            return $query->where(function ($q) use ($searchPattern) {
+                $q->whereRaw("REPLACE(name, 'أ', 'ا') LIKE ?", ["%$searchPattern%"])
+                    ->orWhereRaw("REPLACE(description, 'أ', 'ا') LIKE ?", ["%$searchPattern%"]);
+            });
+        }
+
+        return $query;
+    }
 
 
     public function getFileType()

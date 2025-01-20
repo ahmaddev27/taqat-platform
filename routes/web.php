@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TalentController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\JobController;
 
@@ -31,6 +32,13 @@ Route::controller(TalentController::class)->group(function () {
     });
 });
 
+
+Route::controller(CompanyController::class)->group(function () {
+    Route::group(['as' => 'companies.', 'prefix' => 'companies'], function () {
+        Route::get('/', 'all')->name('all');
+        Route::get('/{slug}', 'index')->name('index');
+    });
+});
 
 Route::controller(ProjectController::class)->group(function () {
     Route::group(['as' => 'projects.', 'prefix' => 'projects'], function () {

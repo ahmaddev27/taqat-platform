@@ -44,8 +44,8 @@
                 </li>
 
                 <li>
-                    <a href="#">
-                        Contact
+                    <a href="{{route('companies.all')}}">
+                        Companies
                     </a>
                 </li>
                 <li>

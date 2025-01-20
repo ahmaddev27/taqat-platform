@@ -38,6 +38,7 @@ class JobController extends Controller
         }
 
 
+
         $jobs = $query->orderBy('created_at', 'desc')->paginate(6); // Adjust pagination size if needed
 
         if (request()->ajax()) {

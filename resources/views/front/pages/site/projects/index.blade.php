@@ -1,13 +1,6 @@
 @extends('front.layouts.master',['title'=>$project->title])
 
 
-@push('css')
-    <style>
-
-    </style>
-
-@endpush
-
 @section('content')
 
     <section class="project__details pt-120 pb-120 sectionbg2">

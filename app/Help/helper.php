@@ -460,13 +460,17 @@ function Khadmat_categories()
 
 
 
-function talents()
+function getTalents($hasJobs, $limit)
 {
     // Fetch the data first
     $query = Talent::Wherefullprofile()
-        ->with(['specialization', 'projects','work_experiences'])
-        ->take(12)
-        ->has('jobs')
+        ->with(['specialization', 'projects', 'work_experiences'])
+        ->when($hasJobs, function ($q) {
+            return $q->has('jobs');
+        }, function ($q) {
+            return $q->doesntHave('jobs');
+        })
+        ->take($limit)
         ->get(); // Get the records first
 
     // Perform calculations on the collection
@@ -485,34 +489,25 @@ function talents()
     return $query; // Return the collection
 }
 
-
+function talents()
+{
+    return getTalents(true, 12); // Fetch talents with jobs
+}
 
 function talentsNotHadJobs()
 {
-    // Fetch the data first
-    $query = Talent::Wherefullprofile()
-        ->with(['specialization', 'projects','work_experiences'])
-        ->doesntHave('jobs')
-        ->take(8)
-        ->get(); // Get the records first
-
-    // Perform calculations on the collection
-    $query->each(function ($talent) {
-        $totalExperienceMonths = $talent->work_experiences->reduce(function ($carry, $experience) {
-            $startDate = new \DateTime($experience->start_date);
-            $endDate = $experience->end_date ? new \DateTime($experience->end_date) : now();
-            $interval = $startDate->diff($endDate);
-            return $carry + ($interval->y * 12 + $interval->m);
-        }, 0);
-
-        // Add calculated total experience years as a property
-        $talent->total_experience_years = ceil($totalExperienceMonths / 12);
-    });
-
-    return $query; // Return the collection
+    return getTalents(false, 12); // Fetch talents without jobs
 }
 
 
+function companies()
+{
+    return \App\Models\Taqat2\Company::query()
+        ->withCount(['completejobs as completed_projects_count'])
+        ->orderBy('completed_projects_count', 'desc') // Order by completed projects count
+        ->take(8)
+        ->get();
+}
 
 
 ?>
