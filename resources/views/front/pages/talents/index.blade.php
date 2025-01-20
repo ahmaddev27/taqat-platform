@@ -143,8 +143,10 @@
                                     </li>
                                 </ul>
                             </div>
+
+
                             <div class="bborderdash pb-24 mt-30 mb-30" style="color:#222e48;!important;">
-                                <h3 class="title mb-20">Description</h3>
+                                <h3 class="title mb-20">BIO</h3>
                                 <p class="fz-16 fw-400 inter">
                                     {!! $talent->bio!!}
                                 </p>

@@ -36,7 +36,7 @@ Route::controller(TalentController::class)->group(function () {
 Route::controller(CompanyController::class)->group(function () {
     Route::group(['as' => 'companies.', 'prefix' => 'companies'], function () {
         Route::get('/', 'all')->name('all');
-        Route::get('/{slug}', 'index')->name('index');
+        Route::get('/{id}', 'index')->name('index');
     });
 });
 

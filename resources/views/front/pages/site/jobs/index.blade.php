@@ -209,7 +209,8 @@
 
 
                                 </div>
-                                <a href="#" class="cmn--btn outline__btn d-block">
+
+                                <a href="{{route('companies.index',$job->company_id)}}" class="cmn--btn outline__btn d-block">
                                         <span>
                                            View Profile
                                         </span>

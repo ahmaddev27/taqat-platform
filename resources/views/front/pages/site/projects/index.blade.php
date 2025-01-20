@@ -5,7 +5,6 @@
 
     <section class="project__details pt-120 pb-120 sectionbg2">
 
-
         <div class="container">
             <div class="row g-4">
                 <div class="col-xl-8 col-lg-8">
@@ -44,7 +43,6 @@
 
                                         </div>
                                     </li>
-
 
                                     <li class="d-flex align-items-center">
                                         <i class="bi bi-ticket d-flex align-items-center justify-content-center"></i>
@@ -118,7 +116,6 @@
                             @endif
 
 
-
                             @if($project->attachments->count()>0)
 
                                 <div class="attachment__file mb-30 pb-30 bborderdash">
@@ -147,7 +144,7 @@
                             @endif
 
 
-                         @include('front.pages.site.projects.partials.send-proposal')
+                            @include('front.pages.site.projects.partials.send-proposal')
 
 
                         </div>
@@ -200,7 +197,7 @@
                                     <div class="d-flex mb-8 align-items-center gap-1">
                                         <i class="bi bi-check2-circle base"></i>
                                         <span class="fz-16 fw-400 inter pra">
-                                                 {{trans('main.Employment_rate')}} <span class="base">    {{$employmentRate}}%</span>
+                                                 {{trans('main.Employment_rate')}} <span class="base">  {{$employmentRate}}%</span>
                                            </span>
                                     </div>
 
@@ -251,8 +248,6 @@
             </div>
         </div>
     </section>
-
-
 
 @stop
 

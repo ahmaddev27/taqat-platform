@@ -5,7 +5,7 @@
         @foreach($companies as $company)
             <div id="{{$company->id}}" class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                 <div class="frelancer__item shadow2 round16 bgwhite">
-                    <a href="{{route('talents.index', $company->id)}}" class="thumbs m-auto">
+                    <a href="{{route('companies.index', $company->id)}}" class="thumbs m-auto">
                         <img src="{{$company->getPhoto()}}" class="rounded-circle"
                              style="width: 100%; border: 2px solid #fffefe; height: 100%; object-fit: cover;"
                              loading="lazy">

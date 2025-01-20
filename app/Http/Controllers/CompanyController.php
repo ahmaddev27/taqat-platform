@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Taqat2\Company;
+use Illuminate\Support\Facades\Cookie;
 
 class CompanyController extends Controller
 {
@@ -39,25 +40,38 @@ class CompanyController extends Controller
     }
 
 
+    public function index($id)
+    {
+        // Find the Talent by slug
+        $company = Company::findOrFail($id);
 
-//    public function index(Request $request, $slug)
-//    {
-//        // Find the Talent by slug
-//        $talent = Talent::with(['khadmats','scientificCertificate','training_courses','projects','work_experiences'])->where('slug', $slug)->firstOrFail();
-//
-//
-//        // Handle the project filtering
-//        if ($request->has('project_type') && is_array($request->project_type)) {
-//            $options = $request->project_type;
-//            $projects = Project::where('user_id', $talent->id)
-//                ->with('project_type_relation')
-//                ->whereIn('project_type', $options)
-//                ->get();
-//        } else {
-//            $projects = Project::where('user_id', $talent->id)
-//                ->with('project_type_relation')
-//                ->get();
-//        }
+
+        // Ensure company is loaded and has the projects relationship
+        $totalProjects = $company->projects->count();
+        $filteredProjects = $company->projects->filter(function ($project) {
+            return in_array($project->status, [2, 3]);
+        });
+        // Use `whereIn` to filter projects by status
+
+        $filteredCount_projects = $filteredProjects->count();
+        $employmentRate_projects = ($totalProjects > 0) ? ($filteredCount_projects / $totalProjects) * 100 : 0;
+        $roundedEmploymentRate_projects = round($employmentRate_projects, -2);
+        $formattedEmploymentRate_projects = number_format($roundedEmploymentRate_projects, 1);
+        // Handle the project filtering
+
+        // Ensure company is loaded and has the jobs relationship
+        $totalJobs = $company->jobs->count();
+
+        $filteredJobs = $company->jobs->filter(function ($job) {
+            return in_array($job->status, [2, 3]);
+        });
+// Use `whereIn` to filter jobs by status
+
+        $filteredCount_jobs = $filteredJobs->count();
+        $employmentRate_jobs = ($totalJobs > 0) ? ($filteredCount_jobs / $totalJobs) * 100 : 0;
+        $roundedEmploymentRate_jobs = round($employmentRate_jobs, -2);
+        $formattedEmploymentRate_jobs = number_format($roundedEmploymentRate_jobs, 1);
+
 //
 //        // Handle the view count logic
 //        if (!Cookie::get('profile_view_' . $talent->id)) {
@@ -65,17 +79,17 @@ class CompanyController extends Controller
 //            $talent->increment('views', 1);
 //            $talent->save();
 //        }
-//
-//
-//        // Get all project types
-//        $project_type = Project_type::all();
-//
-//        return view('front.pages.talents.index', [
-//            'talent' => $talent,
-//            'projects' => $projects,
-//            'project_type' => $project_type
-//        ]);
-//    }
+
+
+        // Get all project types
+        return view('front.pages.site.companies.index', [
+            'company' => $company,
+            'totalProjects' => $totalProjects,
+            'employmentRate_projects' => $formattedEmploymentRate_projects,
+            'employmentRate_jobs' => $formattedEmploymentRate_jobs,
+
+        ]);
+    }
 
 
 }
