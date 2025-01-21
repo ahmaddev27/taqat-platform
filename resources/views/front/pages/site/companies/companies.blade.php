@@ -19,7 +19,7 @@
 
                             <form class="d-flex mb-24 filter__search align-items-center justify-content-between"
                                   onsubmit="return false;">
-                                <input type="text" placeholder="Search">
+                                <input type="text" placeholder="Search" value="{{request()->search}}">
                                 <i class="bi bi-search"></i>
                             </form>
 

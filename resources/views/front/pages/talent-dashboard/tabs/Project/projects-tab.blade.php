@@ -1,7 +1,7 @@
 @push('css')
 
-        <!-- Krajee FileInput CSS and JS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+    <!-- Krajee FileInput CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
 
     <style>
         #imagePreview-project {
@@ -19,7 +19,6 @@
         }
     </style>
 
-
 @endpush
 
 <div class="tab-pane base fade" id="nav-projects" role="tabpanel"
@@ -27,12 +26,10 @@
     <div class="row justify-content-center g-4">
 
         <div class="d-flex align-items-center justify-content-center mb-2 ">
-            <a href="#" class="cmn--btn outline__btn" data-toggle="modal" data-target="#add-project" >
+            <a href="#" class="cmn--btn outline__btn" data-toggle="modal" data-target="#add-project">
                 <span class="fz-14 pra"> <i class="bi bi-plus"></i> New Projects</span>
             </a>
         </div>
-
-
 
 
         @foreach($talent->projects as $project)
@@ -94,6 +91,6 @@
 
 @endpush
 
-@include('front.pages.talent-profile.tabs.Project.details')
-@include('front.pages.talent-profile.tabs.Project.add-project')
-@include('front.pages.talent-profile.tabs.Project.edit-project')
+@include('front.pages.talent-dashboard.tabs.Project.details')
+@include('front.pages.talent-dashboard.tabs.Project.add-project')
+@include('front.pages.talent-dashboard.tabs.Project.edit-project')

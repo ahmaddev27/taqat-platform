@@ -20,27 +20,31 @@ class TalentController extends Controller
 
     public function all()
     {
+        // Get specializations with count
         $specializations = Specialization::withCount('talents')->get();
-        $query = Talent::Wherefullprofile()->with(['specialization', 'projects']);
 
-        // Search filter
+        // Start the query for talents
+        $query = Talent::whereFullProfile()->with(['specialization', 'projects']);
+
+        // Apply search filter if the search term exists
         if ($search = request()->search) {
-            $query->WhenSearch($search);
+            $query->whenSearch($search);
         }
 
-        // Specializations filter
-        if (request()->specializations && is_array(request()->specializations)) {
-            $options = request()->specializations;
-            $query->whereIn('specialization_id', $options);
+        // Apply specializations filter if selected
+        if ($specializationsFilter = request()->get('specializations', [])) {
+            $query->whereIn('specialization_id', $specializationsFilter);  // Filtering based on selected specializations
         }
 
-        // Star rating filter
-        if ($stars = request()->stars) {
-            $query->whereIn('rate', $stars);
+        // Apply stars filter if selected
+        if ($stars = request()->get('stars', [])) {
+            $query->whereIn('rate', $stars);  // Filtering based on selected star ratings
         }
 
-        // Paginate and calculate total experience
+        // Paginate the results
         $talents = $query->paginate(33);
+
+        // Calculate total experience for each talent
         $talents->each(function ($talent) {
             $totalExperienceMonths = $talent->work_experiences->reduce(function ($carry, $experience) {
                 $startDate = new \DateTime($experience->start_date);
@@ -51,8 +55,19 @@ class TalentController extends Controller
             $talent->total_experience_years = ceil($totalExperienceMonths / 12);
         });
 
+        // If the request is AJAX, return just the updated HTML for the talent list
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view('front.pages.site.talents.partials.talents-list', compact('talents'))->render(),
+                'pagination' => $talents->links()->render()
+            ]);
+        }
+
+        // If it's a normal request (non-AJAX), return the full view
         return view('front.pages.site.talents.talents', compact('talents', 'specializations'));
     }
+
+
 
     public function index(Request $request, $slug)
     {

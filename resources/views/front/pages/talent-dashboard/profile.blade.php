@@ -181,13 +181,13 @@
 
                                     @if($talent->skills)
                                         <div
-                                            class="description__edit pt-24 ralt pb-24 bborderdash commn__spacenone">
+                                            class="description__edit pt-24 ralt pb-24  commn__spacenone">
                                             <ul class="nav" role="tablist">
                                                 <li class="nav-item w-100 mb-16 d-flex align-items-center justify-content-between"
                                                     role="presentation">
-                              <span class="fz-24 fw-600 inter title">
-                                 Skills
-                              </span>
+                                                  <span class="fz-24 fw-600 inter title">
+                                                     Skills
+                                                  </span>
 
                                                 </li>
                                             </ul>
@@ -195,15 +195,21 @@
 
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="skew" role="tabpanel">
-                                                    <div class="skill__tag d-flex flex-wrap">
 
-                                                        @foreach(json_decode($talent->skills) as $skill)
+                                                        @if($talent->skills)
 
-                                                            <a href="javascript:void(0)"
-                                                               class="round100 fz-14 pra">
-                                                                {{ $skill->value }}
-                                                            </a>
-                                                        @endforeach
+                                                            <div class="chatbot__tag mb-30 pb-30  d-flex flex-wrap align-items-center">
+
+                                                                @foreach(json_decode($talent->skills) as $skill)
+                                                                    <div class="skill-tag">
+                                                                        <a href="#0"
+                                                                           class="learning round16 fz-12 fw-500 inter base text-center d-inline-block">
+                                                                            {{ $skill->value }}
+                                                                        </a>
+                                                                    </div>
+                                                                @endforeach
+
+                                                        @endif
 
 
                                                     </div>
@@ -398,7 +404,8 @@
                                                                </span>
 
                                                                 <div>
-                                                                <textarea id="bio" name="bio" class="form-control round16"
+                                                                <textarea id="bio" name="bio"
+                                                                          class="form-control round16"
                                                                           rows="10">{!! $talent->bio !!}</textarea>
                                                                     {{--                                                                <button id="ai-generate" type="button" class="btn btn-secondary">Write with AI</button>--}}
                                                                     {{--                                                                <p id="error-message" style="color: red; display: none;">Generated text must be at least 30 characters.</p>--}}
@@ -437,11 +444,11 @@
                                         </div>
                                     </div>
 
-                                    @include('front.pages.talent-profile.tabs.Educations.edu-tab')
+                                    @include('front.pages.talent-dashboard.tabs.Educations.edu-tab')
                                     {{--                                @include('front.pages.talent-profile.tabs.Courses.edu-tab')--}}
-                                    @include('front.pages.talent-profile.tabs.Services.service-tab')
-                                    @include('front.pages.talent-profile.tabs.Experience.experience-tab')
-                                    @include('front.pages.talent-profile.tabs.Project.projects-tab')
+                                    @include('front.pages.talent-dashboard.tabs.Services.service-tab')
+                                    @include('front.pages.talent-dashboard.tabs.Experience.experience-tab')
+                                    @include('front.pages.talent-dashboard.tabs.Project.projects-tab')
 
 
                                 </div>
@@ -464,6 +471,7 @@
 
             // Initialize Tagify script on the above inputs
             new Tagify(input, {
+
                 whitelist: [
                     "Software Engineering",
                     "Web Development",
@@ -597,7 +605,7 @@
                     "Business Intelligence",
                     "js"
                 ],
-                maxTags: 100,
+                maxTags: 10,
                 dropdown: {
                     maxItems: 24, // <- mixumum allowed rendered suggestions
                     classname: "tagify_inline_suggestions", // <- custom classname for this dropdown, so it could be targeted

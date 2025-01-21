@@ -91,7 +91,7 @@
 
 
 {{--Add Exp--}}
-@include('front.pages.talent-profile.tabs.Experience.add-experience')
+@include('front.pages.talent-dashboard.tabs.Experience.add-experience')
 {{--Edit Exp--}}
-@include('front.pages.talent-profile.tabs.Experience.edit-experience')
+@include('front.pages.talent-dashboard.tabs.Experience.edit-experience')
 

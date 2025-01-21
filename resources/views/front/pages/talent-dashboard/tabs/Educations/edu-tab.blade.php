@@ -99,8 +99,8 @@
 
 
 {{--Add Edu--}}
-@include('front.pages.talent-profile.tabs.Educations.add-edu')
+@include('front.pages.talent-dashboard.tabs.Educations.add-edu')
 {{--Edit Edu--}}
-@include('front.pages.talent-profile.tabs.Educations.edit-edu')
+@include('front.pages.talent-dashboard.tabs.Educations.edit-edu')
 
 

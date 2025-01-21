@@ -36,4 +36,4 @@
 
 
 </div>
-@include('front.pages.talent-profile.tabs.Project.details')
+@include('front.pages.talent-dashboard.tabs.Project.details')

@@ -40,7 +40,7 @@ class TalentLoginController extends Controller
         if (Auth::guard('talent')->check()) {
             return redirect()->back();
         } else {
-            return view('front.pages.talent-profile.login');
+            return view('front.pages.talent-dashboard.login');
 
 
         }

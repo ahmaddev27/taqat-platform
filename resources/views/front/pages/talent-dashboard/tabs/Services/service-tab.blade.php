@@ -95,6 +95,6 @@
     </div>
 
 
-    @include('front.pages.talent-profile.tabs.Services.add-service')
-    @include('front.pages.talent-profile.tabs.Services.edit-service')
+    @include('front.pages.talent-dashboard.tabs.Services.add-service')
+    @include('front.pages.talent-dashboard.tabs.Services.edit-service')
 </div>

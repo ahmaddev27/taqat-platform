@@ -167,7 +167,7 @@
 
                             @if($talent->skills)
                                 <h4 class="title mb-24">
-                                    My Skills:
+                                    Skills
                                 </h4>
 
                                 <div class="chatbot__tag mb-30 pb-30 bborderdash d-flex flex-wrap align-items-center">
@@ -188,39 +188,55 @@
                             <div class="about__three__content ">
                                 <!-- Nav Tabs -->
                                 <ul class="nav-lg nav mt-30 mb-16 d-flex align-items-center nav-tabs" id="talentTabs">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="educations-tab" data-bs-toggle="tab"
-                                                data-bs-target="#educations" type="button" role="tab"
-                                                aria-controls="educations" aria-selected="true">
-                                            Educations
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="experience-tab" data-bs-toggle="tab"
-                                                data-bs-target="#experience" type="button" role="tab"
-                                                aria-controls="experience" aria-selected="false">
-                                            Experience
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="services-tab" data-bs-toggle="tab"
-                                                data-bs-target="#services" type="button" role="tab"
-                                                aria-controls="services" aria-selected="false">
-                                            Services
-                                        </button>
-                                    </li>
 
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="projects-tab" data-bs-toggle="tab"
-                                                data-bs-target="#projects" type="button" role="tab"
-                                                aria-controls="projects" aria-selected="false">
-                                            Projects
+                                    @if($talent->scientificCertificate->count()>0)
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="educations-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#educations" type="button" role="tab"
+                                                    aria-controls="educations" aria-selected="true">
+                                                <i class="bi bi-mortarboard" style="font-size: 25px"></i>       Educations
+                                            </button>
+                                        </li>
+                                    @endif
 
-                                        </button>
-                                    </li>
+                                    @if($talent->work_experiences->count()>0)
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="experience-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#experience" type="button" role="tab"
+                                                    aria-controls="experience" aria-selected="false">
+                                                <i class="bi bi-list-stars" style="font-size: 25px"></i> Experience
+                                            </button>
+                                        </li>
+                                    @endif
+
+
+                                    @if($talent->khadmats->count()>0)
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="services-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#services" type="button" role="tab"
+                                                    aria-controls="services" aria-selected="false">
+                                                <i class="bi bi-list-ul" style="font-size: 25px"></i>Services
+                                            </button>
+                                        </li>
+                                    @endif
+
+
+                                    @if($talent->projects->count()>0)
+
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="projects-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#projects" type="button" role="tab"
+                                                    aria-controls="projects" aria-selected="false">
+                                                <i class="bi bi-briefcase" style="font-size: 25px"></i>  Projects
+
+                                            </button>
+                                        </li>
+
+                                    @endif
                                 </ul>
 
                                 <!-- Tab Content -->
+
                                 <div class="tab-content mt-3" id="talentTabsContent">
                                     <div class="tab-pane fade show active" id="educations" role="tabpanel"
                                          aria-labelledby="educations-tab">
@@ -364,28 +380,6 @@
             </div>
         </div>
     </section>
-
-
-    @push('js')
-        <script>
-            $(document).ready(function () {
-                // // Remove the classes
-                // $('#banner').removeClass('banner__section bg__img1 ralt overhid');
-                // // Add the classes
-                // $('#banner').addClass('banner__breadcumn  ralt');
-                //
-                //
-                // $('#header-nav').removeClass('header-section animated slideInUp');
-                // // Add the classes
-                // $('#header-nav').addClass('header-section menubordert header__section__two menuborderb animated slideInUp');
-                //
-                // // $('header a').addClass('text-white mdnone inter fw-400');
-                // // $('haderbar__top a').addClass('text-white mdnone inter fw-400');
-
-
-            });
-        </script>
-    @endpush
 
 @stop
 
