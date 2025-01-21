@@ -18,33 +18,26 @@
             <p class="fz-20 fw-400 pra inter mb-40 wow fadeInDown">
                 {{$sliderSection->details}}
             </p>
-            <form action="#"
+            <form id="searchForm" action="/talents"
+                  method="GET"
                   class="search__component mb-24 d-flex align-items-center justify-content-between wow fadeInUp">
-                <input type="text" placeholder="What you're looking for?">
 
-                <div class="nice-select mx-1" tabindex="0">
-                    <span class="current">
-                           Talent
-                        </span>
+                <input required type="text" name="search" placeholder="What you're looking for?" />
 
+                <div class="nice-select mx-1" tabindex="0" id="searchTypeSelector">
+                    <span class="current">Talent</span>
                     <ul class="list">
-                        <li data-value="1" class="option selected">
-                            Talent
-                        </li>
-                        <li data-value="1" class="option">
-                            Companies
-                        </li>
-                        <li data-value="1" class="option">
-                            Teams
-                        </li>
+                        <li data-value="talents" class="option selected">Talent</li>
+                        <li data-value="companies" class="option">Companies</li>
+                        <li data-value="teams" class="option">Teams</li>
                     </ul>
                 </div>
 
-                <button type="button" class="cmn--btn d-flex align-items-center">
+                <button type="submit" class="cmn--btn d-flex align-items-center">
                     <span><i class="bi bi-search fz-12"></i></span>
                 </button>
-
             </form>
+
             {{--                                    <div class="banner__aitag d-flex align-items-center wow fadeInDown">--}}
             {{--                                 <span class="aitag__text fz-16 fw-400 inter pra">--}}
             {{--                                    Popular Searches--}}
@@ -74,4 +67,29 @@
     </div>
 </div>
 
+
+@push('js')
+    <script>
+        // JavaScript to dynamically change the form action
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('searchForm');
+            const selector = document.getElementById('searchTypeSelector');
+            const options = selector.querySelectorAll('.option');
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    const selectedValue = option.getAttribute('data-value');
+                    const actionMap = {
+                        talents: '/talents',
+                        companies: '/companies',
+                        teams: '/teams'
+                    };
+
+                    // Update the form's action based on the selected value
+                    form.setAttribute('action', actionMap[selectedValue] || '#');
+                });
+            });
+        });
+    </script>
+@endpush
 

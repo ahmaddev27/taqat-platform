@@ -43,7 +43,7 @@ class CompanyController extends Controller
     public function index($id)
     {
         // Find the Talent by slug
-        $company = Company::findOrFail($id);
+        $company = Company::with(['jobs','projects'])->findOrFail($id);
 
 
         // Ensure company is loaded and has the projects relationship
@@ -84,6 +84,8 @@ class CompanyController extends Controller
         // Get all project types
         return view('front.pages.site.companies.index', [
             'company' => $company,
+            'projects' => $company->projects,
+            'jobs' => $company->jobs,
             'totalProjects' => $totalProjects,
             'employmentRate_projects' => $formattedEmploymentRate_projects,
             'employmentRate_jobs' => $formattedEmploymentRate_jobs,

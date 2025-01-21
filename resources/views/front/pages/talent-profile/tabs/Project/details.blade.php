@@ -41,7 +41,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class="small__mainwrappper ralt">
                                             <div class="swiper mySwiper small__thumbwrapper">
                                                 <div class="swiper-wrapper small__thumbslider">

@@ -21,8 +21,9 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <div class="darrell__profile round16 bgwhite m-2 p-3 text-center">
                             <div class="profile__check ralt position-relative">
-                                <img src="{{$company->getPhoto()}}" style="object-fit: cover" alt="profile"
+                             <a href="{{route('companies.index', $company->id)}}" >  <img src="{{$company->getPhoto()}}" style="object-fit: cover" alt="profile"
                                      class="img-fluid rounded-circle">
+                             </a>
                             </div>
                             <div class="darrell__content mt-3">
                                 <h4 class="title mb-2">

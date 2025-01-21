@@ -51,7 +51,7 @@ class TalentController extends Controller
             $talent->total_experience_years = ceil($totalExperienceMonths / 12);
         });
 
-        return view('front.pages.talents.talents', compact('talents', 'specializations'));
+        return view('front.pages.site.talents.talents', compact('talents', 'specializations'));
     }
 
     public function index(Request $request, $slug)
@@ -84,7 +84,7 @@ class TalentController extends Controller
         // Get all project types
         $project_type = Project_type::all();
 
-        return view('front.pages.talents.index', [
+        return view('front.pages.site.talents.index', [
             'talent' => $talent,
             'projects' => $projects,
             'project_type' => $project_type

@@ -20,53 +20,53 @@
 
 @section('content')
 
-{{--    <!-- Hero Sections Here -->--}}
-{{--    <section class="banner__breadcumn  ralt">--}}
+    {{--    <!-- Hero Sections Here -->--}}
+    {{--    <section class="banner__breadcumn  ralt">--}}
 
-{{--        <div class="breadcumnd__wrapper">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row align-items-center justify-content-between">--}}
-{{--                    <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">--}}
-{{--                        <div class="breadcumnd__content">--}}
-{{--                  <span class="d4 mb-24">--}}
-{{--                     Freelancer--}}
-{{--                  </span>--}}
-{{--                            <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">--}}
-{{--                                <li>--}}
-{{--                                    <a href="index.html" class="fz-16 fw-400 inter text-white">--}}
-{{--                                        Home--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <i class="bi bi-chevron-right"></i>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#0" class="fz-16 fw-400 inter text-white">--}}
-{{--                                        Find Talent--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <i class="bi bi-chevron-right"></i>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#0" class="fz-16 fw-400 inter base2">--}}
-{{--                                        Freelancer--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">--}}
-{{--                        <div class="featured__card">--}}
-{{--                            <img src="{{asset('front/assets/img/bn/bread-service.png')}}" class="w-100" alt="img">--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+    {{--        <div class="breadcumnd__wrapper">--}}
+    {{--            <div class="container">--}}
+    {{--                <div class="row align-items-center justify-content-between">--}}
+    {{--                    <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">--}}
+    {{--                        <div class="breadcumnd__content">--}}
+    {{--                  <span class="d4 mb-24">--}}
+    {{--                     Freelancer--}}
+    {{--                  </span>--}}
+    {{--                            <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">--}}
+    {{--                                <li>--}}
+    {{--                                    <a href="index.html" class="fz-16 fw-400 inter text-white">--}}
+    {{--                                        Home--}}
+    {{--                                    </a>--}}
+    {{--                                </li>--}}
+    {{--                                <li>--}}
+    {{--                                    <i class="bi bi-chevron-right"></i>--}}
+    {{--                                </li>--}}
+    {{--                                <li>--}}
+    {{--                                    <a href="#0" class="fz-16 fw-400 inter text-white">--}}
+    {{--                                        Find Talent--}}
+    {{--                                    </a>--}}
+    {{--                                </li>--}}
+    {{--                                <li>--}}
+    {{--                                    <i class="bi bi-chevron-right"></i>--}}
+    {{--                                </li>--}}
+    {{--                                <li>--}}
+    {{--                                    <a href="#0" class="fz-16 fw-400 inter base2">--}}
+    {{--                                        Freelancer--}}
+    {{--                                    </a>--}}
+    {{--                                </li>--}}
+    {{--                            </ul>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">--}}
+    {{--                        <div class="featured__card">--}}
+    {{--                            <img src="{{asset('front/assets/img/bn/bread-service.png')}}" class="w-100" alt="img">--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
 
-{{--    </section>--}}
-{{--    <!-- Hero Section End -->--}}
+    {{--    </section>--}}
+    {{--    <!-- Hero Section End -->--}}
 
     <!--service grid here-->
     <section class="service__grid pt-50 pb-120 sectionbg2">
@@ -153,12 +153,8 @@
                 </div>
 
                 <div class="col-xl-8 col-lg-8">
-
-
                     <div class="row g-4">
-
                         @foreach($talents as $talent)
-
                             <div id="{{$talent->id}}" class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                 <div class="frelancer__item shadow2 round16 bgwhite">
                                     <div class="d-flex mb-24 align-items-center justify-content-between">
@@ -177,7 +173,6 @@
                                         <img src="{{$talent->photo}}" class="rounded-circle"
                                              style="width: 100%; border: 2px solid #fffefe; height: 100%; object-fit: cover;"
                                              loading="lazy">
-
                                     </a>
                                     <h5 class="mt-24 text-center mb-20">
                                         <a href="{{route('talents.index',$talent->slug)}}" class="title">
@@ -224,7 +219,6 @@
         <script>
             $(document).ready(function () {
                 // Remove the classes
-
 
 
             });
