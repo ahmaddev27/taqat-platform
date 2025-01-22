@@ -80,6 +80,6 @@ class ProjectProposalController extends Controller
         return view('front.pages.talent-dashboard.offers.project.my-offers', ['offers' => $offers, 'talent' => $talent]);
     }
 
- 
+
 }
 

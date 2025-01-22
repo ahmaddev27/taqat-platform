@@ -2,7 +2,7 @@
     @foreach($offers as $offer)
         <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
             <div class="d-flex mb-24 flex-wrap align-items-center justify-content-between">
-                <a href="{{route('jobs.index',$offer->job->slug)}}"><h5 class="title">
+                <a href="{{route('jobs.index',$offer->job->id)}}"><h5 class="title">
                         {{$offer->job->title}}
                     </h5>
                 </a>
