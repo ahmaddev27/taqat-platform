@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Taqat2\CompanyProject;
-use App\Models\Taqat2\JobApplies;
-use App\Models\Taqat2\Offer;
 use App\Models\Taqat2\Project;
 use App\Models\Taqat2\Project_type;
 use App\Models\Taqat2\Specialization;

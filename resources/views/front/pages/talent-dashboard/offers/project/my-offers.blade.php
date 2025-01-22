@@ -108,7 +108,7 @@
 
                 <div class="col-xl-8 col-lg-8">
                     <div class="chatbot__developers text-center">
-                        @include('front.pages.talent-profile.offers.project.partials.offers-list')
+                        @include('front.pages.talent-dashboard.offers.project.partials.offers-list')
                     </div>
                 </div>
             </div>
