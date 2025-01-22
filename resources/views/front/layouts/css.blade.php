@@ -148,6 +148,53 @@
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
     }
 
+
+    .loading-placeholder {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .frelancer__item.loading {
+        background-color: #f0f0f0; /* Light grey to indicate loading */
+    }
+
+    .placeholder-avatar, .placeholder-text, .placeholder-box, .placeholder-placeholder {
+        background-color: #ddd;
+        animation: shimmer 1.5s infinite linear;
+        border-radius: 4px;
+    }
+
+    .placeholder-avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+    }
+
+    .placeholder-text {
+        width: 60%;
+        height: 20px;
+        margin: 10px auto;
+    }
+
+    .placeholder-box {
+        width: 50px;
+        height: 30px;
+        margin: 0 auto;
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-color: #e0e0e0;
+        }
+        50% {
+            background-color: #f7f7f7;
+        }
+        100% {
+            background-color: #e0e0e0;
+        }
+    }
+
+
 </style>
 
 @stack('css')

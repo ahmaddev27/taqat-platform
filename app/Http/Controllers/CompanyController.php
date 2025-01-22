@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $companies = $query->withCount(['projects', 'jobs'])
             ->orderBy('projects_count', 'desc')
             ->orderBy('jobs_count', 'desc')
-            ->paginate(6);
+            ->paginate(12);
 
         // Check if it's an AJAX request
         if (request()->ajax()) {

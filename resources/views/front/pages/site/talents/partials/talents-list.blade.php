@@ -1,4 +1,4 @@
-@if($talents->count()>0 )
+{{--@if($talents->count()>0 )--}}
 
 
 
@@ -53,19 +53,19 @@
 @endforeach
 
 
-    <div class="pagination-container">
-{{$talents->links('vendor.pagination.bootstrap-4')}}
+{{--    <div class="pagination-container">--}}
+{{--{{$talents->links('vendor.pagination.bootstrap-4')}}--}}
 
-    </div>
+{{--    </div>--}}
 
-@else
+{{--@else--}}
 
-    <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
-        <div class="d-flex mb-24 flex-wrap align-items-center justify-content-center">
-            <h5 class="title text-center justify-content-center  fz-18 fw-500  inte">
-                No Results
-            </h5>
+{{--    <div class="chatbot__items round16 mb-24 shadow2 bgwhite">--}}
+{{--        <div class="d-flex mb-24 flex-wrap align-items-center justify-content-center">--}}
+{{--            <h5 class="title text-center justify-content-center  fz-18 fw-500  inte">--}}
+{{--                No Results--}}
+{{--            </h5>--}}
 
-        </div>
-    </div>
-@endif
+{{--        </div>--}}
+{{--    </div>--}}
+{{--@endif--}}

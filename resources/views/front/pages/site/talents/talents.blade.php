@@ -14,6 +14,25 @@
             box-shadow: none;
         }
 
+
+        .loading-placeholder {
+            background: #e0e0e0; /* Light gray to mimic skeleton loading */
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                background-color: #f0f0f0;
+            }
+            50% {
+                background-color: #e0e0e0;
+            }
+            100% {
+                background-color: #f0f0f0;
+            }
+        }
+
+
     </style>
 
 @endpush
@@ -29,7 +48,7 @@
                         <div class="card__common__item bgwhite round16">
                             <h4 class="head fw-600 bborderdash title pb-24 mb-24">
                                 Filter
-                                <span class="loader mx-5 justify-content-end"></span>
+                                <span class="loader mx-5 justify-content-end" style="display: none"></span>
 
                             </h4>
 
@@ -59,7 +78,9 @@
                                     </span>
                                         </div>
                                     @endforeach
+
                                 </div>
+
 
                                 <div class="bank__check__wrap bborderdash pb-24 mb-24 tborderdash">
                                     <h5 class="title mb-16 pt-24">Star Category</h5>
@@ -76,9 +97,6 @@
                                                     {{ $star }} Star
                                                 </label>
                                             </div>
-                                            <span class="fw-500 inter fz-16 pra">
-                    {{ $talents->where('rate', '>=', $star)->count() }}
-                </span>
                                         </div>
                                     @endforeach
                                 </div>
@@ -94,12 +112,17 @@
                     </div>
                 </div>
 
+
                 <div class="col-xl-8 col-lg-8">
-                    <div class="row g-4 talents">
+                    <div class="row g-4 talents" id="talentsList">
+                        <!-- Skeleton loader as placeholder -->
 
                         @include('front.pages.site.talents.partials.talents-list')
 
+
                     </div>
+
+
 
 
                 </div>
@@ -111,83 +134,160 @@
 
     @push('js')
         <script>
-            // Initially hide the loader
-            $('.loader').hide();
+            $(document).ready(function () {
 
-            // Event listener for any filter change (search input, checkboxes)
-            $(document).on('change', '#searchInput, .specializations, .stars', function () {
-                $('html, body').animate({scrollTop: 0}, 'fast'); // Scroll to top
+                let page = 1;  // Start at page 1
+                let isLoading = false;  // Prevent multiple AJAX calls
+                const loadersCount = 6;  // Number of skeleton loaders to show at a time
 
-                // Prepare the filters object
-                let filters = {
-                    search: $('#searchInput').val(), // Get search input value
-                    specializations: [], // Store selected specializations
-                    stars: [] // Store selected stars
-                };
+                // Function to load talents based on current filters and pagination
+                function loadTalents() {
+                    if (isLoading) return;  // Prevent multiple requests while one is in progress
 
-                // Collect selected specializations
-                $('input[name="specializations[]"]:checked').each(function () {
-                    filters.specializations.push($(this).val().trim());
-                });
-
-                // Collect selected star ratings
-                $('input[name="stars[]"]:checked').each(function () {
-                    filters.stars.push($(this).val().trim());
-                });
-
-                // Show loader
-                $('.loader').show();
-
-                // Send AJAX request
-                $.ajax({
-                    url: '{{ route('talents.all') }}', // Adjust to the actual route
-                    method: 'GET',
-                    data: filters, // Send the filters as query parameters
-                    success: function (response) {
-                        // Update the talent list with the response
-                        $('.talents').html(response.html);
-                        $('.loader').hide(); // Hide loader after response
-                    },
-                    error: function (error) {
-                        console.error('Error fetching talents:', error);
-                        $('.talents').html('<div class="error-message">Something went wrong. Please try again.</div>');
-                        $('.loader').hide();
+                    isLoading = true;
+                    // Show the main loader only when data is being fetched
+                    if (page === 1) {
+                        $('.loader').show();  // Show loader on the first page load
                     }
-                });
-            });
 
+                    // Show skeleton loaders as placeholders before data is loaded
+                    for (let i = 0; i < loadersCount; i++) {
+                        $('#talentsList').append(`
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 skeleton-loader">
+    <div class="frelancer__item shadow2 round16 bgwhite loading">
+        <div class="d-flex mb-24 align-items-center justify-content-between">
+            <div class="d-flex gap-2 fz-16 fw-600 inter title">
+                <div class="loading-placeholder" style="width: 16px; height: 16px; border-radius: 50%;"></div>
+                <div class="loading-placeholder" style="width: 40px; height: 16px;"></div>
+                <span class="loading-placeholder" style="width: 80px; height: 16px;"></span>
+            </div>
+            <div class="loading-placeholder" style="width: 100px; height: 16px;"></div>
+        </div>
+        <a href="#" class="thumbs m-auto">
+            <div class="loading-placeholder" style="width: 100%; height: 120px; border-radius: 50%; background-color: #e0e0e0;"></div>
+        </a>
+        <h5 class="mt-24 text-center mb-20">
+            <div class="loading-placeholder" style="width: 60%; height: 20px;"></div>
+        </h5>
+        <div class="d-flex bborderdash pb-20 align-items-center justify-content-center">
+            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+                <div class="loading-placeholder" style="width: 16px; height: 16px; border-radius: 50%;"></div>
+                <div class="loading-placeholder" style="width: 50px; height: 16px;"></div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center mt-20 justify-content-between">
+            <span class="fz-18 fw-500 inter base">
+                                <div class="loading-placeholder" style="width: 50px; height: 16px;"></div>
 
-            // Reset filters when the reset button is clicked
-            $(document).on('click', '.reset__filter', function () {
-                // Reset filter inputs and sliders
-                $('#searchInput').val('');
-                $('input[type="checkbox"]').prop('checked', false);
+            </span>
+            <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center text-dark">
+                <div class="loading-placeholder" style="width: 30px; height: 30px; border-radius: 50%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                // Reset filter values
-                let filters = {
-                    search: '',
-                    specializations: [],
-                    stars: []
-                };
+            `);
+                    }
 
-                // Show loader and send AJAX request with reset filters
-                $('.loader').show();
-                setTimeout(function () {
+                    // Collect current filter data
+                    let filters = {
+                        search: $('#searchInput').val(),
+                        specializations: [],
+                        stars: []
+                    };
+
+                    // Collect selected specializations
+                    $('input[name="specializations[]"]:checked').each(function () {
+                        filters.specializations.push($(this).val().trim());
+                    });
+
+                    // Collect selected star ratings
+                    $('input[name="stars[]"]:checked').each(function () {
+                        filters.stars.push($(this).val().trim());
+                    });
+
+                    // Send AJAX request to fetch filtered data with pagination
                     $.ajax({
-                        url: '{{ route('talents.all') }}', // Adjust to the actual route
+                        url: '{{ route('talents.all') }}',  // Ensure this is the correct route
                         method: 'GET',
-                        data: filters,
-                        success: function (response) {
-                            $('.loader').hide();
-                            $('.talents').html(response.html);
+                        data: {
+                            ...filters,
+                            page: page  // Send the current page number for pagination
                         },
-                        error: function (error) {
-                            console.error('Error fetching talents:', error);
-                            $('.talents').html('<div class="error-message">Something went wrong. Please try again.</div>');
+                        success: function (response) {
+                            // Append the new data to the existing list
+                            if (page === 1) {
+                                $('#talentsList').html(response.html);  // Replace on first page load
+                            } else {
+                                $('#talentsList').append(response.html);  // Append for subsequent pages
+                            }
+
+                            // Hide the loader once data is loaded
+                            isLoading = false;
+                            $('.loader').hide();
+
+                            // Remove skeleton loaders after data is loaded
+                            $('#talentsList .skeleton-loader').remove();
+                        },
+                        error: function () {
+                            console.error('Error loading talents');
+                            isLoading = false;
+                            $('.loader').hide();
+                            // Remove skeleton loaders in case of an error
+                            $('#talentsList .skeleton-loader').remove();
                         }
                     });
-                }, 300);
+                }
+
+                // Event listener for filter form submit (when user presses Enter or changes the filter)
+                $('#searchInput').on('input', function () {
+                    page = 1;  // Reset to page 1 when search term is changed
+                    loadTalents();  // Load talents with updated filters
+                });
+
+                // Event listener for specialization checkboxes
+                $('input[name="specializations[]"]').on('change', function () {
+                    page = 1;  // Reset to page 1 when specialization filters change
+                    loadTalents();  // Load talents with updated filters
+                });
+
+                // Event listener for star checkboxes
+                $('input[name="stars[]"]').on('change', function () {
+                    page = 1;  // Reset to page 1 when star filters change
+                    loadTalents();  // Load talents with updated filters
+                });
+
+                // Event listener for Reset Filters button
+                $('.reset__filter').on('click', function () {
+                    // Reset all filter inputs
+                    $('#searchInput').val('');
+                    $('.loader').show();  // Show loader during reset
+                    $('input[name="specializations[]"]').prop('checked', false);
+                    $('input[name="stars[]"]').prop('checked', false);
+
+                    // Reset the page and load talents with no filters applied
+                    page = 1;
+                    loadTalents();
+                });
+
+                // Scroll-based pagination
+                $(window).on('scroll', function () {
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                        if (!isLoading) {
+                            page++;  // Increment page number when scrolling to the bottom
+                            loadTalents();  // Load more talents
+                        }
+                    }
+                });
+
+                // Initial load of talents with existing filters (if any)
+                $('.loader').hide();  // Hide loader initially
+                loadTalents();
             });
+
+
+
         </script>
     @endpush
 

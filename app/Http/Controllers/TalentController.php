@@ -20,7 +20,7 @@ class TalentController extends Controller
 
     public function all()
     {
-        // Get specializations with count
+        // Get specializations with count (used for filtering)
         $specializations = Specialization::withCount('talents')->get();
 
         // Start the query for talents
@@ -41,8 +41,9 @@ class TalentController extends Controller
             $query->whereIn('rate', $stars);  // Filtering based on selected star ratings
         }
 
-        // Paginate the results
-        $talents = $query->paginate(33);
+        // Paginate the results based on the page
+        $page = request()->get('page', 1);
+        $talents = $query->paginate(33, ['*'], 'page', $page);
 
         // Calculate total experience for each talent
         $talents->each(function ($talent) {
@@ -55,17 +56,19 @@ class TalentController extends Controller
             $talent->total_experience_years = ceil($totalExperienceMonths / 12);
         });
 
-        // If the request is AJAX, return just the updated HTML for the talent list
+        // If the request is AJAX, return just the updated HTML for the talent list and pagination
         if (request()->ajax()) {
             return response()->json([
                 'html' => view('front.pages.site.talents.partials.talents-list', compact('talents'))->render(),
-                'pagination' => $talents->links()->render()
             ]);
         }
+
 
         // If it's a normal request (non-AJAX), return the full view
         return view('front.pages.site.talents.talents', compact('talents', 'specializations'));
     }
+
+
 
 
 

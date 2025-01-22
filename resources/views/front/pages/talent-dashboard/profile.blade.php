@@ -179,8 +179,9 @@
                                         </div>
                                     </div>
 
-                                    @if($talent->skills)
-                                        <div
+                                    @if($talent->skills && is_array(json_decode($talent->skills)))
+
+                                    <div
                                             class="description__edit pt-24 ralt pb-24  commn__spacenone">
                                             <ul class="nav" role="tablist">
                                                 <li class="nav-item w-100 mb-16 d-flex align-items-center justify-content-between"
@@ -196,7 +197,7 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="skew" role="tabpanel">
 
-                                                        @if($talent->skills)
+
 
                                                             <div class="chatbot__tag mb-30 pb-30  d-flex flex-wrap align-items-center">
 
@@ -209,7 +210,6 @@
                                                                     </div>
                                                                 @endforeach
 
-                                                        @endif
 
 
                                                     </div>
@@ -219,7 +219,7 @@
 
 
                                         </div>
-                                    @endif'
+                                    @endif
 
                                 </div>
                             </div>

@@ -158,14 +158,16 @@
                             </div>
 
 
+                            @if($talent->bio)
                             <div class="bborderdash pb-24 mt-30 mb-30" style="color:#222e48;!important;">
                                 <h3 class="title mb-20">BIO</h3>
                                 <p class="fz-16 fw-400 inter">
                                     {!! $talent->bio!!}
                                 </p>
                             </div>
+                            @endif
 
-                            @if($talent->skills)
+                            @if($talent->skills && is_array(json_decode($talent->skills)))
                                 <h4 class="title mb-24">
                                     Skills
                                 </h4>
