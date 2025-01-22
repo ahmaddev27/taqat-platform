@@ -67,7 +67,7 @@ class ProjectProposalController extends Controller
 
         if (request()->ajax()) {
             // Return the HTML content in the AJAX response
-            $html = view('front.pages.talent-profile.offers.project.partials.offers-list', [
+            $html = view('front.pages.talent-dashboard.offers.project.partials.offers-list', [
                 'offers' => $offers,
                 'talent' => $talent
             ])->render();
@@ -77,7 +77,7 @@ class ProjectProposalController extends Controller
             ]);
         }
 
-        return view('front.pages.talent-profile.offers.project.my-offers', ['offers' => $offers, 'talent' => $talent]);
+        return view('front.pages.talent-dashboard.offers.project.my-offers', ['offers' => $offers, 'talent' => $talent]);
     }
 
 

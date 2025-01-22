@@ -64,7 +64,7 @@ class JobApplyController extends Controller
 
         if (request()->ajax()) {
             // Render the partial view for AJAX requests
-            $html = view('front.pages.talent-profile.offers.jobs.partials.offers-list', [
+            $html = view('front.pages.talent-dashboard.offers.jobs.partials.offers-list', [
                 'offers' => $offers,
                 'talent' => $talent,
             ])->render();
@@ -75,7 +75,7 @@ class JobApplyController extends Controller
         }
 
         // Render the main view for non-AJAX requests
-        return view('front.pages.talent-profile.offers.jobs.my-offers', [
+        return view('front.pages.talent-dashboard.offers.jobs.my-offers', [
             'offers' => $offers,
             'talent' => $talent,
         ]);
