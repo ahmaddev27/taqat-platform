@@ -15,14 +15,28 @@
         }
 
 
-        .nav-lg {
-            margin: 0 3rem !important;
+
+        .nav-tabs {
+            display: flex; /* This ensures the tabs are in a row (same line) */
+            gap: 1rem; /* Adds spacing between the tabs */
+            justify-content: flex-start; /* Align tabs to the left */
+        }
+
+        .nav-item {
+            margin: 0; /* Removes default margin from list items */
+        }
+        .nav{
+            flex-wrap: inherit;
         }
 
         @media (min-width: 992px) {
             /* Targets large screens (lg) and above */
             .nav-lg {
                 margin: 0 12rem !important;
+            }
+
+            .nav-tabs {
+                gap: 2rem; /* Adds more space between the tabs on larger screens */
             }
         }
 
@@ -177,7 +191,7 @@
                                     @foreach(json_decode($talent->skills) as $skill)
                                         <div class="skill-tag m-2">
                                             <a href="#0"
-                                               class="learning round16 fz-12 fw-500 inter base text-center d-inline-block">
+                                               class="learning round16 fz-14 fw-500 inter base text-center d-inline-block">
                                                 {{ $skill->value }}
                                             </a>
                                         </div>
@@ -189,53 +203,40 @@
 
                             <div class="about__three__content ">
                                 <!-- Nav Tabs -->
-                                <ul class="nav-lg nav mt-30 mb-16 d-flex align-items-center nav-tabs" id="talentTabs">
+                                <ul class="nav-lg  nav nav-tabs" id="talentTabs">
+                                            <li class="nav-item " role="presentation">
+                                                <button class="nav-link active" id="educations-tab" data-bs-toggle="tab"
+                                                data-bs-target="#educations" type="button" role="tab"
+                                                aria-controls="educations" aria-selected="true">
+                                            <i class="bi bi-mortarboard" style="font-size: 18px"></i> Educations
+                                        </button>
+                                    </li>
 
-                                    @if($talent->scientificCertificate->count()>0)
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="educations-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#educations" type="button" role="tab"
-                                                    aria-controls="educations" aria-selected="true">
-                                                <i class="bi bi-mortarboard" style="font-size: 25px"></i>       Educations
-                                            </button>
-                                        </li>
-                                    @endif
+                                    <li class="nav-item " role="presentation">
+                                        <button class="nav-link" id="experience-tab" data-bs-toggle="tab"
+                                                data-bs-target="#experience" type="button" role="tab"
+                                                aria-controls="experience" aria-selected="false">
+                                            <i class="bi bi-list-stars" style="font-size: 18px"></i> Experience
+                                        </button>
+                                    </li>
 
-                                    @if($talent->work_experiences->count()>0)
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="experience-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#experience" type="button" role="tab"
-                                                    aria-controls="experience" aria-selected="false">
-                                                <i class="bi bi-list-stars" style="font-size: 25px"></i> Experience
-                                            </button>
-                                        </li>
-                                    @endif
+                                    <li class="nav-item " role="presentation">
+                                        <button class="nav-link" id="services-tab" data-bs-toggle="tab"
+                                                data-bs-target="#services" type="button" role="tab"
+                                                aria-controls="services" aria-selected="false">
+                                            <i class="bi bi-list-ul" style="font-size: 18px"></i> Services
+                                        </button>
+                                    </li>
 
-
-                                    @if($talent->khadmats->count()>0)
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="services-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#services" type="button" role="tab"
-                                                    aria-controls="services" aria-selected="false">
-                                                <i class="bi bi-list-ul" style="font-size: 25px"></i>Services
-                                            </button>
-                                        </li>
-                                    @endif
-
-
-                                    @if($talent->projects->count()>0)
-
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="projects-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#projects" type="button" role="tab"
-                                                    aria-controls="projects" aria-selected="false">
-                                                <i class="bi bi-briefcase" style="font-size: 25px"></i>  Projects
-
-                                            </button>
-                                        </li>
-
-                                    @endif
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="projects-tab" data-bs-toggle="tab"
+                                                data-bs-target="#projects" type="button" role="tab"
+                                                aria-controls="projects" aria-selected="false">
+                                            <i class="bi bi-briefcase" style="font-size: 18px"></i> Projects
+                                        </button>
+                                    </li>
                                 </ul>
+
 
                                 <!-- Tab Content -->
 

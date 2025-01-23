@@ -65,4 +65,14 @@
         @endforeach
     </div>
 
+
+
+@else
+    <div class="freelanc__inneredu mb-40 align-items-center d-flex">
+
+        <div class="content__box round16 w-100">
+            <span class="fz-20 fw-500 inter title d-block mb-16 text-center">No Experiences Found</span>
+
+        </div>
+    </div>
 @endif

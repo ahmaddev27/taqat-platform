@@ -119,11 +119,7 @@
 
                         @include('front.pages.site.talents.partials.talents-list')
 
-
                     </div>
-
-
-
 
                 </div>
             </div>
@@ -135,59 +131,57 @@
     @push('js')
         <script>
             $(document).ready(function () {
-
-                let page = 1;  // Start at page 1
+                let page = 1;  // Current page for pagination
                 let isLoading = false;  // Prevent multiple AJAX calls
-                const loadersCount = 6;  // Number of skeleton loaders to show at a time
+                let hasMoreData = true;  // Flag to indicate if more data is available
+                const loadersCount = 6;  // Number of skeleton loaders to display
 
-                // Function to load talents based on current filters and pagination
+                // Function to load talents
                 function loadTalents() {
-                    if (isLoading) return;  // Prevent multiple requests while one is in progress
+                    if (isLoading || !hasMoreData) return;  // Prevent duplicate calls or unnecessary requests
 
                     isLoading = true;
-                    // Show the main loader only when data is being fetched
+
                     if (page === 1) {
-                        $('.loader').show();  // Show loader on the first page load
-                    }
-
-                    // Show skeleton loaders as placeholders before data is loaded
-                    for (let i = 0; i < loadersCount; i++) {
-                        $('#talentsList').append(`
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 skeleton-loader">
-    <div class="frelancer__item shadow2 round16 bgwhite loading">
-        <div class="d-flex mb-24 align-items-center justify-content-between">
-            <div class="d-flex gap-2 fz-16 fw-600 inter title">
-                <div class="loading-placeholder" style="width: 16px; height: 16px; border-radius: 50%;"></div>
-                <div class="loading-placeholder" style="width: 40px; height: 16px;"></div>
-                <span class="loading-placeholder" style="width: 80px; height: 16px;"></span>
-            </div>
-            <div class="loading-placeholder" style="width: 100px; height: 16px;"></div>
-        </div>
-        <a href="#" class="thumbs m-auto">
-            <div class="loading-placeholder" style="width: 100%; height: 120px; border-radius: 50%; background-color: #e0e0e0;"></div>
-        </a>
-        <h5 class="mt-24 text-center mb-20">
-            <div class="loading-placeholder" style="width: 60%; height: 20px;"></div>
-        </h5>
-        <div class="d-flex bborderdash pb-20 align-items-center justify-content-center">
-            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                <div class="loading-placeholder" style="width: 16px; height: 16px; border-radius: 50%;"></div>
-                <div class="loading-placeholder" style="width: 50px; height: 16px;"></div>
-            </div>
-        </div>
-        <div class="d-flex align-items-center mt-20 justify-content-between">
-            <span class="fz-18 fw-500 inter base">
-                                <div class="loading-placeholder" style="width: 50px; height: 16px;"></div>
-
-            </span>
-            <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center text-dark">
-                <div class="loading-placeholder" style="width: 30px; height: 30px; border-radius: 50%;"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-            `);
+                        $('.loader').show(); // Show the main loader for the first page
+                    } else {
+                        // Append skeleton loaders for subsequent pages
+                        for (let i = 0; i < loadersCount; i++) {
+                            $('#talentsList').append(`
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 skeleton-loader">
+                        <div class="frelancer__item shadow2 round16 bgwhite loading">
+                            <div class="d-flex mb-24 align-items-center justify-content-between">
+                                <div class="d-flex gap-2 fz-16 fw-600 inter title">
+                                    <div class="loading-placeholder" style="width: 16px; height: 16px; border-radius: 50%;"></div>
+                                    <div class="loading-placeholder" style="width: 40px; height: 16px;"></div>
+                                    <span class="loading-placeholder" style="width: 80px; height: 16px;"></span>
+                                </div>
+                                <div class="loading-placeholder" style="width: 100px; height: 16px;"></div>
+                            </div>
+                            <a href="#" class="thumbs m-auto">
+                                <div class="loading-placeholder" style="width: 100%; height: 120px; border-radius: 50%; background-color: #e0e0e0;"></div>
+                            </a>
+                            <h5 class="mt-24 text-center mb-20">
+                                <div class="loading-placeholder" style="width: 60%; height: 20px;"></div>
+                            </h5>
+                            <div class="d-flex bborderdash pb-20 align-items-center justify-content-center">
+                                <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+                                    <div class="loading-placeholder" style="width: 16px; height: 16px; border-radius: 50%;"></div>
+                                    <div class="loading-placeholder" style="width: 50px; height: 16px;"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mt-20 justify-content-between">
+                                <span class="fz-18 fw-500 inter base">
+                                    <div class="loading-placeholder" style="width: 50px; height: 16px;"></div>
+                                </span>
+                                <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center text-dark">
+                                    <div class="loading-placeholder" style="width: 30px; height: 30px; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+                        }
                     }
 
                     // Collect current filter data
@@ -207,85 +201,83 @@
                         filters.stars.push($(this).val().trim());
                     });
 
-                    // Send AJAX request to fetch filtered data with pagination
+                    // AJAX request to fetch data
                     $.ajax({
-                        url: '{{ route('talents.all') }}',  // Ensure this is the correct route
+                        url: '{{ route('talents.all') }}',
                         method: 'GET',
                         data: {
                             ...filters,
-                            page: page  // Send the current page number for pagination
+                            page: page // Send current page number
                         },
                         success: function (response) {
-                            // Append the new data to the existing list
-                            if (page === 1) {
-                                $('#talentsList').html(response.html);  // Replace on first page load
+                            if (response.html.trim().length === 0) {
+                                hasMoreData = false; // No more data available
                             } else {
-                                $('#talentsList').append(response.html);  // Append for subsequent pages
+                                if (page === 1) {
+                                    $('#talentsList').html(response.html); // Replace content on first page load
+                                } else {
+                                    $('#talentsList').append(response.html); // Append for subsequent pages
+                                }
                             }
 
-                            // Hide the loader once data is loaded
                             isLoading = false;
-                            $('.loader').hide();
-
-                            // Remove skeleton loaders after data is loaded
-                            $('#talentsList .skeleton-loader').remove();
+                            $('.loader').hide(); // Hide loader
+                            $('#talentsList .skeleton-loader').remove(); // Remove skeleton loaders
                         },
                         error: function () {
                             console.error('Error loading talents');
                             isLoading = false;
-                            $('.loader').hide();
-                            // Remove skeleton loaders in case of an error
-                            $('#talentsList .skeleton-loader').remove();
+                            $('.loader').hide(); // Hide loader on error
+                            $('#talentsList .skeleton-loader').remove(); // Remove skeleton loaders
                         }
                     });
                 }
 
-                // Event listener for filter form submit (when user presses Enter or changes the filter)
+                // Event listener for search input
                 $('#searchInput').on('input', function () {
-                    page = 1;  // Reset to page 1 when search term is changed
-                    loadTalents();  // Load talents with updated filters
+                    page = 1; // Reset to page 1 when search term changes
+                    hasMoreData = true; // Reset data availability
+                    loadTalents(); // Reload talents
                 });
 
                 // Event listener for specialization checkboxes
                 $('input[name="specializations[]"]').on('change', function () {
-                    page = 1;  // Reset to page 1 when specialization filters change
-                    loadTalents();  // Load talents with updated filters
+                    page = 1; // Reset to page 1
+                    hasMoreData = true; // Reset data availability
+                    loadTalents(); // Reload talents
                 });
 
                 // Event listener for star checkboxes
                 $('input[name="stars[]"]').on('change', function () {
-                    page = 1;  // Reset to page 1 when star filters change
-                    loadTalents();  // Load talents with updated filters
+                    page = 1; // Reset to page 1
+                    hasMoreData = true; // Reset data availability
+                    loadTalents(); // Reload talents
                 });
 
                 // Event listener for Reset Filters button
                 $('.reset__filter').on('click', function () {
-                    // Reset all filter inputs
-                    $('#searchInput').val('');
-                    $('.loader').show();  // Show loader during reset
-                    $('input[name="specializations[]"]').prop('checked', false);
-                    $('input[name="stars[]"]').prop('checked', false);
+                    $('#searchInput').val(''); // Clear search input
+                    $('input[name="specializations[]"]').prop('checked', false); // Uncheck all specializations
+                    $('input[name="stars[]"]').prop('checked', false); // Uncheck all stars
 
-                    // Reset the page and load talents with no filters applied
-                    page = 1;
-                    loadTalents();
+                    page = 1; // Reset to page 1
+                    hasMoreData = true; // Reset data availability
+                    loadTalents(); // Reload talents
                 });
 
-                // Scroll-based pagination
+                // Infinite scroll for pagination
                 $(window).on('scroll', function () {
                     if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-                        if (!isLoading) {
-                            page++;  // Increment page number when scrolling to the bottom
-                            loadTalents();  // Load more talents
+                        if (!isLoading && hasMoreData) {
+                            page++; // Increment page number
+                            loadTalents(); // Load more talents
                         }
                     }
                 });
 
-                // Initial load of talents with existing filters (if any)
-                $('.loader').hide();  // Hide loader initially
+                // Initial load of talents
                 loadTalents();
             });
-
 
 
         </script>

@@ -22,7 +22,7 @@
                 <div class="col-xl-8 col-lg-8">
                     <div class="service__detailswrapper">
                         <div class="trending__based mb-40 bgwhite round16 shadow1">
-                            <div class="based__content border round16 bgwhite">
+                            <div class="based__content border round16 bgwhite mb-5  ">
                                 <div class="freelancer__profile bborderdash pb-24 mb-24 align-items-center d-flex ">
                                     <div class="profile__check ralt">
                                         <img src="{{$company->getPhoto()}}" class="rounded-circle"

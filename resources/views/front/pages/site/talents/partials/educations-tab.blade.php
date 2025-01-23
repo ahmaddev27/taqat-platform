@@ -30,38 +30,46 @@
                             {{$scientificCertificate->college}} - {{$scientificCertificate->university}}
                         </p>
 
-{{--                        @if($scientificCertificate->photo)--}}
+                        {{--                        @if($scientificCertificate->photo)--}}
 
-{{--                            @if($scientificCertificate->getFileType() == 'image')--}}
+                        {{--                            @if($scientificCertificate->getFileType() == 'image')--}}
 
-{{--                                <p class="pra inter fz-18 fw-400 float-end">--}}
+                        {{--                                <p class="pra inter fz-18 fw-400 float-end">--}}
 
-{{--                                    <a href="{{$scientificCertificate->getPhoto()}}" target="_blank">--}}
-{{--                                        <i class="bi bi bi-file-image"></i>--}}
-{{--                                    </a>--}}
-
-
-{{--                                </p>--}}
+                        {{--                                    <a href="{{$scientificCertificate->getPhoto()}}" target="_blank">--}}
+                        {{--                                        <i class="bi bi bi-file-image"></i>--}}
+                        {{--                                    </a>--}}
 
 
-{{--                            @elseif($scientificCertificate->photo)--}}
+                        {{--                                </p>--}}
 
 
-{{--                                <p class="pra inter fz-18 fw-400 float-end">--}}
-{{--                                    <a href="{{$scientificCertificate->getPhoto()}}" target="_blank">--}}
-{{--                                        <i class="bi bi bi-file-pdf"></i></a>--}}
-{{--                                </p>--}}
+                        {{--                            @elseif($scientificCertificate->photo)--}}
 
-{{--                            @endif--}}
 
-{{--                        @endif--}}
+                        {{--                                <p class="pra inter fz-18 fw-400 float-end">--}}
+                        {{--                                    <a href="{{$scientificCertificate->getPhoto()}}" target="_blank">--}}
+                        {{--                                        <i class="bi bi bi-file-pdf"></i></a>--}}
+                        {{--                                </p>--}}
 
+                        {{--                            @endif--}}
+
+                        {{--                        @endif--}}
 
 
                     </div>
                 </div>
             @endforeach
 
+
+        </div>
+    </div>
+
+@else
+    <div class="freelanc__inneredu mb-40 align-items-center d-flex">
+
+        <div class="content__box round16 w-100">
+            <span class="fz-20 fw-500 inter title d-block mb-16 text-center">No Education Found</span>
 
         </div>
     </div>
