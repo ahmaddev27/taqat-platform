@@ -43,6 +43,13 @@
                     </a>
                 </li>
 
+
+                <li>
+                    <a href="{{route('services.all')}}">
+                        Services
+                    </a>
+                </li>
+
                 <li>
                     <a href="{{route('companies.all')}}">
                         Companies

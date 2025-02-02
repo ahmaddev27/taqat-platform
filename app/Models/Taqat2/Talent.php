@@ -28,6 +28,14 @@ protected $guarded=[];
     }
 
 
+    public function getPhoto()
+    {
+        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+            return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
+        }
+        return $this->photo;
+    }
+
 
     function projects (){
         return $this->hasMany(Project::class,'user_id')->orderBy('created_at', 'desc');

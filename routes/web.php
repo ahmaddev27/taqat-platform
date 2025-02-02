@@ -5,6 +5,7 @@ use App\Http\Controllers\TalentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\ServicesController;
 
 
 
@@ -52,6 +53,14 @@ Route::controller(ProjectController::class)->group(function () {
 
 Route::controller(JobController::class)->group(function () {
     Route::group(['as' => 'jobs.', 'prefix' => 'jobs'], function () {
+        Route::get('/', 'all')->name('all');
+        Route::get('/{slug}', 'index')->name('index');
+    });
+});
+
+
+Route::controller(ServicesController::class)->group(function () {
+    Route::group(['as' => 'services.', 'prefix' => 'services'], function () {
         Route::get('/', 'all')->name('all');
         Route::get('/{slug}', 'index')->name('index');
     });

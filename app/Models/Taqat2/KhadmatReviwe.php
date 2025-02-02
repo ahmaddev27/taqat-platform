@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class KhadmatReviwe extends Model
 {
-    protected $guarded=[];
+    protected $guarded = [];
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(Talent::class, 'user_id');
+    }
 }
 

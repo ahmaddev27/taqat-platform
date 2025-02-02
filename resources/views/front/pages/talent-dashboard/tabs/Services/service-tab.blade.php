@@ -49,7 +49,7 @@
                                     {{$k->category?->name}}
                                 </a>
                             </div>
-                            <h6 class="mb-16">
+                            <h6 class="mb-16 fz-12">
                                 <a href="#" class="title">{{$k->title}}</a>
                             </h6>
                             <div

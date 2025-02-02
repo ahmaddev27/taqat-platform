@@ -15,6 +15,7 @@ class Khadmat extends Model
     protected $guarded=[];
     protected $table = 'khadmats';
 
+
     public $translatable = ['title', 'description', 'slug'];
 
     use HasFactory;
@@ -71,10 +72,10 @@ class Khadmat extends Model
     {
         $total = $this->reviews()->sum('review');
         $count = $this->reviews()->count();
+
         if ($count > 0) {
             $average = $total / $count;
-            $normalizedAverage = ($average > 5) ? 5 : $average;
-            return number_format($normalizedAverage, 1);
+            return number_format(min($average, 5), 1); // Ensure max value is 5
         }
 
         return number_format(0, 1);

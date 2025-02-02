@@ -2,9 +2,9 @@
     @foreach($projects as $project)
         <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
             <div class="d-flex mb-24 flex-wrap align-items-center justify-content-between">
-                <a href="{{route('projects.index',$project->slug)}}"> <h5 class="title">
-                    {{$project->title}}
-                </h5>
+                <a href="{{route('projects.index',$project->slug)}}"><h5 class="title">
+                        {{$project->title}}
+                    </h5>
                 </a>
                 <span class="fz-20 d-flex align-items-center gap-1 fw-400 inter title">
                 Budget: <span class="base inter fw-500">${{$project->budget}}</span>
@@ -86,7 +86,6 @@
 
 
     {{$projects->appends(request()->query())->links('vendor.pagination.bootstrap-4')}}
-
 
 @else
     <div class="chatbot__items round16 mb-24 shadow2 bgwhite">

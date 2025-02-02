@@ -34,8 +34,7 @@
                             <div class="row g-4 ">
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
-                                        <label for="enamee" class="fz-18 fw-500 inter title mb-16">Enter Your Email
-                                            ID</label>
+                                        <label for="enamee" class="fz-18 fw-500 inter title mb-16">Enter Your Email ID</label>
                                         <input type="email" id="email"
                                                class="@error('email') is-invalid @email @enderror"
                                                name="email" autocomplete="off" placeholder="Enter Your Email...">

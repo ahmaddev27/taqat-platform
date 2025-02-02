@@ -138,6 +138,9 @@
                                         @endforeach
 
 
+
+
+
                                     </div>
                                 </div>
 
@@ -231,7 +234,7 @@
 
 
                                 </div>
-                                <a href="#" class="cmn--btn outline__btn d-block">
+                                <a href="{{route('companies.index',$project->company->id)}}" class="cmn--btn outline__btn d-block">
                                         <span>
                                            View Profile
                                         </span>
@@ -240,6 +243,9 @@
                                         </span>
                                 </a>
                             </div>
+
+
+
 
 
                         </div>

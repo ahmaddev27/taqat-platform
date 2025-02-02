@@ -51,7 +51,7 @@
                                             <div class="d-flex gap-2 fz-16 fw-600 inter title">
                                                 <i class="bi bi-star-fill ratting"></i>
                                                 {{ number_format($k->average_review, 1) }} <!-- Use preloaded average_review -->
-                                                <span class="fz-16 fw-400 inter pra">({{ $k->total_reviews }})</span>
+                                                <span class="fz-16 fw-400 inter pra">({{ $k->total_reviews??0 }})</span>
                                                 <!-- Use preloaded total_reviews -->
                                             </div>
                                         </div>
@@ -63,7 +63,7 @@
                                             </div>
                                             <span class="fz-16 fw-400 inter pra">
                                                 <i class="fa fa-dollar-sign"></i>
-                                                <span class="fz-18 fw-600 base inter">{{ $k->price }}</span>
+                                                <span class="fz-18 fw-600 base inter">$ {{ $k->price }}</span>
                                             </span>
                                         </div>
                                     </div>
