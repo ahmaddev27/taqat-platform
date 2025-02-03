@@ -55,7 +55,7 @@ class ProfileController extends Controller
                 $user->update(['photo' => $photo]);
             }
 
-            $user->update([ 
+            $user->update([
                 'description' => $request->bio,
                 'email' => $request->email,
                 'name' => $request->name,
