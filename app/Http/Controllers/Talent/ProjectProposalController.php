@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class ProjectProposalController extends Controller
 {
 
-
     public function store(Request $request)
     {
         try {

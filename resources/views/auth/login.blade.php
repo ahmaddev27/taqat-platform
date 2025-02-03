@@ -1,73 +1,194 @@
-@extends('layouts.app')
-
+@extends('front.layouts.master', ['title' => 'Login'])
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    @push('css')
+        <style>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+            .error {
+                color: red;
+                font-size: 14px;
+                margin-top: 4px;
+            }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            .is-invalid {
+                border-color: red;
+            }
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px; /* Smaller width */
+                height: 30px; /* Smaller height */
+            }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: .4s;
+                border-radius: 16px;
+            }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 20px; /* Smaller height */
+                width: 20px; /* Smaller width */
+                left: 8px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 16px;
+            }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            input:checked + .slider {
+                background-color: #2196F3;
+            }
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            input:checked + .slider:before {
+                transform: translateX(16px); /* Smaller movement distance */
+            }
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+        </style>
+    @endpush
+
+    <section class="signup__section ralt bg__all pt-120 pb-120">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="signup__boxes round16 border">
+                        <h3 class="title mb-16">
+                            Welcome Back!
+                        </h3>
+                        <p class="fz-16 title fw-400 inter mb-40">
+                            Sign in to your account and join us
+                        </p>
+
+
+
+                        <form id="loginForm" class="write__review" method="post" action="{{route('talent.login')}}">
+                            @csrf
+
+                            <div class="row g-4 ">
+                                <div class="col-lg-12">
+                                    <div class="frm__grp">
+                                        <label for="enamee" class="fz-18 fw-500 inter title mb-16">Enter Your Email ID</label>
+                                        <input type="email" id="email" name="email" autocomplete="off" placeholder="Enter Your Email..." class="@error('email') is-invalid @enderror">
+
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                                <div class="col-lg-12">
+                                    <div class="frm__grp">
+                                        <label for="pas" class="fz-18 fw-500 inter title mb-16">Enter Your Password</label>
+                                        <input id="password" type="password" name="password" placeholder="Enter Your Password..." class="@error('password') is-invalid @enderror">
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+
+                                        <a href="#" class="base fz-14 inter d-flex justify-content-end mt-2">Forget password</a>
+                                        <div class="text-start mb-3 frm__grp">
+                                            <span id="loginText" class="base fz-14 inter mt-2">Company Login ?</span>
+                                            <label class="switch">
+                                                <input type="checkbox" id="loginSwitch">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <p class="fz-16 fw-400 title inter">
+                                    Do you have an account? <a href="signup.html" class="base">Signup</a>
+                                </p>
+
+                                <div class="col-lg-6">
+                                    <div class="frm__grp">
+                                        <button type="submit" id="loginButton" class="cmn--btn basebor outline__btn">
+                                            <span id="spinner" class="spinner-border spinner-border-sm text-primary" style="display: none"></span>
+                                            <span id="loginButtonText">Sign In</span>
+
+{{--                                            <span><i class="bi bi-arrow-up-right"></i></span>--}}
+                                        </button>
+
+                                        <button type="button" class="cmn--btn basebor outline__btn ">
+                                            <span><i class="bi bi-google"></i></span>
+                                            <span>Google</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-6">
+                    <div class="signup__thumb">
+                        <img src="{{asset('front/assets/img/faq/signup.png')}}" class="w-100" alt="img">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+    </section>
+
+    @push('js')
+
+        @push('js')
+            <script>
+                $(document).ready(function () {
+                    $("#loginSwitch").change(function () {
+                        var loginRoute = this.checked ? "{{ route('company.login') }}" : "{{ route('talent.login') }}";
+                        $("#loginForm").attr("action", loginRoute);
+                        console.log("Login form action set to: " + loginRoute);
+                    });
+
+                    $("#loginForm").submit(function (e) {
+                        e.preventDefault();
+                        var form = $(this);
+
+                        // Show spinner and change button text
+                        $("#spinner").show();
+
+                        $.ajax({
+                            url: form.attr("action"),
+                            type: "POST",
+                            data: form.serialize(),
+                            success: function (response) {
+                                toastr.success("Login successful. Redirecting...");
+                                window.location.href = response.redirect;
+                            },
+                            error: function (xhr) {
+                                toastr.error(xhr.responseJSON.message || "Login failed. Please try again.");
+                            },
+                            complete: function() {
+                                // Hide the spinner and reset the button text after completion
+                                $("#spinner").hide();
+                                $("#loginButtonText").text("Sign In");
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
+
+    @endpush
+@stop

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Talent;
+namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Taqat2\CompanyProject;
@@ -25,47 +25,25 @@ class ProfileController extends Controller
     public function profile()
     {
 
-        $talent = auth('talent')->user();
-
-        $specialization_id = $talent->specialization_id;
-        $offers = $talent->offers()->with('project.specializations.specialization')->get()->take(3);
-
-        $relatedProjects = CompanyProject::where('status', 1)->whereHas('specializations', function ($query) use ($specialization_id) {
-            $query->where('specialization_id', $specialization_id);
-        })->get()->take(3);
-
-//        $relatedProjects = CompanyProject::all()->take(3);
-
-        $jobsApplies = JobApplies::with('job')->where('user_id', $talent->id)->get()->take(3);
-
-        $servics = $talent->khadmats()->get();
-
-        $totalExperienceMonths = $talent->work_experiences->reduce(function ($carry, $experience) {
-            $startDate = new \DateTime($experience->start_date);
-            $endDate = $experience->end_date ? new \DateTime($experience->end_date) : now();
-            $interval = $startDate->diff($endDate);
-            return $carry + ($interval->y * 12 + $interval->m);
-        }, 0);
-
-
-        $talent->total_experience_years = ceil($totalExperienceMonths / 12);
-        return view('front.pages.talent-dashboard.profile'
-            , ['talent' => $talent, 'relatedProjects' => $relatedProjects, 'offers' => $offers, 'jobsApplies' => $jobsApplies, 'services' => $servics]);
+        $company = auth('company')->user()->with(['projects','jobs'])->withCount(['projects','jobs','Openjobs','Openprojects', 'Impprojects','completeProjects',
+            'Impjobs','completejobs'])->first();
+        return view('front.pages.company-dashboard.profile'
+            , ['company' => $company]);
     }
 
 
     public function update(Request $request)
     {
-        $user = auth('talent')->user();
+        $user = auth('company')->user();
 
         try {
             $request->validate([
+                'email' => 'required|email|unique:second_db.companies,email,' . $user->id,
+
                 'name' => 'required',
                 'bio' => 'required',
-                'whatsapp' => 'required',
-                'email' => 'required|email|unique:second_db.users,email,' . $user->id,
-                'skills' => 'required',
-                'specialization_id' => 'required',
+                'mobile' => 'required',
+                'location' => 'required',
             ]);
 
 
@@ -73,18 +51,16 @@ class ProfileController extends Controller
                 if ($user->photo) {
                     $this->deleteFile($user->photo);
                 }
-                $photo = $this->uploadFileImage($request->photo, 'Talent/Avatars', 300, 300);
+                $photo = $this->uploadFileImage($request->photo, 'Companies/Avatars', 300, 300);
                 $user->update(['photo' => $photo]);
             }
 
             $user->update([
-                'bio' => $request->bio,
+                'description' => $request->bio,
+                'email' => $request->email,
                 'name' => $request->name,
-                'whatsapp' => $request->whatsapp,
-//                'sallary' => $request->sallary,
-                'skills' => $request->skills,
-                'specialization_id' => $request->specialization_id,
-                'slug' => $this->generateArabicSlug($request->name),
+                'mobile' => $request->mobile,
+                'location' => $request->location,
             ]);
 
             return response()->json([
@@ -107,8 +83,8 @@ class ProfileController extends Controller
     }
 
 
-    public function all_offers()
-    {
+
+    public function all_offers() {
         $talent = auth('talent')->user();
 
         $offers = Offer::where('user_id', $talent->id)->with('project.specializations.specialization');
@@ -133,14 +109,13 @@ class ProfileController extends Controller
     }
 
 
-    public function all_jobs()
-    {
+    public function all_jobs() {
         $talent = auth('talent')->user();
         $applies = JobApplies::where('user_id', $talent->id)->with('job');
 
         if (request()->status && is_array(request()->status)) {
             $options = request()->status;
-            $applies = JobApplies::whereHas('job', function ($query) use ($options) {
+            $applies = JobApplies::whereHas('job', function($query) use ($options) {
                 $query->whereIn('status', $options);
             });
         }
@@ -158,6 +133,8 @@ class ProfileController extends Controller
 
         return view('front.themes.' . \setting('them') . '.pages.talent.all_applies', ['applies' => $applies, 'talent' => $talent]);
     }
+
+
 
 
 }

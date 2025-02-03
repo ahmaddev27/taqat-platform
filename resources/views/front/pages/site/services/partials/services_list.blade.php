@@ -20,7 +20,6 @@
                         </div>
 
 
-
                         <h5 class="mb-16">
                             <a href="{{route('services.index',$service->slug)}}" class="title fz-14">
                                 {!! $service->title !!}
@@ -40,7 +39,8 @@
 
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center gap-3">
-                                <img src="{{ $service->user->photo }}" class="small__thumb" style="width: 50px" alt="user">
+                                <img src="{{ $service->user->photo }}" class="small__thumb" style="width: 50px"
+                                     alt="user">
                                 <span class="fz-16 fw-500 pra inter">{{ $service->user->name }}</span>
                             </div>
                             <div class="d-flex align-items-center gap-1">
@@ -52,12 +52,10 @@
                     </div>
 
 
-
                 </div>
             </div>
         @endforeach
     </div>
-
 
     {{$services->appends(request()->query())->links('vendor.pagination.bootstrap-4')}}
 

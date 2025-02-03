@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Talent;
-
+namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use App\Models\Taqat2\Company;
 use App\Models\Taqat2\Talent;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class TalentLoginController extends Controller
+class CompanyLoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +36,6 @@ class TalentLoginController extends Controller
 
 
 
-
     public function login(Request $request)
     {
         $request->validate([
@@ -46,28 +44,29 @@ class TalentLoginController extends Controller
         ]);
 
         $credentials = $request->only(['email', 'password']);
-        $user = Talent::where('email', $request->email)->first();
-        $guard = 'talent';
+        $user = Company::where('email', $request->email)->first();
+        $guard = 'company';
 
         if ($user) {
             if (auth($guard)->attempt($credentials)) {
-                $user->save();
+               if ($user->status!=1){
+                   return response()->json(['success' => false, 'message' => 'your Account is inactive'], 401);
+               }
 
                 if ($request->ajax()) {
                     return response()->json([
                         'success' => true,
                         'message' => 'Login successful!',
-                        'redirect' => route('profile.index') // Adjust based on user type if needed
+                        'redirect' => route('company.profile.index') // Adjust based on user type if needed
                     ]);
                 }
-
                 return redirect()->route('profile.index')
-                    ->with(['message' => 'Login successful!', 'alert-type' => 'success']);
+                    ->with(['message' => 'Login successfully!', 'alert-type' => 'success']);
             } else {
                 $errorMsg = 'Invalid credentials, please try again.';
             }
         } else {
-            $errorMsg = 'Invalid credentials, please try again.';
+            $errorMsg = 'Invalid credentials, please try again';
         }
 
         if ($request->ajax()) {
@@ -77,8 +76,6 @@ class TalentLoginController extends Controller
         return redirect()->back()
             ->with(['message' => $errorMsg, 'alert-type' => 'error']);
     }
-
-
 
 
 
@@ -156,7 +153,6 @@ class TalentLoginController extends Controller
     {
         Auth::guard('talent')->logout();
         return redirect()->route('home')->with(['message' => trans('main.logout_success'), 'alert-type' => 'success']);
-
 
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 
@@ -19,6 +20,10 @@ Route::get('/clear', function () {
 
 
 Auth::routes();
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('logout/talent-company', [LoginController::class, 'logoutClient'])->name('logout-Clients');
+
 
 
 Route::get('/', function () {

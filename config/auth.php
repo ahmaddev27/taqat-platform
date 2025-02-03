@@ -45,6 +45,11 @@ return [
             'driver' => 'session',
             'provider' => 'talents',
         ],
+
+        'company' => [
+            'driver' => 'session',
+            'provider' => 'companies',
+        ],
     ],
 
     /*
@@ -73,6 +78,11 @@ return [
         'talents' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Taqat2\Talent::class,
+        ],
+
+        'companies' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Taqat2\Company::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

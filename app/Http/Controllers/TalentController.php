@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class TalentController extends Controller
 {
-    protected $connection = 'second_db';
 
 
     public function all()

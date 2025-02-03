@@ -11,11 +11,10 @@ use App\Http\Controllers\Talent\JobApplyController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('talent/login', [TalentLoginController::class, 'showLoginForm'])->name('talent.login.show');
-Route::post('talent/login', [TalentLoginController::class, 'login'])->name('talent.login');
+Route::post('login', [TalentLoginController::class, 'login'])->name('talent.login');
 Route::view('talent/register', 'front.themes.' . \setting('them') . '.talents.register')->name('talent.register');
 Route::post('talent/register', [TalentLoginController::class, 'register'])->name('talent.register');
-Route::post('talent/logout', [TalentLoginController::class, 'logout'])->name('talent.logout');
+
 
 
 Route::group(['middleware' => 'auth.talent'], function () {

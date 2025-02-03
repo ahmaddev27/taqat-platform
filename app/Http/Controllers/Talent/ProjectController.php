@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    protected $connection = 'second_db';
 
 
     public function store(Request $request)

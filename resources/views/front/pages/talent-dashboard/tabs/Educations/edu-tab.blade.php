@@ -36,6 +36,9 @@
         </div>
 
 
+        @if($talent->scientificCertificate->count()>0)
+
+
         @foreach($talent->scientificCertificate as $e)
 
             <div class="col-12 col-md-6 col-lg-4 col-xxl-12">
@@ -91,6 +94,7 @@
 
         @endforeach
 
+        @endif
 
     </div>
 

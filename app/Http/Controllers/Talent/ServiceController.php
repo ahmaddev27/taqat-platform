@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    protected $connection = 'second_db';
 
     public function store(Request $request)
     {

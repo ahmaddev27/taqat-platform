@@ -12,13 +12,11 @@
 <!-- jQuery Validate CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -33,8 +31,10 @@
 
 </script>
 
+
+
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         @if (session('message'))
         var type = "{{ session('alert-type', 'info') }}";
 
@@ -124,7 +124,6 @@
         });
     });
 </script>
-
 
 
 @stack('js')

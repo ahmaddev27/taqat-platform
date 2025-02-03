@@ -43,10 +43,10 @@ class Company extends Authenticatable
         return in_array($extension, ['jpg', 'jpeg', 'png', 'gif']) ? 'image' : 'pdf';
     }
 
-    public function users()
-    {
-        return $this->hasOne(Talent::class, 'company_id', 'id');
-    }
+//    public function users()
+//    {
+//        return $this->hasOne(Talent::class, 'company_id', 'id');
+//    }
 
     public function getPhoto()
     {

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class CompanyController extends Controller
 {
-    protected $connection = 'second_db';
 
 
     public function all()

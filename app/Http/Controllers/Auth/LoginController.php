@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,4 +39,25 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+
+
+
+    public function showLoginForm()
+    {
+        if (Auth::guard('talent')->check() || Auth::guard('company')->check()) {
+            return redirect()->back() ->with(['message' => 'Logging successfully', 'alert-type' => 'success']);
+        } else {
+            return view('auth.login');
+        }
+
+    }
+
+    public function logoutClient()
+    {
+        Auth::guard('talent')->logout();
+        Auth::guard('company')->logout();
+        return redirect()->route('home')->with(['message' => trans('main.logout_success'), 'alert-type' => 'success']);
+
+    }
+
 }
