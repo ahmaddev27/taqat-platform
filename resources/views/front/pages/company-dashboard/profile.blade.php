@@ -21,10 +21,10 @@
             <div class="profile__customize">
                 <div class="row g-4">
                     <div class="col-12">
-                        <div class="darrell__profile bg-white round16">
+                        <div class="darrell__profile bg-white round16 shadow2">
                             <div class="row g-0">
                                 <!-- Column for Total Balance -->
-                                <div class="col-12 col-sm-4 text-center py-5 border-sm-end">
+                                <div class="col-12 col-sm-4 text-center py-3 border-sm-end">
                                     <h5 class="font-md-1 font-small mb-0" style="color: #2c2b2b">Balance</h5>
                                     <h2 class="text-center mb-2 mt-1 font-2 font-lg-5" style="color: #3F3F3F;">
                                         0.00 <span style="line-height: 1;">$</span>
@@ -32,7 +32,7 @@
                                 </div>
 
                                 <!-- Column for Withdrawable Balance -->
-                                <div class="col-12 col-sm-4 text-center py-5">
+                                <div class="col-12 col-sm-4 text-center py-3">
                                     <h5 class="mb-0" style="color: #2c2b2b">Can withdraw</h5>
                                     <h2 class="text-center mb-2 mt-1 font-2 font-lg-5" style="color: #3F3F3F;">
                                         0.00 <span style="line-height: 1;">$</span>
@@ -40,8 +40,8 @@
                                 </div>
                                 <!-- Column for Balance View Button -->
                                 <div class="col-12 col-sm-4 round16" style="background-color: #0d47a1;">
-                                    <a href="#" class="d-block text-center text-white p-5">
-                                        <h4 class="mb-0" title="view">
+                                    <a href="#" class="d-block text-center text-white p-3">
+                                        <h4 class="mb-0 mt-2" title="view">
                                             <i class="bi bi-wallet2"
                                                style="font-size: 30px; display: block; line-height: 1;"></i>
                                             <span style="display: block; margin-top: 10px; font-size: 20px;">View</span>
@@ -60,67 +60,53 @@
                 <div class="row g-3">
 
                     <div class="row g-4">
-
-
                         <div class="col-lg-4">
                             <div class="main__profile__sidebar">
 
 
                                 <div class="nav mb-24 round16 d-flex align-items-center row">
-                                    <div class="col-4 mb-2">
-                                        <a href="#"
-                                           class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
-                                            <i class="bi bi-people" style="font-size: 25px"></i>
-                                            <span class="text-center">Teams</span>
-                                        </a>
-                                    </div>
-
 
                                     <div class="col-4 mb-2">
-                                        <a href="#"
-                                           class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
+                                        <a href="{{route('company.projects.all')}}"
+                                           class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2 shadow2">
                                             <i class="bi bi-tags" style="font-size: 25px"></i>
-                                            <span class="text-center">Teams Offers</span>
+                                            <span class="text-center">Projects</span>
                                         </a>
                                     </div>
 
 
                                     <div class="col-4 mb-2">
                                         <a href="#"
-                                           class="fz-16 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
+                                           class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2 shadow2">
+                                            <i class="bi bi-tags" style="font-size: 25px"></i>
+                                            <span class="text-center">Jobs</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-4 mb-2">
+                                        <a href="#"
+                                           class="fz-16 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2 shadow2">
                                             <i class="bi bi-chat" style="font-size: 25px"></i>
                                             <span class="text-center">Chats</span>
                                         </a>
                                     </div>
-                                    <div class="col-4 mb-2">
-                                        <a href="{{route('applyJobs.index')}}"
-                                           class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
-                                            <i class="bi bi-tags" style="font-size: 25px"></i>
-                                            <span class="text-center">Job Offers</span>
-                                        </a>
-                                    </div>
 
 
-                                    <div class="col-4 mb-2">
-                                        <a href="{{route('proposals.index')}}"
-                                           class="fz-14 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
-                                            <i class="bi bi-tags" style="font-size: 25px"></i>
-                                            <span class="text-center">Offers</span>
-                                        </a>
-                                    </div>
 
-                                    <div class="col-4 mb-2">
-                                        <a href="#"
-                                           class="fz-16 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2">
-                                            <i class="bi bi-list-ul" style="font-size: 25px"></i>
-                                            <span class="text-center">Services</span>
-                                        </a>
-                                    </div>
+
+
+{{--                                    <div class="col-4 mb-2">--}}
+{{--                                        <a href="#"--}}
+{{--                                           class="fz-16 fw-500  d-flex flex-column align-items-center gap-1 round16 bgwhtie p-2 shadow2">--}}
+{{--                                            <i class="bi bi-list-ul" style="font-size: 25px"></i>--}}
+{{--                                            <span class="text-center">Services</span>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
 
                                 </div>
 
 
-                                <div class="darrell__profile round16 mb-24 bgwhite">
+                                <div class="darrell__profile round16 mb-24 bgwhite shadow2">
                                     <div class="profile__check ralt">
                                         <img src="{{$company->getPhoto()}}" alt="profile">
                                         {{-- <i class="bi bi-check"></i> --}}
@@ -158,7 +144,7 @@
                                 </div>
 
 
-                                <div class="all__editbar round16 bgwhite ">
+                                <div class="all__editbar round16 bgwhite shadow2 ">
                                     <div class="description__edit ralt pb-24 bborderdash commn__spacenone">
                                         <ul class="nav" role="tablist">
                                             <li class="nav-item w-100 mb-16 d-flex align-items-center justify-content-between"
@@ -180,7 +166,6 @@
                                     </div>
 
 
-
                                 </div>
                             </div>
                         </div>
@@ -189,145 +174,39 @@
                             <div class="create__gigpublist round16 bgwhite">
 
 
+                                <div class="nav mb-40  round16 d-flex align-items-center nav-tabs" role="tablist">
+                                    {{--                                <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1 active"--}}
+                                    {{--                                        id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"--}}
+                                    {{--                                        role="tab" aria-controls="nav-home" aria-selected="true">--}}
+                                    {{--                                    <i class="bi bi-file-earmark-plus"></i>--}}
+                                    {{--                                    New Gig--}}
+                                    {{--                                </button>--}}
+
+                                    <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1 active"
+                                            id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                                            type="button" role="tab" aria-controls="nav-contact"
+                                            aria-selected="false">
+                                        <i class="bi bi-pencil-square" style="font-size: 25px"></i>
+                                        Profile
+                                    </button>
+
+
+                                    <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1"
+                                            id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-password"
+                                            type="button" role="tab" aria-controls="nav-password"
+                                            aria-selected="false">
+                                        <i class="bi bi-key" style="font-size: 25px"></i>
+                                        Password
+                                    </button>
+
+                                </div>
 
                                 <div class="tab-content">
 
 
-                                    <div class="tab-pane base fade  show active" id="nav-contact" role="tabpanel"
-                                         aria-labelledby="nav-contact-tab">
-                                        <div class="accordion profile__gigedit" id="accordionExample">
-                                            <div class="accordion-item mb-40">
+                                    @include('front.pages.company-dashboard.tabs.profile-tab')
+                                    @include('front.pages.company-dashboard.tabs.password-tab')
 
-
-                                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                                     aria-labelledby="headingOne">
-                                                    <div class="accordion-body">
-
-                                                        <form id="updateProfileForm" class="row g-4"
-                                                              enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="basic__infos mb-24">
-                                                                <div
-                                                                    class="d-flex flex-wrap basic__proadded align-items-center justify-content-center">
-                                                                    <div
-                                                                        class="pro__andthumb d-flex align-items-center">
-
-                                                                        <div class="pro__photo">
-                                                                            <img id="profileImage"
-                                                                                 style="height: 160px;width: 150px"
-                                                                                 class="img-fluid"
-                                                                                 src="{{$company->getPhoto()}}"
-                                                                                 alt="freelance"/>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div
-                                                                        class="update__btn d-flex align-items-center m-2">
-                                                                        <a href="javascript:void(0)"
-                                                                           class="cmn--btn"
-                                                                           onclick="document.getElementById('imageInput').click()">
-                                                                            <span>
-                                                                                  Edit Photo
-                                                                            </span>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- Hidden file input -->
-                                                                <input type="file" id="imageInput" name="photo"
-                                                                       style="display: none;"
-                                                                       accept="image/*"
-                                                                       onchange="previewImage(event)"/>
-                                                            </div>
-                                                            <div class="col-lg-6 basig__grpinput">
-                                                                <label for="name"
-                                                                       class="fz-20 fw-500 inter mb-16 title">Full
-                                                                    name</label>
-                                                                <input class="addquestion" type="text"
-                                                                       value="{{$company->name}}" name="name"
-                                                                       id="name"
-                                                                       placeholder="Enter name">
-                                                            </div>
-
-                                                            <div class="col-lg-6 basig__grpinput">
-                                                                <label for="email1s"
-                                                                       class="fz-20 fw-500 inter mb-16 title">Email</label>
-                                                                <input class="addquestion" name="email" type="text"
-                                                                       value="{{$company->email}}"
-                                                                       id="email1s"
-                                                                       placeholder="Enter email">
-                                                            </div>
-
-                                                            <div class="col-lg-6 basig__grpinput">
-                                                                <label for="numbr"
-                                                                       class="fz-20 fw-500 inter mb-16 title">Phone</label>
-                                                                <input class="addquestion" name="mobile"
-                                                                       value="{{$company->mobile}}"
-                                                                       type="text" id="mobile"
-                                                                       placeholder="Enter Mobile">
-                                                            </div>
-
-                                                            <div class="col-lg-6 basig__grpinput">
-                                                                <label for="location"
-                                                                       class="fz-20 fw-500 inter mb-16 title">location
-                                                                </label>
-                                                                <input class="addquestion" name="location"
-                                                                       value="{{$company->location}}"
-                                                                       type="text" id="location"
-                                                                       placeholder="Enter location">
-                                                            </div>
-
-
-
-
-                                                            {{--                                                            <div class="col-lg-12 basig__grpinput">--}}
-                                                            {{--                                                                <label for="numbr"--}}
-                                                            {{--                                                                       class="fz-20 fw-500 inter mb-16 title">Salary--}}
-                                                            {{--                                                                    <span class="pra">($)</span></label>--}}
-                                                            {{--                                                                <input value="{{$company->sallary}}"--}}
-                                                            {{--                                                                       class="addquestion"--}}
-                                                            {{--                                                                       name="sallary"--}}
-                                                            {{--                                                                       type="number" id="sallary"--}}
-                                                            {{--                                                                       placeholder="Enter number">--}}
-                                                            {{--                                                            </div>--}}
-
-                                                            <div class="col-lg-12  ">
-
-                                                            <span class="fz-20 fw-500 inter title mb-16 d-block">
-                                                                  BIO:
-                                                               </span>
-
-                                                                <div>
-                                                                <textarea id="bio" name="bio"
-                                                                          class="form-control round16"
-                                                                          rows="10">{!! $company->description !!}</textarea>
-                                                                    {{--                                                                <button id="ai-generate" type="button" class="btn btn-secondary">Write with AI</button>--}}
-                                                                    {{--                                                                <p id="error-message" style="color: red; display: none;">Generated text must be at least 30 characters.</p>--}}
-                                                                </div>
-
-
-
-
-                                                                <div
-                                                                    class="d-flex align-items-center gap-4 flex-wrap mt-5 justify-content-end">
-                                                                    <button id="profile-update" type="submit"
-                                                                            class="cmn--btn">
-                                                                    <span id="spinner"
-                                                                          class="spinner-grow spinner-grow-sm d-none"
-                                                                          role="status" aria-hidden="true"></span>
-                                                                        <span id="save-change">Save Change</span>
-                                                                    </button>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -341,7 +220,6 @@
     <!-- profile section End -->f
 
     @push('js')
-
 
         {{-- edit profile submit--}}
         <script>

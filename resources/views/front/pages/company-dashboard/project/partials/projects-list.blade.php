@@ -40,7 +40,8 @@
                 <span class="lavel__item ralt fz-16 fw-400 inter pra">
                 <span><i class="bi bi-ticket"></i></span>
                 <span class="title fw-600 inter">
-                    {{$project->offers_count > 0 ? $project->offers_count . ' proposals' : 'Add first offer'}}
+                    {{$project->offers_count   . ' proposals' }}
+
                 </span>
             </span>
                 @if($project->delivery_time)
@@ -59,26 +60,20 @@
             </div>
 
             <div class="d-flex pt-24 flex-wrap gap-2 align-items-center justify-content-between">
-                <div class="abstergo__left d-flex align-items-center">
-                    <div class="abster ralt">
-                        <img src="{{$project->company->getPhoto()}}" alt="img">
-                    </div>
-                    <span class="fz-16 fw-400 inter pra">
-                    {{$project->company->name}}
-                </span>
-                </div>
-                <div class="abstr__heart d-flex align-items-center">
-                    @if($project->status == 1)
-                        <a href="{{route('projects.index',$project->slug)}}" class="cmn--btn outline__btn">
-                            <span>Send Proposal</span>
-                            <span><i class="bi bi-arrow-up-right"></i></span>
-                        </a>
-                    @else
-                        <a href="{{route('projects.index',$project->slug)}}" class="cmn--btn outline__btn">
+{{--                <div class="abstergo__left d-flex align-items-center">--}}
+{{--                    <div class="abster ralt">--}}
+{{--                        <img src="{{$project->company->getPhoto()}}" alt="img">--}}
+{{--                    </div>--}}
+{{--                    <span class="fz-16 fw-400 inter pra">--}}
+{{--                    {{$project->company->name}}--}}
+{{--                </span>--}}
+{{--                </div>--}}
+                <div class="abstr__heart d-flex align-content-end float-end">
+
+                        <a href="{{route('projects.index',$project->slug)}}" class="cmn--btn outline__btn ">
                             <span>View</span>
                             <span><i class="bi bi-eye-fill"></i></span>
                         </a>
-                    @endif
                 </div>
             </div>
         </div>

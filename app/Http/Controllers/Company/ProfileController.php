@@ -84,55 +84,6 @@ class ProfileController extends Controller
 
 
 
-    public function all_offers() {
-        $talent = auth('talent')->user();
-
-        $offers = Offer::where('user_id', $talent->id)->with('project.specializations.specialization');
-
-        if (request()->status && is_array(request()->status)) {
-            $options = request()->status;
-            $offers->whereIn('status', $options);
-        }
-
-        $offers = $offers->orderBy('created_at', 'desc')->paginate(5); // Using pagination
-
-        if (request()->ajax()) {
-            $data = view('front.themes.' . \setting('them') . '.pages.talent.all_offers_list', compact('offers', 'talent'))->render();
-            return response()->json([
-                'html' => $data,
-                'page' => $offers->currentPage(),
-                'lastPage' => $offers->lastPage(),
-            ]);
-        }
-
-        return view('front.themes.' . \setting('them') . '.pages.talent.all_offers', ['offers' => $offers, 'talent' => $talent]);
-    }
-
-
-    public function all_jobs() {
-        $talent = auth('talent')->user();
-        $applies = JobApplies::where('user_id', $talent->id)->with('job');
-
-        if (request()->status && is_array(request()->status)) {
-            $options = request()->status;
-            $applies = JobApplies::whereHas('job', function($query) use ($options) {
-                $query->whereIn('status', $options);
-            });
-        }
-
-        $applies = $applies->orderBy('created_at', 'desc')->paginate(5); // Using pagination
-
-        if (request()->ajax()) {
-            $data = view('front.themes.' . \setting('them') . '.pages.talent.all_applies_list', compact('applies', 'talent'))->render();
-            return response()->json([
-                'html' => $data,
-                'page' => $applies->currentPage(),
-                'lastPage' => $applies->lastPage(),
-            ]);
-        }
-
-        return view('front.themes.' . \setting('them') . '.pages.talent.all_applies', ['applies' => $applies, 'talent' => $talent]);
-    }
 
 
 

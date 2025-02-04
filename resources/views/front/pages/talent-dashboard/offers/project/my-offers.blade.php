@@ -118,7 +118,7 @@
 
 
 
-    @push('js')
+
         @push('js')
             <script>
                 $('.loader').hide();
@@ -188,8 +188,6 @@
                 });
             </script>
         @endpush
-
-    @endpush
 
 @stop
 

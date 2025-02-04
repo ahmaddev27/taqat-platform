@@ -96,7 +96,7 @@ return [
 
     'open' => 'Open',
     'implementation' => 'implementation',
-    'canceled' => 'canceled',
+    'canceled' => 'Canceled',
     'completed' => 'Completed',
     'completedProjects' => 'completed Projects',
     'budget' => 'Budget',

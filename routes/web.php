@@ -22,13 +22,19 @@ Route::get('/clear', function () {
 Auth::routes();
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('logout/talent-company', [LoginController::class, 'logoutClient'])->name('logout-Clients');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout-Clients');
 
 
 
 Route::get('/', function () {
     return view('front.pages.home');
 })->name('home');
+
+
+
+Route::middleware(['auth:company,talent'])->group(function () {
+    Route::post('/password/update', [LoginController::class, 'updatePassword'])->name('password.update');
+});
 
 
 Route::controller(TalentController::class)->group(function () {

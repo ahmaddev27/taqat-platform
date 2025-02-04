@@ -21,7 +21,7 @@ class ProjectController extends Controller
         $specializations = Specialization::withCount(['company_projects'])->get();
 
         // Build the query for company projects
-        $query = CompanyProject::with(['offers', 'company', 'specializations']);
+        $query = CompanyProject::with(['offers', 'company', 'specializations'])->withCount('offers');
 
 
         // Apply search filter

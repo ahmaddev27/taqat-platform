@@ -36,6 +36,7 @@ class CompanyLoginController extends Controller
 
 
 
+
     public function login(Request $request)
     {
         $request->validate([
@@ -80,80 +81,5 @@ class CompanyLoginController extends Controller
 
 
 
-    public function register(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'tel' => 'required|string|max:20',
-            'whatsapp' => 'required|max:20',
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                function ($attribute, $value, $fail) {
-                    // Check the uniqueness of the email in the second database
-                    $exists = DB::connection('second_db')->table('users')->where('email', $value)->exists();
-
-                    if ($exists) {
-                        $fail('The email has already been taken in the second database.');
-                    }
-                },
-            ],
-            'specialization' => 'required|string|max:255',
-            'gender' => 'required|in:1,0', // 1 for male, 0 for female
-            'displacement_place' => 'required|string|max:255',
-            'original_place' => 'required|string|max:255',
-            'password' => 'required|string|min:8|confirmed',
-            'photo' => 'required|image|max:2048', // Ensure photo is an image and max size is 2MB
-        ]);
-
-
-            $user = Talent::query()->create([
-                'name' => $request->name,
-                'mobile' => $request->mobile,
-                'whatsapp' => $request->whatsapp,
-                'email' => $request->email,
-                'job' => $request->job,
-                'gender' => $request->gender,
-                'displacement_place' => $request->displacement_place,
-                'original_place' => $request->original_place,
-                'password' => Hash::make($request->password),
-                'status' => 3,
-                'specialization_id'=>$request->specialization,
-                'slug' => $this->generateArabicSlug($request->name),
-            ]);
-
-            if ($request->hasFile('photo')) {
-                $image = $this->uploadFileImage($request->photo, 'users');
-                $user->update(['photo' => url('/') . '/public/' . $image]);
-            }
-
-            Auth::guard('talent')->login($user);
-
-            // Generate an API token for auto-login
-            $apiToken = Str::random(60);
-            $user->api_token = $apiToken;
-            $user->save();
-
-            // Determine the redirect URL
-            $redirectUrl = $request->redirect ?: url('/profile');
-
-            // Generate the URL for auto-login
-            $teamUrl = "http://team.taqat-gaza.com/autologin?id={$user->id}&api_token={$apiToken}&redirect_url={$redirectUrl}";
-
-            // Return JSON response with the redirect URL
-            return response()->json(['redirect' => $teamUrl]);
-
-
-    }
-
-
-
-    public function logout()
-    {
-        Auth::guard('talent')->logout();
-        return redirect()->route('home')->with(['message' => trans('main.logout_success'), 'alert-type' => 'success']);
-
-    }
 
 }

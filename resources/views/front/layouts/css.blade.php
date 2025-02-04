@@ -23,6 +23,19 @@
 <style>
 
 
+    .reset__filter,.outline__btn{
+        border: 0px;
+    }
+
+    .shadow2 {
+        box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important
+    }
+    .error {
+        color: red;
+        /*font-size: 12px;*/
+        margin-top: 2px;
+    }
+
     .loader {
         width: 48px;
         height: 48px;

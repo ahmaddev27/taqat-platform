@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('login', [TalentLoginController::class, 'login'])->name('talent.login');
-Route::view('talent/register', 'front.themes.' . \setting('them') . '.talents.register')->name('talent.register');
-Route::post('talent/register', [TalentLoginController::class, 'register'])->name('talent.register');
+//Route::view('talent/register', 'front.themes.' . \setting('them') . '.talents.register')->name('talent.register');
+//Route::post('talent/register', [TalentLoginController::class, 'register'])->name('talent.register');
 
 
 

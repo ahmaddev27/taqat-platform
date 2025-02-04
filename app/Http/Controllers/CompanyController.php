@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Taqat2\Company;
-use Illuminate\Support\Facades\Cookie;
 
 class CompanyController extends Controller
 {

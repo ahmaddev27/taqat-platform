@@ -13,12 +13,6 @@
             margin: 0 auto;
         }
 
-        .error {
-            color: red;
-            /*font-size: 12px;*/
-            margin-top: 2px;
-        }
-
 
     </style>
 

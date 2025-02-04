@@ -88,7 +88,5 @@ class CompanyProject extends Model
 
 
 
-
-
 }
 
