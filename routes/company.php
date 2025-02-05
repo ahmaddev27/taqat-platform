@@ -30,5 +30,11 @@ Route::group(['as' => 'company.', 'prefix' => 'company' ,'middleware' => 'auth.c
         });
     });
 
+//    Route::group(['as' => 'jobs.', 'prefix' => 'jobs'], function () {
+//        Route::controller(JobController::class)->group(function () {
+//            Route::get('/', 'jobs')->name('all');
+//            Route::view('/new', 'front.pages.company-dashboard.jobs.add')->name('add');
+//        });
+//    });
 
 });

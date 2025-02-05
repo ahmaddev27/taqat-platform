@@ -4,6 +4,9 @@
 @push('css')
     <style>
 
+        .fade-my {
+            opacity: 0.3;
+        }
         /* No Borders Class */
         .no-border {
             border: none !important;
@@ -236,7 +239,7 @@
 
             $(document).on('change', '.filter__search input, .specializations, #customRangeMin, #customRangeMax', function () {
                 $('html, body').animate({scrollTop: 0}, 'fast');
-
+                $('.service__item').addClass('fade-my');
                 let filters = {
                     search: $('input[placeholder="Search"]').val(),
                     categories: [],
@@ -275,6 +278,7 @@
 
             // Reset filters
             $(document).on('click', '.reset__filter', function () {
+                $('.service__item').addClass('fade-my');
                 // Reset input fields
                 $('.filter__search input').val('');
                 $('#customRangeMin').val(50);

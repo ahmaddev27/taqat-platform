@@ -1,6 +1,13 @@
 @extends('front.layouts.master',['title'=>'Companies'])
 
 
+@push('css')
+    <style>
+        .fade-my {
+            opacity: 0.3;
+        }
+    </style>
+@endpush
 
 @section('content')
     <!--service grid here-->
@@ -55,6 +62,8 @@
             $(document).on('change', '.filter__search input', function () {
                 $('html, body').animate({scrollTop: 0}, 'fast');
 
+                $('.frelancer__item').addClass('fade-my');
+
                 let filters = {
                     search: $('input[placeholder="Search"]').val(),
                 };
@@ -83,6 +92,7 @@
             // Reset filters
             $(document).on('click', '.reset__filter', function () {
                 // Reset input fields and sliders
+                $('.frelancer__item').addClass('fade-my');
                 $('.filter__search input').val('');
                 $('html, body').animate({scrollTop: 0}, 'fast');
 

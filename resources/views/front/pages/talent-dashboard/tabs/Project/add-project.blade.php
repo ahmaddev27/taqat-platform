@@ -78,9 +78,7 @@
                                     <input multiple id="images-project" name="images[]" type="file" accept="image/*">
                                 </div>
 
-
                             </div>
-
 
 
 

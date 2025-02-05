@@ -20,13 +20,13 @@
                                 <div class="col-4 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Category</span>
                                     <select class="addquestion" name="category">
-                                        <option  disabled selected>Select Service Category</option>
+                                        <option disabled selected>Select Service Category</option>
                                         @foreach(\App\Models\Taqat2\KhadmaCategory::all() as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
+
 
                                 <div class="col-4 mb-30">
                                     <span class="fz-18 fw-500 title inter mb-10 d-block">Price</span>
@@ -172,8 +172,6 @@
                                 toastr.error('An unexpected error occurred.');
                             }
                         },
-
-
 
 
                         complete: function () {

@@ -58,6 +58,7 @@ class ProjectController extends Controller
             return view('front.pages.site.projects.partials.project_list', compact('projects'))->render();
         }
 
+
         return view('front.pages.site.projects.all', [
             'projects' => $projects,
             'specializations' => $specializations,

@@ -120,7 +120,7 @@
                                                                  <span class="fz-20 fw-500 inter title mb-16 d-block">
                                                                   Skills:
                                                                </span>
-                                <input class="form-control" name="skills"
+                                <input class="form-control round16" name="skills"
                                        value="{{ $talent->skills }}"
                                        id="kt_tagify_5">
                             </div>

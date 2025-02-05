@@ -7,6 +7,9 @@
             padding: 32px 44px;
             transition: all 0.4s
         }
+        .fade-my {
+            opacity: 0.3;
+        }
 
         /* No Borders Class */
         .no-border {
@@ -200,6 +203,7 @@
                     $('input[name="stars[]"]:checked').each(function () {
                         filters.stars.push($(this).val().trim());
                     });
+                    $('.frelancer__item').addClass('fade-my');
 
                     // AJAX request to fetch data
                     $.ajax({
@@ -221,8 +225,11 @@
                             }
 
                             isLoading = false;
+
                             $('.loader').hide(); // Hide loader
                             $('#talentsList .skeleton-loader').remove(); // Remove skeleton loaders
+                            $('.frelancer__item').removeClass('fade-my');
+
                         },
                         error: function () {
                             console.error('Error loading talents');
@@ -256,6 +263,7 @@
 
                 // Event listener for Reset Filters button
                 $('.reset__filter').on('click', function () {
+                    $('.frelancer__item').addClass('fade-my');
                     $('#searchInput').val(''); // Clear search input
                     $('input[name="specializations[]"]').prop('checked', false); // Uncheck all specializations
                     $('input[name="stars[]"]').prop('checked', false); // Uncheck all stars

@@ -55,6 +55,7 @@
                         Companies
                     </a>
                 </li>
+
                 <li>
                     <a href="javascript:void(0)">
                         Browse Job
@@ -100,6 +101,14 @@
 
 
                 </li>
+
+                @if(auth()->guard('company')->check())
+                    <li>
+                        <a href="{{route('company.projects.add')}}">New Project</a>
+
+
+                    </li>
+                @endif
                 {{--                    <li>--}}
                 {{--                        <a href="javascript:void(0)">--}}
                 {{--                            Pages--}}

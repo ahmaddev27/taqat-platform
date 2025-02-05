@@ -459,7 +459,10 @@ function Khadmat_categories()
 
 
 
-
+function specializations()
+{
+  return  \App\Models\Taqat2\Specialization::all();
+}
 function getTalents($hasJobs, $limit)
 {
     // Fetch the data first

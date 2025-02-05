@@ -21,9 +21,11 @@ class ProjectController extends Controller
         $company = auth('company')->user();
 
         // Start the query from the relationship
-        $query = $company->projects()
-            ->withCount('offers')
-            ->select('slug', 'skills','title', 'budget', 'description', 'status', 'created_at', 'delivery_time'); // select only the columns you need
+         $query = $company->projects()
+            ->withCount('offers')  // Adds 'offers_count' dynamically
+            ->addSelect('slug', 'skills', 'title', 'budget', 'description', 'status', 'created_at', 'delivery_time');
+
+
 
         // Apply status filtering if provided in the request
         if ($request->has('status') && is_array($request->status)) {

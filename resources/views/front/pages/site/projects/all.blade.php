@@ -10,6 +10,9 @@
             box-shadow: none;
         }
 
+        .fade-my{
+            opacity: 0.3;
+        }
         .slider-container {
             display: flex;
             justify-content: space-between;
@@ -190,6 +193,7 @@
 
 
 
+
     @push('js')
         <script>
             $('.loader').hide();
@@ -222,6 +226,8 @@
 
             $(document).on('change', '.filter__search input, .specializations, #customRangeMin, #customRangeMax,.delivery_time', function () {
                 $('html, body').animate({scrollTop: 0}, 'fast');
+                $('.chatbot__items').addClass('fade-my');
+
 
                 let filters = {
                     search: $('input[placeholder="Search"]').val(),
@@ -266,6 +272,8 @@
 
             // Reset filters
             $(document).on('click', '.reset__filter', function () {
+                $('.chatbot__items').addClass('fade-my');
+
                 // Reset input fields
                 $('.filter__search input').val('');
                 $('#customRangeMin').val(50);
@@ -304,6 +312,30 @@
                 }, 300);
             });
 
+
+            $(document).on('click', '.pagination-links a', function (event) {
+                event.preventDefault(); // Prevent default pagination action
+                $('html, body').animate({scrollTop: 0}, 'fast');
+                $('.chatbot__items').addClass('fade-my');
+                let pageUrl = $(this).attr('href'); // Get the pagination link URL
+
+                if (pageUrl) {
+                    $('.loader').show(); // Show preloader
+
+                    $.ajax({
+                        url: pageUrl, // Request new paginated data
+                        type: 'GET',
+                        success: function (response) {
+                            $('.chatbot__developers').html(response); // Update the project list
+                            $('.loader').hide();
+                        },
+                        error: function () {
+                            $('.chatbot__developers').html('<div class="error-message">Failed to load projects. Please try again.</div>');
+                            $('.loader').hide();
+                        }
+                    });
+                }
+            });
 
         </script>
     @endpush

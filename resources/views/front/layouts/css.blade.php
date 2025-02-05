@@ -23,8 +23,15 @@
 <style>
 
 
-    .reset__filter,.outline__btn{
-        border: 0px;
+    .preloader__wrap .preloader__box .recharge {
+        width: 100px;
+    }
+
+
+    .preloader__wrap .preloader__box .pretext {
+        font-size: 25px;
+        margin-top: 129px;
+
     }
 
     .shadow2 {
@@ -36,6 +43,9 @@
         margin-top: 2px;
     }
 
+    .bg-light2{
+        background-color: #f8f9fc !important;
+    }
     .loader {
         width: 48px;
         height: 48px;
