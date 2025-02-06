@@ -23,7 +23,7 @@ class Controller extends BaseController
         }
         // save the ProfileImage as it is
         Image::make($file->getRealPath())->resize($w,$h)->interlace(true)->save($ImagePath . $ImageName);
-        return url('/uploads/images/'. $path  . '/' . $ImageName);
+        return '/uploads/images/'. $path  . '/' . $ImageName;
 
     }
 
@@ -38,8 +38,9 @@ class Controller extends BaseController
         }
         // save the ProfileImage as it is
         $file->move($FilePath , $FileName);
-        return url('/uploads/files/'. $path  . '/' . $FileName);
+        return '/uploads/files/'. $path  . '/' . $FileName;
     }
+
 
 
 

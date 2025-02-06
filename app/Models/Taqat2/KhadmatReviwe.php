@@ -9,6 +9,8 @@ class KhadmatReviwe extends Model
 {
     protected $guarded = [];
     use HasFactory;
+    protected $connection = 'second_db';
+
 
     public function user()
     {

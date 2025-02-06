@@ -27,6 +27,7 @@ Route::group(['as' => 'company.', 'prefix' => 'company' ,'middleware' => 'auth.c
         Route::controller(ProjectController::class)->group(function () {
             Route::get('/', 'projects')->name('all');
             Route::view('/new', 'front.pages.company-dashboard.project.add')->name('add');
+            Route::post('/store', 'store')->name('store');
         });
     });
 

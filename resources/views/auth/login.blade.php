@@ -123,7 +123,7 @@
                                 <div class="col-lg-6">
                                     <div class="frm__grp">
                                         <button type="submit" id="loginButton" class="cmn--btn basebor outline__btn">
-                                            <span id="spinner" class="spinner-border spinner-border-sm text-primary" style="display: none"></span>
+                                            <span id="spinner" class="spinner-border spinner-border-sm " style="display: none"></span>
                                             <span id="loginButtonText">Sign In</span>
 
 {{--                                            <span><i class="bi bi-arrow-up-right"></i></span>--}}

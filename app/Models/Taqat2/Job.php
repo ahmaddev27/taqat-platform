@@ -11,7 +11,10 @@ class Job extends Model
 {
     use HasTranslations;
     use SoftDeletes;
+
     protected $table = 'company_jobs';
+    protected $connection = 'second_db';
+
     protected $guarded = [];
     protected $casts = [
         'skills' => 'array',
@@ -21,7 +24,6 @@ class Job extends Model
     public $translatable = ['description','job_requirements','title','slug'];
 
 
-    protected $connection = 'second_db';
 
     use HasFactory;
 

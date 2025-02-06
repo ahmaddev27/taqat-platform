@@ -11,10 +11,10 @@ class CompanyProject extends Model
 {
     use HasTranslations;
 
-    protected $connection = 'second_db';
 
     protected $table = 'company_projects';
 
+    protected $connection = 'second_db';
     use SoftDeletes;
     use HasFactory;
 

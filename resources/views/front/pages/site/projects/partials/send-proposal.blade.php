@@ -13,7 +13,7 @@
 @endpush
 
 
-@if(!auth()->guard('company'))
+@if(!auth()->guard('company')->check())
 
     @if($myOffer->count()<=0 && $project->status==1 && auth('talent')->user())
 

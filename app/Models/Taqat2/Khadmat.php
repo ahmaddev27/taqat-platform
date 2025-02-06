@@ -28,10 +28,10 @@ class Khadmat extends Model
 
     public function getPhoto()
     {
-        if (filter_var($this->image, FILTER_VALIDATE_URL) === false) {
+        if (filter_var($this->image, FILTER_VALIDATE_URL) === false && strpos($this->image, 'uploads') === false) {
             return url('https://team.taqat-gaza.com/public/files/' . $this->image);
         }
-        return $this->image;
+        return url($this->image);
     }
 
 

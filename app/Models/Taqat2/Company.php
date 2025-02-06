@@ -51,7 +51,7 @@ class Company extends Authenticatable
     public function getPhoto()
     {
         if ($this->photo) {
-            if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+            if (filter_var($this->photo, FILTER_VALIDATE_URL) === false && strpos($this->photo, 'uploads') === false) {
                 return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
             }
             return $this->photo;
@@ -60,6 +60,10 @@ class Company extends Authenticatable
         }
 
     }
+
+
+
+
 
     public function projects()
     {

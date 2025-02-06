@@ -19,13 +19,15 @@ class ScientificCertificate extends Model
 
     public $translatable = ['title', 'country', 'specialization', 'university', 'college'];
 
+
     public function getPhoto()
     {
-        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false) {
+        if (filter_var($this->photo, FILTER_VALIDATE_URL) === false && strpos($this->photo, 'uploads') === false) {
             return url('https://team.taqat-gaza.com/public/files/' . $this->photo);
         }
-        return $this->photo;
+        return url($this->photo);
     }
+
 
     public function getFileType()
     {

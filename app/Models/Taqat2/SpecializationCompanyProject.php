@@ -11,6 +11,7 @@ class SpecializationCompanyProject extends Model
 
     protected $table='specialization_company_project';
 
+    protected $guarded=[];
     use HasFactory;
 
     public function specialization (){

@@ -120,13 +120,13 @@
 
                                 <div class="attachment__file mb-30 pb-30 bborderdash">
                                     <h6 class="title mb-24 fz-16">
-                                        Attachments File
+                                        Attachments Files
                                     </h6>
                                     <div class="row g-4 justify-content-center">
 
                                         @foreach($project->attachments as $attachment)
                                             <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                                                <a href="{{ url($attachment->getFile()) }}" target="_blank"
+                                                <a href="{{ $attachment->getFile() }}" target="_blank"
                                                    class="attachment__filitem round16 d-flex align-items-center">
                                                     <i class="bi bi-file-earmark-{{ $attachment->getFileType() }} base pdf__icon"></i>
                                                     <span class="fz-20 fw-500 inter title">
@@ -254,6 +254,8 @@
             </div>
         </div>
     </section>
+
+
 
 @stop
 

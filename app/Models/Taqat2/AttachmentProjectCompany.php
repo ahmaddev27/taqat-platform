@@ -8,21 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class AttachmentProjectCompany extends Model
 {
     protected $table='attachment_project_companies';
+    protected $connection = 'second_db';
+
     use HasFactory;
 
+    protected $guarded=[];
 
 
-    public function getAtt(){
-        return $this->attachment ? url('https://team.taqat-gaza.com/public/files/' . $this->attachment): asset(url('front/place.png'));
-    }
 
     public function getFile()
     {
-        if (filter_var($this->attachment, FILTER_VALIDATE_URL) === false) {
+        // Check if the photo is not a valid URL and does not contain 'uploads'
+        if (filter_var($this->attachment, FILTER_VALIDATE_URL) === false && strpos($this->attachment, 'uploads') === false) {
             return url('https://team.taqat-gaza.com/public/files/' . $this->attachment);
         }
-        return $this->attachment;
+        return url($this->attachment);
     }
+
 
 
     public function getFileType()

@@ -70,16 +70,19 @@
         <div class="container">
             <div class="row g-4">
 
+
                 <div class="col-lg-8">
+                    <form id="projectForm" method="POST" enctype="multipart/form-data">
+                        @csrf
                     <div class="overview__gitwrapper  round16  shadow2">
-{{--                                                <h4 class="pb-40  mb-40 title">--}}
-{{--                                                    Add New project--}}
-{{--                                                </h4>--}}
+                        {{--                                                <h4 class="pb-40  mb-40 title">--}}
+                        {{--                                                    Add New project--}}
+                        {{--                                                </h4>--}}
                         <span class="fz-12 ralt aiquestion__text text-center d-block fw-400 mb-40 inter pra">
-                  <span class="aiquestion">
-                     About the project
-                  </span>
-               </span>
+                            <span class="aiquestion">
+                                About the project
+                            </span>
+                        </span>
                         <span class="fz-20 fw-500 title inter mb-10 d-block">
                             Give your project brief a title
                         </span>
@@ -145,9 +148,9 @@
                             <div class="col-12">
                                 <div class="title__add mt-24">
 
-                     <span class="fz-20 fw-500 title inter mb-10 d-block">
-                         Example of what needs to be done, if any
-                        </span>
+                                    <span class="fz-20 fw-500 title inter mb-10 d-block">
+                                        Example of what needs to be done, if any
+                                    </span>
                                     <input type="text" name="similar_example" placeholder="Similar Example">
                                 </div>
                             </div>
@@ -155,10 +158,10 @@
 
 
                         <span class="fz-12 ralt aiquestion__text text-center d-block fw-400 mt-40 mb-40 inter pra">
-                  <span class="aiquestion">
-                     Choose Any Skills and Specializations
-                  </span>
-               </span>
+                            <span class="aiquestion">
+                                Choose Any Skills and Specializations
+                            </span>
+                        </span>
 
                         <div class="row">
 
@@ -187,23 +190,17 @@
 
                                         <div class="row">
                                             @foreach(specializations() as $sp)
-                                                <div class="col-4">
-
-
-                                                    <div
-                                                        class="bank__checkitem  d-flex align-items-center">
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="bank__checkitem d-flex align-items-center">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="specializations[]" id="{{$sp->id}}"
+                                                              value="{{$sp->id}}" name="specializations[]" id="{{$sp->id}}"
                                                                style="border-radius: 16px">
                                                         <label class="form-check-label" for="spa{{$sp->id}}">
                                                             <span class="fz-16 fw-600 mb-10 d-block inter pra">
                                                                 {{$sp->title}}
                                                             </span>
-
                                                         </label>
                                                     </div>
-
-
                                                 </div>
                                             @endforeach
                                         </div>
@@ -239,29 +236,37 @@
                     </div>
 
 
-                    <div class="btn__grp d-flex align-items-center gap-4 flex-wrap mt-24">
-                        <a href="post-preferences.html" class="cmn--btn">
-                                <span>
-                                    Save &amp; Continue
-                     </span>
-                        </a>
+
+                    <div class="btn__grp d-flex align-items-center gap-4 flex-wrap mt-24 float-end ">
+                        <button type="submit" class="cmn--btn">
+                            <span id="spinner" class="spinner-border spinner-border-sm " style="display: none"></span>
+                            <span>Save &amp; Continue</span>
+                        </button>
 
                     </div>
 
+                    </form>
                 </div>
+
+
+
                 <div class="col-md-4 d-none d-md-block text-dark ">
 
                     <div class="project-advantages bg-light2 text-dark p-3 rounded shadow-sm">
                         <div class="copy">
                             <h5 class="text-dark fz-16">Start Your Project</h5>
                             <p class="fz-14">
-                                You can complete your project the way you want through Taqat. Enter the project details, budget, and expected duration for review and free publication.
-                                Freelancers will then see it on the projects page and submit their proposals, allowing you to choose the best offer and start the project.
+                                You can complete your project the way you want through Taqat. Enter the project details,
+                                budget, and expected duration for review and free publication.
+                                Freelancers will then see it on the projects page and submit their proposals, allowing
+                                you to choose the best offer and start the project.
                             </p>
                             <hr>
                             <h5 class="text-dark fz-16">Taqat Ensures Your Rights</h5>
                             <p class="fz-14">
-                                Taqat acts as an intermediary between you and the freelancer you hire. The payment is only transferred to the freelancer's account after they successfully complete the project.
+                                Taqat acts as an intermediary between you and the freelancer you hire. The payment is
+                                only transferred to the freelancer's account after they successfully complete the
+                                project.
                             </p>
                             <hr>
                             <h5 class="text-dark fz-16">Tips for a Successful Project</h5>
@@ -281,115 +286,162 @@
 
     @push('js')
 
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#specializations-select').select2();
-            });
-        </script>
+<script>
+    $(document).ready(function () {
+        let uploadedFiles = [];
+        const maxFiles = 5;
+        const maxFileSize = 10 * 1024 * 1024; // 10 MB per file
 
-        <script>
-            const dropZone = document.getElementById("dropZone");
-            const fileInput = document.getElementById("fileInput");
-            const fileList = document.getElementById("fileList");
-            let uploadedFiles = 0;
-            const maxFiles = 5;
-            const maxFileSize = 10 * 1024 * 1024; // 10 MB per file
+        const dropZone = $("#dropZone");
+        const fileInput = $("#fileInput");
+        const fileList = $("#fileList");
 
-            dropZone.addEventListener("click", () => fileInput.click());
-            dropZone.addEventListener("dragover", (e) => {
-                e.preventDefault();
-                dropZone.classList.add("bg-light");
-            });
-            dropZone.addEventListener("dragleave", () => dropZone.classList.remove("bg-light"));
-            dropZone.addEventListener("drop", (e) => {
-                e.preventDefault();
-                dropZone.classList.remove("bg-light");
-                handleFiles(e.dataTransfer.files);
-            });
-            fileInput.addEventListener("change", () => handleFiles(fileInput.files));
+        // Click to Open File Input
+        dropZone.on("click", function () {
+            fileInput.click();
+        });
 
-            // Modified simulateProgress accepts a callback to execute when complete.
-            function simulateProgress(progressBar, callback) {
-                let width = 0;
-                let interval = setInterval(() => {
-                    if (width >= 100) {
-                        clearInterval(interval);
-                        if (callback) callback();
-                    } else {
-                        width += 10;
-                        progressBar.style.width = width + "%";
-                    }
-                }, 200);
+        // Drag & Drop Events
+        dropZone.on("dragover", function (e) {
+            e.preventDefault();
+            dropZone.addClass("bg-light");
+        });
+
+        dropZone.on("dragleave", function () {
+            dropZone.removeClass("bg-light");
+        });
+
+        dropZone.on("drop", function (e) {
+            e.preventDefault();
+            dropZone.removeClass("bg-light");
+            handleFiles(e.originalEvent.dataTransfer.files);
+        });
+
+        // File Input Change
+        fileInput.on("change", function () {
+            handleFiles(this.files);
+        });
+
+        function handleFiles(files) {
+            if (uploadedFiles.length + files.length > maxFiles) {
+                toastr.error(`You can only upload up to ${maxFiles} files.`);
+                return;
             }
 
-            function handleFiles(files) {
-                // Check if adding these files exceeds the maximum allowed count.
-                if (uploadedFiles + files.length > maxFiles) {
-                    toastr.error("You can only upload a maximum of " + maxFiles + " files");
+            $.each(files, function (index, file) {
+                if (file.size > maxFileSize) {
+                    toastr.error(`File "${file.name}" is too large. Max size is 10 MB.`);
                     return;
                 }
 
-                Array.from(files).forEach((file) => {
-                    // Check file size before processing. Skip file if too large.
-                    if (file.size > maxFileSize) {
-                        toastr.error(`File "${file.name}" is too large. Maximum allowed size is 10 MB.`);
-                        return; // Skip processing this file.
-                    }
+                if (uploadedFiles.length >= maxFiles) return;
+                uploadedFiles.push(file);
 
-                    if (uploadedFiles >= maxFiles) return;
-                    uploadedFiles++;
+                const fileItem = $(`
+                <div class="file-item d-flex align-items-center border p-2 mb-2" style="width: 100%">
+                    <img src="" class="file-preview me-2" alt="Preview" style="width: 60px; height: 60px; object-fit: cover;">
+                    <div style="width: 85%">
+                        <p class="m-0">${file.name}</p>
+                        <p class="text-muted small">File size: ${(file.size / 1024 / 1024).toFixed(1)} MB</p>
+                        <div class="upload-status text-start"></div>
+                        <div class="progress mt-2" style="height: 5px;">
+                            <div class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <button class="delete-btn btn btn-outline-danger mt-2" data-name="${file.name}">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </button>
+                </div>
+            `);
 
-                    // Create file item container with an extra div for the upload status (check icon and text).
-                    const fileItem = document.createElement("div");
-                    fileItem.classList.add("file-item");
-                    fileItem.innerHTML = `
-        <div class="d-flex align-items-center" style="width: 100%">
-          <img src="" class="file-preview me-2" alt="Preview" style="width:60px; height:60px; object-fit:cover;">
-          <div style="width:85%">
-            <p class="m-0">${file.name}</p>
-            <p class="text-muted small">File size: ${(file.size / 1024 / 1024).toFixed(1)} MB</p>
- <div class="upload-status " style="text-align:start;"></div>
-            <div class="progress mt-2" style="height: 5px;">
-              <div class="progress-bar" style="width: 0%;"></div>
-            </div>
-          </div>
+                fileList.append(fileItem);
 
-        </div>
-        <button class="delete-btn btn btn-outline-danger mt-2"><i class="bi bi-x-circle-fill"></i></button>
-      `;
+                const filePreview = fileItem.find(".file-preview");
+                const progressBar = fileItem.find(".progress-bar");
+                const uploadStatus = fileItem.find(".upload-status");
 
-                    fileList.appendChild(fileItem);
+                // Show Image Preview
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    filePreview.attr("src", e.target.result);
+                };
+                reader.readAsDataURL(file);
 
-                    const filePreview = fileItem.querySelector(".file-preview");
-                    const progressBar = fileItem.querySelector(".progress-bar");
-                    const uploadStatus = fileItem.querySelector(".upload-status");
-
-                    // Start simulating the progress.
-                    simulateProgress(progressBar, () => {
-                        // Remove the progress container.
-                        const progressContainer = progressBar.parentElement;
-                        progressContainer.remove();
-
-                        // Once progress completes, display a green check icon and success text.
-                        uploadStatus.innerHTML = '<i class="bi bi-check-circle-fill text-success fs-4 mx-1"></i><span class="text-success fz-12 my-1 fw-400">Image Uploaded successfully</span>';
-                    });
-
-                    // Read the file data for preview (if applicable).
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        filePreview.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-
-                    // Attach delete button event.
-                    fileItem.querySelector(".delete-btn").addEventListener("click", () => {
-                        fileItem.remove();
-                        uploadedFiles--;
-                    });
+                // Simulate Upload Progress
+                simulateProgress(progressBar, () => {
+                    progressBar.parent().remove();
+                    uploadStatus.html('<i class="bi bi-check-circle-fill text-success fs-4 mx-1"></i><span class="text-success fz-12 my-1 fw-400">Image Uploaded successfully</span>');
                 });
-            }
-        </script>
+
+                // Handle File Deletion
+                fileItem.find(".delete-btn").on("click", function () {
+                    let fileName = $(this).data("name");
+                    uploadedFiles = uploadedFiles.filter(f => f.name !== fileName);
+                    $(this).closest(".file-item").remove();
+                });
+            });
+        }
+
+        // Simulate Upload Progress
+        function simulateProgress(progressBar, callback) {
+            let width = 0;
+            let interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    callback();
+                } else {
+                    width += 10;
+                    progressBar.css("width", width + "%");
+                }
+            }, 200);
+        }
+
+        // AJAX Form Submission
+        $("#projectForm").submit(function (e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+
+            // Append Files to FormData
+            $.each(uploadedFiles, function (index, file) {
+                formData.append("attachments[]", file);
+            });
+
+            $.ajax({
+                url: '{{ route("company.projects.store") }}',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#spinner").show();
+                },
+               success: function (response) {
+    $("#spinner").hide();
+    if (response.success) {
+        toastr.success(response.message);
+        window.location.href = '{{ route("projects.all") }}';
+    } else {
+        toastr.error("Something went wrong. Please try again.");
+    }
+},
+                error: function (xhr) {
+                    $("#spinner").hide();
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function (key, messages) {
+                            $.each(messages, function (index, message) {
+                                toastr.error(message);
+                            });
+                        });
+                    } else {
+                        toastr.error("An unexpected error occurred.");
+                    }
+                }
+            });
+        });
+    });
+
+</script>
 
 
         {{--  tags--}}
@@ -542,5 +594,8 @@
                 }
             });
         </script>
+
+
+
     @endpush
 @stop

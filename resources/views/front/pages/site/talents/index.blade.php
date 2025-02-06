@@ -1,4 +1,4 @@
-@extends('front.layouts.master',['title'=>setting('welcome')])
+@extends('front.layouts.master',['title'=>$talent->name])
 
 
 @push('css')
@@ -201,7 +201,7 @@
                             @endif
 
 
-                            <div class="about__three__content ">
+                            <div class="about__three__content mt-3 ">
                                 <!-- Nav Tabs -->
                                 <ul class="nav-lg  nav nav-tabs" id="talentTabs">
                                             <li class="nav-item " role="presentation">

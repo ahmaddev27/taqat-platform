@@ -7,7 +7,11 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\GPTController;
 
+
+
+Route::post('/gpt-api-endpoint', [GPTController::class, 'generate']);
 
 
 Route::get('/clear', function () {
