@@ -84,8 +84,9 @@
         </div>
     @endforeach
 
+    <div class="pagination-links">
     {{$jobs->appends(request()->query())->links('vendor.pagination.bootstrap-4')}}
-
+    </div>
 @else
     <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
         <div class="d-flex mb-24 flex-wrap align-items-center justify-content-center">

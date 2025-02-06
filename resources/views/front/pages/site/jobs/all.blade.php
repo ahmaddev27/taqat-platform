@@ -319,6 +319,32 @@
             });
 
 
+
+            $(document).on('click', '.pagination-links a', function (event) {
+                event.preventDefault(); // Prevent default pagination action
+                $('html, body').animate({scrollTop: 0}, 'fast');
+                $('.chatbot__items').addClass('fade-my');
+                let pageUrl = $(this).attr('href'); // Get the pagination link URL
+
+                if (pageUrl) {
+                    $('.loader').show(); // Show preloader
+
+                    $.ajax({
+                        url: pageUrl, // Request new paginated data
+                        type: 'GET',
+                        success: function (response) {
+                            $('.chatbot__developers').html(response); // Update the project list
+                            $('.loader').hide();
+                        },
+                        error: function () {
+                            $('.chatbot__developers').html('<div class="error-message">Failed to load projects. Please try again.</div>');
+                            $('.loader').hide();
+                        }
+                    });
+                }
+            });
+
+
         </script>
     @endpush
 

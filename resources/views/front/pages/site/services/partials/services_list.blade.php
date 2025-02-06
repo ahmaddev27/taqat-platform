@@ -11,7 +11,7 @@
 
                     <div class="service__content">
                         <div class="d-flex mb-16 align-items-center justify-content-between">
-                            <a href="javascript:void(0)" class=" learning round16 fz-12 fw-600 inter base">
+                            <a href="javascript:void(0)" class=" learning round16 fz-10 fw-600 inter base">
                                 {{ $service->category?->name }}
                             </a>
                             <span class="success2 d-block fz-12 fw-600 inter">
@@ -21,7 +21,7 @@
 
 
                         <h5 class="mb-16">
-                            <a href="{{route('services.index',$service->slug)}}" class="title fz-14">
+                            <a href="{{route('services.index',$service->slug)}}" class="title fz-12">
                                 {!! $service->title !!}
                             </a>
                         </h5>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="d-flex align-items-center gap-1">
                                 <i class="fa fa-dollar-sign"></i>
-                                <span class="fz-18 fw-600 base inter">$ {{ $service->price }}</span>
+                                <span class="fz-16 fw-600 base inter">$ {{ $service->price }}</span>
                             </div>
                         </div>
 
@@ -57,8 +57,9 @@
         @endforeach
     </div>
 
+    <div class="pagination-links">
     {{$services->appends(request()->query())->links('vendor.pagination.bootstrap-4')}}
-
+    </div>
 @else
     <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
         <div class="d-flex mb-24 flex-wrap align-items-center justify-content-center">
