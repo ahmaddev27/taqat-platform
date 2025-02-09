@@ -1,72 +1,81 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Taqat2\Company;
+use App\Models\Taqat2\Talent;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+   protected function validator(array $data)
+{
+    $emailValidationRule = ['required', 'string', 'email', 'max:255', 'unique:second_db.' . ($data['register_type'] === 'company' ? 'companies' : 'talents') . ',email'];
+    return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => [$emailValidationRule],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+    ]);
+}
+
+    protected function create(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+
+        if ($data['register_type'] === 'company') {
+
+          $user= Company::create([
+                'name' => $data['name'],
+                'user_name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+
+        } else {
+            $user= Talent::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+        }
+
+        return $user;
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
+     * Override default registration logic to handle AJAX requests.
      */
-    protected function create(array $data)
+    public function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->validator($request->all())->validate();
+
+        // Create the user based on register type
+        $user = $this->create($request->all());
+
+
+        // Determine where to redirect after registration
+        if ($request->register_type === 'company') {
+            Auth::guard('company')->login($user);
+            return response()->json(['message' => 'Registration successful!', 'redirect' => route('company.profile.index')]);
+        }
+        Auth::guard('talent')->login($user);
+        return response()->json(['message' => 'Registration successful!', 'redirect' => route('profile.index')]);
     }
+
+
 }

@@ -105,8 +105,9 @@
                 @if(auth()->guard('company')->check())
                     <li>
                         <a href="{{route('company.projects.add')}}">New Project</a>
-
-
+                    </li>
+                    <li>
+                        <a href="{{route('company.jobs.add')}}">New Job</a>
                     </li>
                 @endif
                 {{--                    <li>--}}

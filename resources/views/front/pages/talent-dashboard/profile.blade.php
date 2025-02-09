@@ -132,7 +132,7 @@
                                             {{$talent->name}}
                                         </h4>
                                         <span class="fz-16 fw-400 inter title">
-                                        {{$talent->specialization->title_en}}
+                                        {{$talent->specialization?->title_en}}
                                     </span>
 
                                         <ul class="d-flex mt-24 justify-content-center employer__listbase flex-wrap tranding__listbase align-items-center">

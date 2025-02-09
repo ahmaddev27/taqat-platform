@@ -104,7 +104,7 @@
                             <div class="based__content border round16 bgwhite">
                                 <div class="freelancer__profile bborderdash pb-24 mb-24 align-items-center d-flex ">
                                     <div class="profile__check ralt">
-                                        <img src="{{$talent->photo}}" alt="profile">
+                                        <img style="object-fit: cover"  src="{{$talent->photo}}" alt="profile">
                                         {{--                                        <i class="bi bi-check"></i>--}}
                                     </div>
                                     <div class="box__add">

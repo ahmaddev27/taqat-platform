@@ -16,8 +16,8 @@
             .switch {
                 position: relative;
                 display: inline-block;
-                width: 50px; /* Smaller width */
-                height: 30px; /* Smaller height */
+                width: 50px;
+                height: 30px;
             }
 
             .switch input {
@@ -41,8 +41,8 @@
             .slider:before {
                 position: absolute;
                 content: "";
-                height: 20px; /* Smaller height */
-                width: 20px; /* Smaller width */
+                height: 20px;
+                width: 20px;
                 left: 8px;
                 bottom: 4px;
                 background-color: white;
@@ -55,9 +55,8 @@
             }
 
             input:checked + .slider:before {
-                transform: translateX(16px); /* Smaller movement distance */
+                transform: translateX(16px);
             }
-
         </style>
     @endpush
 
@@ -117,7 +116,7 @@
 
                                 </div>
                                 <p class="fz-16 fw-400 title inter">
-                                    Do you have an account? <a href="signup.html" class="base">Signup</a>
+                                    Do you have an account? <a href="{{route('register')}}" class="base">Signup</a>
                                 </p>
 
                                 <div class="col-lg-6">

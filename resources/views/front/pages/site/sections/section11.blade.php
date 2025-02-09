@@ -1,4 +1,9 @@
-@if(companies()->count() > 0)
+@php
+    $topCompanies = companies();
+@endphp
+
+
+@if($topCompanies->count() > 0)
     <section class="choose__section bg__blr ralt pb-120 pt-120">
         <div class="container">
             <!-- Section Title -->
@@ -17,7 +22,7 @@
 
             <!-- Profiles Section -->
             <div class="row justify-content-center">
-                @foreach(companies() as $company)
+                @foreach($topCompanies as $company)
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <div class="darrell__profile round16 bgwhite m-2 p-3 text-center">
                             <div class="profile__check ralt position-relative">

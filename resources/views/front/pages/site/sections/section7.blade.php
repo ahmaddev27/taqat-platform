@@ -1,5 +1,7 @@
 <!-- Categoris section Here -->
-@if(talents()->count()>0)
+
+@php $talents=talents(); @endphp
+@if($talents->count()>0)
 <section class="freelancer__section ralt pt-120 pb-120">
     <div class="container">
         <div class="row">
@@ -15,7 +17,7 @@
             </div>
         </div>
         <div class="freelancer__wrapper owl-theme owl-carousel">
-            @foreach(talents() as $talent)
+            @foreach($talents as $talent)
                 <div class="frelancer__item shadow2 round16 bgwhite" style="height: 380px">
                     <div class="d-flex mb-24 align-items-center justify-content-between">
                         <div class="d-flex gap-2 fz-16 fw-600 inter title">

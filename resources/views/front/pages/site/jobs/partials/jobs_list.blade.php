@@ -2,7 +2,7 @@
     @foreach($jobs as $job)
         <div class="chatbot__items round16 mb-24 shadow2 bgwhite">
             <div class="d-flex mb-24 flex-wrap align-items-center justify-content-between">
-                <a href="{{route('jobs.index',$job->slug)}}"><h5 class="title">
+                <a href="{{route('jobs.index',$job->slug)}}"><h5 class="title text-start">
                         {{$job->title}}
                     </h5>
                 </a>
@@ -27,7 +27,7 @@
                 @endforeach
             </div>
 
-            <div class="text-dark  fw-400 mb-24 pra inter">
+            <div class="text-dark  fw-400 mb-24 pra inter text-start">
                 {{str_limit( strip_tags($job->description),150)}}
             </div>
 
@@ -68,7 +68,7 @@
                 </span>
                 </div>
                 <div class="abstr__heart d-flex align-items-center">
-                    @if($job->status == 1)
+                    @if($job->status == 1 && ! auth()->guard('company')->check() )
                         <a href="{{route('jobs.index',$job->slug)}}" class="cmn--btn outline__btn">
                             <span>Send Proposal</span>
                             <span><i class="bi bi-arrow-up-right"></i></span>

@@ -6,21 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Taqat2\AttachmentProjectCompany;
 use App\Models\Taqat2\CompanyProject;
 
+use App\Models\Taqat2\Job;
 use App\Models\Taqat2\SpecializationCompanyProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-class ProjectController extends Controller
+class JobController extends Controller
 {
-    public function projects(Request $request)
+    public function jobs(Request $request)
     {
         $company = auth('company')->user();
 
         // Start the query from the relationship
-        $query = $company->projects()
-            ->withCount('offers')  // Adds 'offers_count' dynamically
-            ->addSelect('slug', 'skills', 'title', 'budget', 'description', 'status', 'created_at', 'delivery_time')->with('company');
+        $query = $company->jobs()
+            ->withCount('applies')  // Adds 'offers_count' dynamically
+            ->addSelect('slug', 'job_requirements', 'title', 'sallary', 'description', 'status', 'created_at')->with(['company','specialization']);
 
 
         // Apply status filtering if provided in the request
@@ -40,11 +41,28 @@ class ProjectController extends Controller
             $query->orderBy('created_at', $sortOrder); // Sort by created_at
         }
 
+//        $company->loadCount([
+//            'jobs as open_jobs_count' => function ($query) {
+//                $query->where('status', 1);
+//            },
+//            'jobs as pending_jobs_count' => function ($query) {
+//                $query->where('status', 2);
+//            },
+//            'jobs as hired_jobs_count' => function ($query) {
+//                $query->where('status', 3);
+//            },
+//            'jobs as close_jobs_count' => function ($query) {
+//                $query->where('status', 4);
+//            },
+//        ]);
+
+
+
 
         // Paginate the results
-        $projects = $query->paginate(5);
+        $jobs = $query->paginate(5);
 
-        $projectCounts = $company->projects()
+        $jobsCounts = $company->jobs()
             ->selectRaw('status, COUNT(*) as count')
             ->groupBy('status')
             ->pluck('count', 'status') // Returns an array like [1 => 10, 2 => 5, 3 => 8, 4 => 2]
@@ -53,15 +71,15 @@ class ProjectController extends Controller
         // Check if the request is an AJAX request
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('front.pages.company-dashboard.project.partials.projects-list', compact('projects'))->render(),
-                'projectCounts' => $projectCounts,
+                'html' => view('front.pages.company-dashboard.jobs.partials.jobs-list', compact('jobs'))->render(),
+                'jobsCounts' => $jobsCounts,
             ]);
         }
 
         // Return the full view if not AJAX
-        return view('front.pages.company-dashboard.project.my-projects', [
-            'projects' => $projects,
-            'projectCounts' => $projectCounts,
+        return view('front.pages.company-dashboard.jobs.my-jobs', [
+            'jobs' => $jobs,
+            'jobsCounts' => $jobsCounts,
         ]);
     }
 
@@ -72,57 +90,38 @@ class ProjectController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'received_required' => 'required|string',
+            'job_requirements' => 'required|string',
             'skills' => 'required',
-            'specializations' => 'required|array',
-            'expected_budget' => 'nullable|numeric|min:0',
-            'similar_example' => 'nullable|string',
-            'attachments.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+            'specialization_id' => 'required',
+            'sallary' => 'required|numeric|min:0',
+            'duration' => 'required|numeric|min:0',
+            'permanent_type' => 'required',
         ]);
 
         try {
             DB::beginTransaction();
 
             // Create the project
-            $project = CompanyProject::create([
+            $job = Job::create([
                 'title' => ['ar' => $request->title, 'en' => $request->title],
                 'company_id' => auth('company')->id(),
                 'description' => ['ar' => $request->description, 'en' => $request->description],
-                'received_required' => ['ar' => $request->received_required, 'en' => $request->received_required],
+                'job_requirements' => ['ar' => $request->job_requirements, 'en' => $request->job_requirements],
                 'skills' => $request->skills,
                 'slug' => $this->generateArabicSlug($request->title),
-                'expected_budget' => $request->budget,
-                'budget' => $request->budget,
-                'similar_example' => $request->similar_example,
+                'sallary' => $request->sallary,
+                'duration' => $request->duration,
+                'permanent_type' => $request->permanent_type,
                 'status' => 1,
+                'specialization_id' =>  $request->specialization_id,
             ]);
 
-            // Attach specializations
-            // Insert specializations manually
-            foreach ($request->specializations as $specializationId) {
-                SpecializationCompanyProject::create([
-                    'project_company_id' => $project->id,
-                    'specialization_id' => $specializationId,
-                ]);
-            }
-
-
-            // Handle file attachments
-            if ($request->hasFile('attachments')) {
-                foreach ($request->file('attachments') as $image) {
-                    $imagePath = $this->uploadFile($image, 'Company/Projects');
-                    AttachmentProjectCompany::create([
-                        'project_company_id' => $project->id,
-                        'attachment' => $imagePath,
-                    ]);
-                }
-            }
 
             DB::commit();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Project saved successfully!',
+                'message' => 'Job saved successfully!',
             ], 201);
         } catch (\Exception $ex) {
             DB::rollBack();

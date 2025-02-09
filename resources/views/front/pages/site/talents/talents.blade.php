@@ -162,10 +162,10 @@
                                 <div class="loading-placeholder" style="width: 100px; height: 16px;"></div>
                             </div>
                             <a href="#" class="thumbs m-auto">
-                                <div class="loading-placeholder" style="width: 100%; height: 120px; border-radius: 50%; background-color: #e0e0e0;"></div>
+                                <div class="loading-placeholder" style="width: 90%; height: 120px; border-radius: 50%; background-color: #e0e0e0;"></div>
                             </a>
                             <h5 class="mt-24 text-center mb-20">
-                                <div class="loading-placeholder" style="width: 60%; height: 20px;"></div>
+                                <div class="loading-placeholder" style="width: 100%; height: 20px;"></div>
                             </h5>
                             <div class="d-flex bborderdash pb-20 align-items-center justify-content-center">
                                 <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
@@ -203,7 +203,7 @@
                     $('input[name="stars[]"]:checked').each(function () {
                         filters.stars.push($(this).val().trim());
                     });
-                    $('.frelancer__item').addClass('fade-my');
+                    // $('.frelancer__item').addClass('fade-my');
 
                     // AJAX request to fetch data
                     $.ajax({
@@ -228,7 +228,7 @@
 
                             $('.loader').hide(); // Hide loader
                             $('#talentsList .skeleton-loader').remove(); // Remove skeleton loaders
-                            $('.frelancer__item').removeClass('fade-my');
+                            // $('.frelancer__item').removeClass('fade-my');
 
                         },
                         error: function () {

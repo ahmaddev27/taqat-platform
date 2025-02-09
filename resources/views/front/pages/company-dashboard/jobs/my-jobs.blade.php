@@ -1,4 +1,4 @@
-@extends('front.layouts.master',['title'=>'My Projects'])
+@extends('front.layouts.master',['title'=>'My Jobs'])
 
 
 @push('css')
@@ -93,20 +93,21 @@
 
                                             <label class="form-check-label fz-16 fw-400 ptext2 inter"
                                                    for="status{{$i}}">
-                                                {{ statusName($i) }}
+                                                {{ statusJobName($i) }}
 
                                             </label>
                                         </div>
                                         <!-- Display the project count next to the status name -->
-                                        @if(isset($projectCounts[$i]) && $projectCounts[$i] > 0)
+                                        @if(isset($jobsCounts[$i]) && $jobsCounts[$i] > 0)
                                             <span class="fw-500 inter fz-16 pra">
-                                        {{$projectCounts[$i]}}
+                                        {{$jobsCounts[$i]}}
                                     </span>
+
                                         @else
-                                            <span class="fw-500 inter fz-16 pra">
-                                      0
-                                    </span>
+                                            <span class="fw-500 inter fz-16 pra"> 0</span>
                                         @endif
+
+
 
 
                                     </div>
@@ -132,9 +133,9 @@
 
                         <div class="col-12 text-end m-2">
                             <!-- Column for Total Balance -->
-                            <a href="{{route('company.projects.add')}}" class="cmn--btn basebor outline__btn no-border ">
+                            <a href="{{route('company.jobs.add')}}" class="cmn--btn basebor outline__btn no-border ">
                                 <span><i class="bi bi-plus"></i></span>
-                                <span>New Project</span>
+                                <span>New Job</span>
                             </a>
                         </div>
                     </div>
@@ -142,7 +143,7 @@
 
                     <div class="chatbot__developers text-center">
 
-                        @include('front.pages.company-dashboard.project.partials.projects-list')
+                        @include('front.pages.company-dashboard.jobs.partials.jobs-list')
                     </div>
                 </div>
             </div>
@@ -179,9 +180,9 @@
                     // Show the loader while fetching the filtered data
                     $('.loader').show();
 
-                    // Perform the AJAX request to get the filtered projects
+                    // Perform the AJAX request to get the filtered jobs
                     $.ajax({
-                        url: '{{ route('company.projects.all') }}', // Adjust this URL to match your route
+                        url: '{{ route('company.jobs.all') }}', // Adjust this URL to match your route
                         method: 'GET',
                         data: filters,
                         success: function (response) {
@@ -217,9 +218,9 @@
                         sort_time: 'desc', // Default sorting
                     };
 
-                    // Perform the AJAX request to get the full list of projects
+                    // Perform the AJAX request to get the full list of jobs
                     $.ajax({
-                        url: '{{ route('company.projects.all') }}',
+                        url: '{{ route('company.jobs.all') }}',
                         method: 'GET',
                         data: filters,
                         success: function (response) {
@@ -265,7 +266,7 @@
                         },
                         error: function () {
                             // Display error message if the request fails
-                            console.error('Error fetching projects:', error);
+                            console.error('Error fetching jobs:', error);
                             $('.chatbot__developers').html('<div class="error-message">Something went wrong. Please try again.</div>');
                             $('.loader').hide();
                         }

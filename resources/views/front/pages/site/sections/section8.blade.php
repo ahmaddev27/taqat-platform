@@ -1,4 +1,3 @@
-
 <!-- task categorish Section Here -->
 <section class="task__hiresection ralt pt-120 pb-120">
     <div class="container">
@@ -12,7 +11,8 @@
                         Get Started with {{setting('name')}}
                     </h2>
                     <p class="pra fz-16 inter fw-400">
-                        Are you ready to embark on an exciting journey into the world of AI freelancing? Getting started with AIHire is simple and straightforward
+                        Are you ready to embark on an exciting journey into the world of AI freelancing? Getting started
+                        with AIHire is simple and straightforward
                     </p>
                 </div>
             </div>
@@ -31,14 +31,11 @@
                         <p class="fz-16 fw-400 inter pra mb-40">
                             Have a specific AI task that needs to be completed? Look no further!
                         </p>
-                        <a href="#" class="cmn--btn outline__btn">
-                     <span>
-                      Join as a company
-                     </span>
-                            <span>
-                        <i class="bi bi-arrow-up-right"></i>
-                     </span>
+                        <a href="{{route('register')}}" class="cmn--btn outline__btn">
+                            <span>Join as a company</span>
+                            <span><i class="bi bi-arrow-up-right"></i></span>
                         </a>
+
                     </div>
                 </div>
             </div>

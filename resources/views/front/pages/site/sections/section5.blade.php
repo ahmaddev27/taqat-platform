@@ -43,9 +43,9 @@
                                                 {{ $k->category?->name }}
                                             </a>
                                         </div>
-                                        <h5 class="mb-16">
+                                        <h6 class="mb-16 fz-14">
                                             <a href="#" class="title">{{ $k->title }}</a>
-                                        </h5>
+                                        </h6>
                                         <div
                                             class="d-flex bborder pb-20 mb-20 align-items-center justify-content-between">
                                             <div class="d-flex gap-2 fz-16 fw-600 inter title">
