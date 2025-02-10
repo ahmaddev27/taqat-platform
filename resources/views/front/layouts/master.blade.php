@@ -64,51 +64,51 @@
 <!-- first section header with sction one -->
 <section id="banner" class="banner__section bg__img1 ralt">
     <div class="header__section__attachment">
-        <div class="aihire__headertop">
+{{--        <div class="aihire__headertop">--}}
 
 
-            <div class="container">
-                <div class="haderbar__top d-flex align-items-center  justify-content-between">
-                    <div class="logo__left d-flex align-items-center">
-                        <a href="{{route('home')}}" class="top__logo">
-                            <img src="{{url(setting('logo'))}}" style="max-width: 200px" alt="logo">
-                        </a>
-                        <a href="how-work.html" class="pra mdnone inter fw-400">
-                            How It Works
-                        </a>
-                        <a href="about.html" class="pra mdnone inter fw-400">
-                            Why AIHire
-                        </a>
-                    </div>
+{{--            <div class="container">--}}
+{{--                <div class="haderbar__top d-flex align-items-center  justify-content-between">--}}
+{{--                    <div class="logo__left d-flex align-items-center">--}}
+{{--                        <a href="{{route('home')}}" class="top__logo">--}}
+{{--                            <img src="{{url(setting('logo'))}}" style="max-width: 200px" alt="logo">--}}
+{{--                        </a>--}}
+{{--                        <a href="how-work.html" class="pra mdnone inter fw-400">--}}
+{{--                            How It Works--}}
+{{--                        </a>--}}
+{{--                        <a href="about.html" class="pra mdnone inter fw-400">--}}
+{{--                            Why AIHire--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
 
-                    {{--                                    <div class="header__topsearch d-flex align-items-center">--}}
-                    {{--                                        <button type="button" id="searchBtn" class="d-lg-none">--}}
-                    {{--                                            <i class="bi bi-search"></i>--}}
-                    {{--                                        </button>--}}
-                    {{--                                        <form action="#0" class="search__form d-flex align-items-center">--}}
-                    {{--                                            <i class="bi bi-search"></i>--}}
-                    {{--                                            <input type="text" placeholder="Search">--}}
-                    {{--                                            <select name="talent">--}}
-                    {{--                                                <option value="1">--}}
-                    {{--                                                    Talent--}}
-                    {{--                                                </option>--}}
-                    {{--                                                <option value="1">--}}
-                    {{--                                                    Hire Me--}}
-                    {{--                                                </option>--}}
-                    {{--                                                <option value="1">--}}
-                    {{--                                                    Professional--}}
-                    {{--                                                </option>--}}
-                    {{--                                            </select>--}}
-                    {{--                                        </form>--}}
-                    {{--                                        <a href="project.html" class="cmn--btn">--}}
-                    {{--                                         <span>--}}
-                    {{--                                            Post a Project--}}
-                    {{--                                         </span>--}}
-                    {{--                                        </a>--}}
-                    {{--                                    </div>--}}
-                </div>
-            </div>
-        </div>
+{{--                    --}}{{--                                    <div class="header__topsearch d-flex align-items-center">--}}
+{{--                    --}}{{--                                        <button type="button" id="searchBtn" class="d-lg-none">--}}
+{{--                    --}}{{--                                            <i class="bi bi-search"></i>--}}
+{{--                    --}}{{--                                        </button>--}}
+{{--                    --}}{{--                                        <form action="#0" class="search__form d-flex align-items-center">--}}
+{{--                    --}}{{--                                            <i class="bi bi-search"></i>--}}
+{{--                    --}}{{--                                            <input type="text" placeholder="Search">--}}
+{{--                    --}}{{--                                            <select name="talent">--}}
+{{--                    --}}{{--                                                <option value="1">--}}
+{{--                    --}}{{--                                                    Talent--}}
+{{--                    --}}{{--                                                </option>--}}
+{{--                    --}}{{--                                                <option value="1">--}}
+{{--                    --}}{{--                                                    Hire Me--}}
+{{--                    --}}{{--                                                </option>--}}
+{{--                    --}}{{--                                                <option value="1">--}}
+{{--                    --}}{{--                                                    Professional--}}
+{{--                    --}}{{--                                                </option>--}}
+{{--                    --}}{{--                                            </select>--}}
+{{--                    --}}{{--                                        </form>--}}
+{{--                    --}}{{--                                        <a href="project.html" class="cmn--btn">--}}
+{{--                    --}}{{--                                         <span>--}}
+{{--                    --}}{{--                                            Post a Project--}}
+{{--                    --}}{{--                                         </span>--}}
+{{--                    --}}{{--                                        </a>--}}
+{{--                    --}}{{--                                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 
         @include('front.layouts.header')
