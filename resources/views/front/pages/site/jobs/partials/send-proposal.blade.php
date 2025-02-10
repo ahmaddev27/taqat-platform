@@ -53,7 +53,7 @@
                         {{ $apply->description }}
                     </p>
                     <div class="d-flex pt-24 gap-3 align-items-center">
-                        <img style="object-fit: cover; width: 80px; height: 80px" src="{{ $apply->user->photo }}"
+                        <img style="object-fit: cover; width: 60px; height: 60px" src="{{ $apply->user->photo }}"
                              class="round50" alt="re-img">
                         <div class="name__content">
                             <a href="{{route('talents.index', $apply->user->slug)}}" class="title">
@@ -133,7 +133,7 @@
                         {{ $MyApply[0]->description }}
                     </p>
                     <div class="d-flex pt-24 gap-3 align-items-center">
-                        <img width="80px" src="{{ $MyApply[0]->user->photo }}" class="round50" alt="re-img">
+                        <img  style="object-fit: cover; width: 60px; height: 60px" src="{{ $MyApply[0]->user->photo }}" class="round50" alt="re-img">
                         <div class="name__content">
                             <h5 class="title">
                                 {{ $MyApply[0]->user->name }}

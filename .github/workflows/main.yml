@@ -45,4 +45,4 @@ jobs:
           force-full-deploy: true                 # Force uploading all files, including vendor
 
       # Optional: Run Laravel Artisan commands if needed
-     
+     eb

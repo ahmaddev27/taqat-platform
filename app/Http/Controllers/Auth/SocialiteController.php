@@ -26,7 +26,7 @@ class SocialiteController extends Controller
                 $user = Talent::create([
                     'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
-                    'google_id' => $googleUser->getId(),
+//                    'google_id' => $googleUser->getId(),
                     'photo' => $googleUser->getAvatar(),
                    'password' => \Illuminate\Support\Facades\Hash::make(str()->random(16)), // Dummy password
                 ]);
@@ -37,14 +37,15 @@ class SocialiteController extends Controller
             return redirect()->route('profile.index')->with([
                 'message' => 'Logged in successfully',
                 'alert-type' => 'success'
-            ]);; // Change to your desired route
+            ]); // Change to your desired route
 
-        } catch (\Exception $e) {
-            return redirect('/login')->with([
-                'message' => trans('something went wrong'),
-                'alert-type' => 'error'
-            ]);
-        }
+       } catch (\Exception $e) {
+    \Log::error('Google login error: ' . $e->getMessage());
+    return redirect('/login')->with([
+        'message' => trans('something went wrong'),
+        'alert-type' => 'error'
+    ]);
+}
     }
 }
 

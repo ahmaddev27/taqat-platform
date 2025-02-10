@@ -31,7 +31,7 @@
                         <p class="fz-16 fw-400 inter pra mb-40">
                             Have a specific AI task that needs to be completed? Look no further!
                         </p>
-                        <a href="{{route('register')}}" class="cmn--btn outline__btn">
+                        <a href="{{route('register')}}/?company=true" class="cmn--btn outline__btn">
                             <span>Join as a company</span>
                             <span><i class="bi bi-arrow-up-right"></i></span>
                         </a>
@@ -51,7 +51,7 @@
                         <p class="fz-16 fw-400 inter pra mb-40">
                             Are you an AI professional looking for exciting freelance opportunities?
                         </p>
-                        <a href="#" class="cmn--btn outline__btn">
+                        <a href="{{route('register')}}" class="cmn--btn outline__btn">
                   <span>
         Join to talents
                   </span>

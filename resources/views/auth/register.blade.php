@@ -83,7 +83,7 @@
                         <div class="text-start mb-3 frm__grp">
                             <span id="registerText" class="base fz-14 inter mt-2">Company Register?</span>
                             <label class="switch">
-                                <input type="checkbox" id="registerSwitch">
+                                <input type="checkbox" id="registerSwitch" {{request()->company?'checked':''}}>
                                 <span class="slider"></span>
                             </label>
                         </div>

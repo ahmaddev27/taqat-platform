@@ -27,7 +27,7 @@
 
                                         <li>
                                             <span class="fz-16 d-flex align-items-cener gap-1 fw-400 inter pra">
-                                                {{$job->specialization->title_en}}
+                                                {{$job->specialization?->title_en}}
                                             </span>
 
 
@@ -133,7 +133,7 @@
                         <div class="basic__boxskill mb-24 round16 bgwhite">
 
                             <div class="profile__check ralt mt-3">
-                                <img src="{{$job->company->getPhoto()}}" alt="profile">
+                                <img style="object-fit: cover;width: 80px; height: 80px"  src="{{$job->company->getPhoto()}}" alt="profile">
                             </div>
                             <div class="darrell__content mt-40 text-center">
                                 <h4 class="title mb-16">

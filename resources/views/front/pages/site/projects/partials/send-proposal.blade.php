@@ -51,7 +51,7 @@
                         {{ $offer->description }}
                     </p>
                     <div class="d-flex pt-24 gap-3 align-items-center">
-                        <img style="object-fit: cover; width: 80px; height: 80px" src="{{ $offer->user->photo }}" class="round50" alt="re-img">
+                        <img style="object-fit: cover; width:60px; height: 60px" src="{{ $offer->user->photo }}" class="round50" alt="re-img">
                         <div class="name__content">
                             <a href="{{route('talents.index', $offer->user->slug)}}" class="title">
 
@@ -140,7 +140,7 @@
                         {{ $myOffer[0]->description }}
                     </p>
                     <div class="d-flex pt-24 gap-3 align-items-center">
-                        <img style="object-fit: cover; width: 80px; height: 80px" src="{{ $myOffer[0]->user->photo }}" class="round50" alt="re-img">
+                        <img style="object-fit: cover; width: 60px; height: 60px" src="{{ $myOffer[0]->user->photo }}" class="round50" alt="re-img">
                         <div class="name__content">
                             <h5 class="title">
                                 {{ $myOffer[0]->user->name }}

@@ -19,7 +19,7 @@
                                     @foreach($project->specializations->take(3) as $s)
                                         <li>
                                             <span class="fz-16 d-flex align-items-cener gap-1 fw-400 inter pra">
-                                                {{$s->specialization->title_en}}
+                                                {{$s->specialization?->title_en}}
                                             </span>
 
 
@@ -158,7 +158,7 @@
                         <div class="basic__boxskill mb-24 round16 bgwhite">
 
                             <div class="profile__check ralt mt-3">
-                                <img src="{{$project->company->getPhoto()}}" alt="profile">
+                                <img style="width: 80px; height: 80px;object-fit: cover" src="{{$project->company->getPhoto()}}" alt="profile">
                             </div>
                             <div class="darrell__content mt-40 text-center">
                                 <h4 class="title mb-16">
