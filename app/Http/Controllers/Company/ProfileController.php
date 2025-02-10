@@ -25,8 +25,25 @@ class ProfileController extends Controller
     public function profile()
     {
 
-        $company = auth('company')->user()->with(['projects','jobs'])->withCount(['projects','jobs','Openjobs','Openprojects', 'Impprojects','completeProjects',
-            'Impjobs','completejobs'])->first();
+        if (!auth('company')->check()) {
+           abort(401);
+        }
+
+        $company = auth('company')->user()->load([
+            'projects',
+            'jobs'
+        ])->loadCount([
+            'projects',
+            'jobs',
+            'Openjobs',
+            'Openprojects',
+            'Impprojects',
+            'completeProjects',
+            'Impjobs',
+            'completejobs'
+        ]);
+
+
         return view('front.pages.company-dashboard.profile'
             , ['company' => $company]);
     }

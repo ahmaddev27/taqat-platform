@@ -169,15 +169,15 @@
     @endif
 
 @else
+
     {{-- GUEST VIEW: Prompt login --}}
     <div class="col-12 text-center justify-content-center">
         <a href="{{ route('talent.login') }}"
            class="attachment__filitem round16 d-flex justify-content-center align-items-center text-center">
-            Login to send Proposal
+            Login to send Apply
         </a>
     </div>
 @endif
-
 
 
 
@@ -201,7 +201,6 @@
             // AJAX Form Submission
             function submitForm() {
                 const formData = new FormData($('#sendProposal')[0]);
-
                 $.ajax({
                     url: '{{route("applyJobs.apply")}}', // Replace with your actual backend URL
                     type: 'POST',
@@ -215,14 +214,14 @@
                     },
                     success: function (response) {
                         $('#spinner').addClass('d-none');
-                        $('#save-change').text('Send Proposal');
+                        $('#save-change').text('Apply');
                         toastr.success(response.message);
                         $('#sendProposal')[0].reset(); // Reset the form
                         location.reload(); // Reload the page
                     },
                     error: function (xhr) {
                         $('#spinner').addClass('d-none');
-                        $('#save-change').text('Send Proposal');
+                        $('#save-change').text('Apply');
 
                         if (xhr.status === 422) {
                             // Validation errors
