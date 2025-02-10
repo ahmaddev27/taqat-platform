@@ -10,9 +10,7 @@
             box-shadow: none;
         }
 
-        .fade-my{
-            opacity: 0.3;
-        }
+
         .slider-container {
             display: flex;
             justify-content: space-between;

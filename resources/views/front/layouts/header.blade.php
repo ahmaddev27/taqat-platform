@@ -160,7 +160,7 @@
 
                             <a href="{{route('company.profile.index')}}">
                                 <i class="bi bi-person" style="font-size: 1.7rem;"></i>
-                                {{auth('talent')->user()->name??''}}
+                                {{auth('company')->user()->name??''}}
 
                             </a>
                         @else

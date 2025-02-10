@@ -4,9 +4,6 @@
 @push('css')
     <style>
 
-        .fade-my {
-            opacity: 0.3;
-        }
         /* No Borders Class */
         .no-border {
             border: none !important;

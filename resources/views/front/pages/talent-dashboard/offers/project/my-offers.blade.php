@@ -137,7 +137,7 @@
 
                     // Show preloader
                     $('.loader').show();
-
+                    $('.chatbot__items').addClass('fade-my');
                     // AJAX request
                     setTimeout(function () {
                         $.ajax({
@@ -161,6 +161,7 @@
                     // Reset input fields
                     $('input[type="checkbox"]').prop('checked', false);
                     $('html, body').animate({scrollTop: 0}, 'fast');
+                    $('.chatbot__items').addClass('fade-my');
                     $('.loader').show();
 
                     // Reset filters object

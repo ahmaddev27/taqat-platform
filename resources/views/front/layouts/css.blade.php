@@ -22,6 +22,9 @@
 
 <style>
 
+    .fade-my{
+        opacity: 0.3;
+    }
 
     .preloader__wrap .preloader__box .recharge {
         width: 100px;

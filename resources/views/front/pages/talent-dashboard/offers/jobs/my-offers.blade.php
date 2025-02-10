@@ -136,6 +136,7 @@
                     });
 
                     // Show preloader
+                    $('.chatbot__items').addClass('fade-my');
                     $('.loader').show();
 
                     // AJAX request
@@ -162,6 +163,7 @@
                     $('input[type="checkbox"]').prop('checked', false);
                     $('html, body').animate({scrollTop: 0}, 'fast');
                     $('.loader').show();
+                    $('.chatbot__items').addClass('fade-my');
 
                     // Reset filters object
                     let filters = {
