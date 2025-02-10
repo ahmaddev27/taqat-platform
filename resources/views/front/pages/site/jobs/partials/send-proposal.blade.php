@@ -217,7 +217,7 @@
                         $('#save-change').text('Apply');
                         toastr.success(response.message);
                         $('#sendProposal')[0].reset(); // Reset the form
-                        location.reload(); // Reload the page
+                        location.reload(); // Reload the page 
                     },
                     error: function (xhr) {
                         $('#spinner').addClass('d-none');
