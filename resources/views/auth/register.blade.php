@@ -149,12 +149,24 @@
                                             <span id="spinner" class="spinner-border spinner-border-sm" style="display: none"></span>
                                             <span id="registerButtonText">Sign Up</span>
                                         </button>
+
+                                        <a href="{{route('auth.google')}}" title="Sign as talent with google">
+                                            <button type="button" class="cmn--btn basebor outline__btn ">
+                                                <span><i class="bi bi-google"></i></span>
+                                                <span>Google</span>
+                                            </button>
+                                        </a>
                                     </div>
+
+
                                 </div>
 
                                 <p class="fz-16 fw-400 title inter">
-                                    Already have an account? <a href="{{route('login')}}l" class="base">Login</a>
+                                    Already have an account? <a href="{{route('login')}}" class="base">Login</a>
                                 </p>
+
+
+
                             </div>
                         </form>
                     </div>

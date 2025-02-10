@@ -128,10 +128,13 @@
 {{--                                            <span><i class="bi bi-arrow-up-right"></i></span>--}}
                                         </button>
 
+                                        <a href="{{route('auth.google')}}">
                                         <button type="button" class="cmn--btn basebor outline__btn ">
                                             <span><i class="bi bi-google"></i></span>
                                             <span>Google</span>
                                         </button>
+
+                                        </a>
                                     </div>
                                 </div>
 

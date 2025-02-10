@@ -7,8 +7,11 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 
+Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
 
 
 
