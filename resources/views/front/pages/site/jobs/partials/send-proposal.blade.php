@@ -138,7 +138,7 @@
                             <h5 class="title">
                                 {{ $MyApply[0]->user->name }}
                                 <span class="d-block mt-1 ptext2 inter fz-16 fw-400">
-                                    {{ $MyApply[0]->user->specialization->title_en }}
+                                    {{ $MyApply[0]->user->specialization?->title_en }}
                                 </span>
                             </h5>
                         </div>
